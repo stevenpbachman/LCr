@@ -1,15 +1,11 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# LCr
-
 LCr: An R package to generate minimal Least Concern Red List assessments
 
 ## Overview
 
 Generate minimal documentation for a species expected to be Least
-Concern See [IUCN Red List](https://www.iucnredlist.org/). Submit to the
-IUCN Red List via [SIS Connect](https://connect.iucnredlist.org/)
+Concern (see [IUCN Red List](https://www.iucnredlist.org/). Submit to
+the IUCN Red List via [SIS Connect](https://connect.iucnredlist.org/)
 (registration needed)
 
 ## Installation
@@ -28,9 +24,10 @@ The workflow is broken into several steps and each step can be run
 independently:
 
 1.  `name_search_gbif` or `name_search_powo` tp check name status
-    against taxonomic name backbones \#2. `occs_gbif` gather occurrence
-    records from GBIF \#3. `occs_clean` clean the occurrence data \#4.
-    `sis_zip` generate and zip SIS csv datafiles
+    against taxonomic name backbones
+2.  `occs_gbif` gather occurrence records from GBIF
+3.  `occs_clean` clean the occurrence data
+4.  `sis_zip` generate and zip SIS csv datafiles
 
 Function will allow single species or a multiple species if a dataframe
 is supplied
