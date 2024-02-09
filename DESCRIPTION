@@ -9,7 +9,7 @@ Description: Add later
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/stevenpbachman/LCr
+URL: https://github.com/stevenpbachman/LCr, https://stevenpbachman.github.io/LCr/
 BugReports: https://github.com/stevenpbachman/LCr/issues
 RoxygenNote: 7.2.3
 Imports: 
