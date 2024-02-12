@@ -5,6 +5,7 @@
 #' Use `TRUE` to return geographic range information
 #'
 #' @return Returns a list with POWO data
+#' @export
 
 
 powo_lookup <- function(wcvp_ipni_id, distribution=FALSE) {
