@@ -2,8 +2,9 @@ Package: LCr
 Type: Package
 Title: LCr: Generate minimal Least Concern Red List assessments 
 Version: 0.1.0
-Authors@R: person("Steven", "Bachman", email = "s.bachman@kew.org",
-                  role = c("aut", "cre"))
+Authors@R: c(person("Steven", "Bachman", email = "s.bachman@kew.org",
+                  role = c("aut", "cre")), 
+                  person("Matilda","Brown","m.brown2@kew.org",role="aut"))
 Maintainer: The package maintainer <s.bachman@kew.org>
 Description: Add later
 License: MIT + file LICENSE

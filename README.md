@@ -1,4 +1,7 @@
 
+LCr
+<a href="https://stevenpbachman.github.io/LCr/"><img src="man/figures/logo.png" align="right" height="113" alt="LCr website" /></a>
+
 LCr: An R package to generate minimal Least Concern Red List assessments
 
 ## Overview
