@@ -5,6 +5,7 @@
 #' @param gbif_meta (character) GBIF download metadata
 #'
 #' @return Returns a data frame with IUCN SIS Connect reference
+#' @export
 
 occs_gbif_ref <- function(gbif_meta){
   tibble::tibble(

@@ -4,6 +4,7 @@
 #' @param keys_df (character) WCVP identifiers.
 #'
 #' @return (list) 'Points' = the downloaded GBIF points, 'Citation' = the GBIF citation to be used in references
+#' @export
 
 get_gbif_occs <- function(gbif_ids, keys_df = NULL) {
   gbif_download <- rgbif::occ_download(

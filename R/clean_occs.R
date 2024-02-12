@@ -5,6 +5,7 @@
 #' @param native_ranges (character) WCVP identifier
 #'
 #' @return a dataframe with cleaned occurrence data
+#' @export
 
 clean_occs <- function(gbif_occs, native_ranges = NULL){
 
