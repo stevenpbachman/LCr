@@ -3,6 +3,7 @@
 #' @param sis_points (dataframe) SIS points file
 #'
 #' @return Occurrence dataframe with ISO two-digit codes added
+#' @export
 
 get_iso_occs <- function(sis_points) {
   iso <- rgbif::gbif_geocode(latitude = sis_points$dec_lat,

@@ -4,6 +4,7 @@
 #' @param keys_df (character) WCVP identifiers.
 #'
 #' @return (list) 'Points' = the downloaded GBIF points, 'Citation' = the GBIF citation to be used in references
+#' @export
 
 get_gbif_occs <- function(gbif_ids, keys_df = NULL) {
   gbif_download <- rgbif::occ_download(
@@ -15,8 +16,10 @@ get_gbif_occs <- function(gbif_ids, keys_df = NULL) {
 
   rgbif::occ_download_wait(gbif_download) # checks if download is finished
 
-  downloaded <- rgbif::occ_download_get(gbif_download) # download
-  the_points <- rgbif::occ_download_import(downloaded) # and import
+  temporary_folder <- tempdir()
+
+  downloaded <- rgbif::occ_download_get(gbif_download, path = temporary_folder) # download
+  the_points <- rgbif::occ_download_import(downloaded, path = temporary_folder) # and import
 
   if (!is.null(keys_df)) {
     the_points <-

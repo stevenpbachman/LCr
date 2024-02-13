@@ -5,6 +5,7 @@
 #' @param wcvp_ipni_id (character) WCVP identifier
 #'
 #' @return (dataframe) Native range codes according to World Geographic Scheme for Recordings Plant Distributions (WGSRPD)
+#' @export
 
 powo_range = function(wcvp_ipni_id){
   results = tibble::tibble(

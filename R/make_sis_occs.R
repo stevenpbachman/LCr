@@ -8,6 +8,7 @@
 #' @param institution (character) Institution/affiliation of the assessor
 #'
 #' @return An dataframe of occurence points aligned with IUCN Red List spatial data standards
+#' @export
 
 make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institution = ""){
   sis_points <- dplyr::select(occs_clean,
