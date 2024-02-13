@@ -10,9 +10,9 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-LCr <a href="https://stevenpbachman.github.io/LCr/"><img src="man/figures/logo.png" align="right" height="113" alt="LCr website" /></a>    
+<a href="https://matildabrown.github.io/rWCVP/"><img src="man/figures/logo.png" align="right" height="276"/></a>   
 
-LCr: An R package to generate minimal Least Concern Red List assessments
+# LCr: An R package to generate minimal Least Concern Red List assessments
 
 ## Overview
 Generate minimal documentation for a species expected to be Least Concern (see [IUCN Red List](https://www.iucnredlist.org/). Submit to the IUCN Red List via [SIS Connect](https://connect.iucnredlist.org/) (registration needed)

@@ -3,4 +3,8 @@
 export(get_name_keys)
 export(name_search_gbif)
 export(name_search_powo)
+export(powo_ref)
+export(sis_allfields)
+export(sis_assessments)
+export(sis_references)
 importFrom(tibble,tibble)

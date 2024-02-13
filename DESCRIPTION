@@ -1,12 +1,15 @@
 Package: LCr
 Type: Package
-Title: LCr: Generate minimal Least Concern Red List assessments 
+Title: Generate minimal Least Concern Red List assessments 
 Version: 0.1.0
-Authors@R: c(person("Steven", "Bachman", email = "s.bachman@kew.org",
-                  role = c("aut", "cre")), 
-                  person("Matilda","Brown","m.brown2@kew.org",role="aut"))
-Maintainer: The package maintainer <s.bachman@kew.org>
-Description: Add later
+Authors@R: c(
+  person("Steven", "Bachman", email = "s.bachman@kew.org",
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1085-6075")),
+    person("Matilda", "Brown", email = "m.brown2@kew.org",
+    role = c("aut" ), comment = c(ORCID = "0000-0003-2536-8365"))
+  )
+Maintainer: Steven Bachman <s.bachman@kew.org>
+Description: Generate Red List compliant spatial data and minimal Red List assessment documentation for Least Concern species
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
