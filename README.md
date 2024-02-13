@@ -1,5 +1,7 @@
 
-# LCr: An R package to generate minimal Least Concern Red List assessments <a href="https://matildabrown.github.io/rWCVP/"><img src="man/figures/logo.png" align="right" height="276"/></a>
+<a href="https://matildabrown.github.io/rWCVP/"><img src="man/figures/logo.png" align="right" height="276"/></a>
+
+# LCr: An R package to generate minimal Least Concern Red List assessments
 
 ## Overview
 
