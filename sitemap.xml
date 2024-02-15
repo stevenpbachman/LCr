@@ -16,6 +16,9 @@
     <loc>https://stevenpbachman.github.io/LCr/index.html</loc>
   </url>
   <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/LCr-package.html</loc>
+  </url>
+  <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/clean_occs.html</loc>
   </url>
   <url>
@@ -28,7 +31,13 @@
     <loc>https://stevenpbachman.github.io/LCr/reference/get_name_keys.html</loc>
   </url>
   <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/get_native_range.html</loc>
+  </url>
+  <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/make_LC_points.html</loc>
   </url>
   <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/make_sis_occs.html</loc>
