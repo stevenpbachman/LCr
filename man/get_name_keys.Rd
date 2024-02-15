@@ -4,16 +4,24 @@
 \alias{get_name_keys}
 \title{Get accepted GBIF and POWO identifiers (keys) for taxon names to support data downloads}
 \usage{
-get_name_keys(names_df, name)
+get_name_keys(names_df, name_col, tax_status = "accepted", match = "single")
 }
 \arguments{
-\item{names_df}{character) Dataframe with taxon names}
+\item{names_df}{character) Data frame with taxon names}
 
-\item{name}{(character) Column for taxon names}
+\item{name}{(character) Column for taxon names. Include taxonomic authority for better matching}
 }
 \value{
 Returns a data frame with accepted GBIF and POWO identifiers
 }
 \description{
 Get accepted GBIF and POWO identifiers (keys) for taxon names to support data downloads
+}
+\details{
+Designed for batch processing. Default setting (tax_status = "accepted" and match = "single")
+returns an accepted name with the best single match against GBIF and POWO name backbones.
+Final list may return fewer names if there are discrepancies e.g. accepted
+ in GBIF, but not in POWO. Output data frame includes GBIF 'usageKey' that can be used with
+  [`get_gbif_occs()`] to get occurrences from GBIF, and 'wcvp_ipni_id' that can be used with [`powo_range()`]
+to get native ranges. To see a wider range of plausible matches adjust 'tax_status' and 'match' to 'any'.
 }

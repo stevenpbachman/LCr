@@ -3,7 +3,7 @@
 #' @description Queries a taxon name against the POWO names backbone. Simple wrapper around
 #' the rWCVP `wcvp_match_names` function.
 #'
-#' @param name (character) A taxon name
+#' @param name_df (data frame) Taxon name(s)
 #' @param powo_tax_stat (character) Default `any` provides all taxonomic
 #' matches, otherwise `accepted` returns only accepted names according to POWO
 #'
@@ -13,9 +13,9 @@
 #' @examples
 #' name_search_gbif("Poa annua L.")
 
-name_search_powo <- function(name, powo_tax_stat = "any"){
-  name_df <- data.frame(name = name)
-  results <- rWCVP::wcvp_match_names(names_df = name_df, name_col = "name")
+name_search_powo <- function(names_df, name_col, powo_tax_stat = "any"){
+  #name_df <- data.frame(name = name)
+  results <- rWCVP::wcvp_match_names(names_df = names_df, name_col = name_col)
 
   # allow user to filter on accepted name only
   if (powo_tax_stat == "any"){

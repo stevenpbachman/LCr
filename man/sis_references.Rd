@@ -4,12 +4,12 @@
 \alias{sis_references}
 \title{Generate the references.csv file}
 \usage{
-sis_references(wcvp_ipni_id, powo_ref = FALSE, gbif_ref = FALSE)
+sis_references(wcvp_ipni_id, powo_ref = FALSE, gbif_ref)
 }
 \arguments{
 \item{wcvp_ipni_id}{(character) WCVP identifier.}
 
-\item{powo_ref}{(logical) Default TRUE means a POWO reference will be added.}
+\item{powo_ref}{(logical) Adds POWO reference if TRUE.}
 
 \item{gbif_ref}{(data frame) A GBIF download citation according to IUCN format.}
 }

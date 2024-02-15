@@ -21,6 +21,7 @@ Imports:
     dplyr,
     httr,
     jsonlite,
+    magrittr,
     purrr,
     rgbif,
     rWCVP,

@@ -4,16 +4,18 @@
 \alias{get_gbif_occs}
 \title{Download georeferenced occurrence data using GBIF name identifier}
 \usage{
-get_gbif_occs(gbif_ids, keys_df = NULL)
+get_gbif_occs(keys_df)
 }
 \arguments{
-\item{gbif_ids}{(character) GBIF identifiers}
-
-\item{keys_df}{(character) WCVP identifiers.}
+\item{keys_df}{(data frame) Derived from [`get_name_keys()`] function. Must include at least GBIF_usageKey to obtain GBIF occurrences}
 }
 \value{
 (list) 'Points' = the downloaded GBIF points, 'Citation' = the GBIF citation to be used in references
 }
 \description{
 Download georeferenced occurrence data using GBIF name identifier
+}
+\details{
+Initiates an occurrence download in DWCA format using [rgbif::occ_download()]. If `keys_df`contains multiple GBIF_usageKey values, they will be
+combined in a single output file.
 }

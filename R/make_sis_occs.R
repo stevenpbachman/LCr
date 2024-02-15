@@ -19,8 +19,8 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
                               day,
                               month,
                               year,
-                              dec_lat,
-                              dec_long,
+                              decimalLatitude,
+                              decimalLongitude,
                               locality,
                               coordinateUncertaintyInMeters,
                               basisOfRecord,
@@ -38,7 +38,9 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
                               event_year = year,
                               min_elev = elevation,
                               recordedby = recordedBy,
-                              recordno = recordNumber
+                              recordno = recordNumber,
+                              dec_lat = decimalLatitude,
+                              dec_long = decimalLongitude
   )
 
   sis_points <- dplyr::mutate(sis_points,
@@ -65,11 +67,10 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
                               )
   )
   sis_points <- dplyr::select(sis_points, -gbifID)
-  #sis_points <- sf::st_drop_geometry(sis_points)
 
-  # adding in ISO codes
-  iso_codes <- occs_to_iso(sis_points)
-  sis_points <- dplyr::bind_cols(sis_points, iso_codes)
+  # adding in ISO codes - not working due to duplicate codes returned e.g. Comores, Mayotte
+  #iso_codes <- get_iso_occs(sis_points)
+  #sis_points <- dplyr::bind_cols(sis_points, iso_codes)
 
   return(sis_points)
 }

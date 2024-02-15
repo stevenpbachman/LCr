@@ -8,7 +8,8 @@ range filter.}
 clean_occs(gbif_occs, native_ranges = NULL)
 }
 \arguments{
-\item{gbif_occs}{(character) GBIF occurrence file in DWCA format}
+\item{gbif_occs}{(data frame) GBIF occurrence file in DWCA format. If [`get_gbif_occs()`] was used
+to get GBIF occurrences file, note that the output is a list, so you need to e.g. occs$points}
 
 \item{native_ranges}{(character) WCVP identifier}
 }

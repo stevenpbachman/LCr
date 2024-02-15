@@ -1,7 +1,8 @@
 #' Cleans a GBIF occurrence download using CoordinateCleaner and native
 #' range filter.
 #'
-#' @param gbif_occs (character) GBIF occurrence file in DWCA format
+#' @param gbif_occs (data frame) GBIF occurrence file in DWCA format. If [`get_gbif_occs()`] was used
+#' to get GBIF occurrences file, note that the output is a list, so you need to e.g. occs$points
 #' @param native_ranges (character) WCVP identifier
 #'
 #' @return a dataframe with cleaned occurrence data
@@ -63,8 +64,8 @@ clean_occs <- function(gbif_occs, native_ranges = NULL){
     longitude <- coordinates[, "X"]
 
     cleaned_occs <- dplyr::mutate(cleaned_occs,
-                                  dec_long = longitude,
-                                  dec_lat = latitude)
+                                  decimalLongitude = longitude,
+                                  decimalLatitude = latitude)
     cleaned_occs <- sf::st_drop_geometry(cleaned_occs)
 
   }
