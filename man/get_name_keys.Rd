@@ -4,12 +4,24 @@
 \alias{get_name_keys}
 \title{Get accepted GBIF and POWO identifiers (keys) for taxon names to support data downloads}
 \usage{
-get_name_keys(names_df, name_col, tax_status = "accepted", match = "single")
+get_name_keys(
+  df,
+  name_column,
+  tax_status = "accepted",
+  match = "single",
+  kingdom = "Plantae"
+)
 }
 \arguments{
-\item{names_df}{character) Data frame with taxon names}
+\item{df}{character) Data frame with taxon names}
 
-\item{name}{(character) Column for taxon names. Include taxonomic authority for better matching}
+\item{tax_status}{(character) Default `any` provides all taxonomic, otherwise 'accepted'}
+
+\item{match}{(character) Controls the output of the search. Use `single` to
+force a single match result that has the highest confidence or `any` to return
+all possible matches sorted in order of confidence}
+
+\item{name_col}{(character) Column for taxon names. Include taxonomic authority for better matching}
 }
 \value{
 Returns a data frame with accepted GBIF and POWO identifiers

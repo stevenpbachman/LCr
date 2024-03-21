@@ -9,10 +9,12 @@ make_LC_points(
   first_name = "",
   second_name = "",
   institution = "",
-  range_check = TRUE
+  range_check = FALSE
 )
 }
 \arguments{
+\item{keys_df}{(data frame) Derived from [`get_name_keys()`] function. Must include at least GBIF_usageKey to obtain GBIF occurrences}
+
 \item{first_name}{(character) First name of assessor}
 
 \item{second_name}{(character) Second name of assessor}
@@ -20,10 +22,6 @@ make_LC_points(
 \item{institution}{(character) Name of institution or affiliation}
 
 \item{range_check}{(boolean) TRUE if you want to carry out occurrence cleaning with native range filter}
-
-\item{wcvp_ipni_id}{(character) WCVP identifier}
-
-\item{gbif_id}{(character) GBIF_usageKey}
 }
 \value{
 (list) Includes the GBIF citation, and "points" the cleaned SIS compatible point file

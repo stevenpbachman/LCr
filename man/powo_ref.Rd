@@ -4,10 +4,7 @@
 \alias{powo_ref}
 \title{Generate POWO download citation according to IUCN format}
 \usage{
-powo_ref(wcvp_ipni_id)
-}
-\arguments{
-\item{wcvp_ipni_id}{(character) WCVP identifier.}
+powo_ref()
 }
 \value{
 Returns a dataframe with IUCN SIS Connect reference

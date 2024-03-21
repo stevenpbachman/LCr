@@ -4,13 +4,15 @@
 \alias{name_search_powo}
 \title{Query taxon name against POWO (Plants of the World Online) backbone}
 \usage{
-name_search_powo(names_df, name_col, powo_tax_stat = "any")
+name_search_powo(df, name_column, powo_tax_stat = "any")
 }
 \arguments{
+\item{df}{(data frame) Taxon name(s)}
+
+\item{name_column}{(string) Column that contains the name(s)}
+
 \item{powo_tax_stat}{(character) Default `any` provides all taxonomic
 matches, otherwise `accepted` returns only accepted names according to POWO}
-
-\item{name_df}{(data frame) Taxon name(s)}
 }
 \value{
 Returns a data frame with initial search term and matching name(s)
@@ -18,7 +20,4 @@ Returns a data frame with initial search term and matching name(s)
 \description{
 Queries a taxon name against the POWO names backbone. Simple wrapper around
 the rWCVP `wcvp_match_names` function.
-}
-\examples{
-name_search_gbif("Poa annua L.")
 }

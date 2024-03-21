@@ -37,7 +37,7 @@ The workflow is broken into several steps and each step can be run independently
 4.  `make_sis_occs` convert an occurrence file into an IUCN Red List compatible file
 5.  `sis_zip` generate and zip SIS csv datafiles
 
-Function will allow single species or  multiple species if a dataframe is supplied
+Function will allow single species or  multiple species if a data frame is supplied
 
 ### Getting started
 

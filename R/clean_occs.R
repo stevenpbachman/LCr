@@ -2,8 +2,8 @@
 #' range filter.
 #'
 #' @param gbif_occs (data frame) GBIF occurrence file in DWCA format. If [`get_gbif_occs()`] was used
-#' to get GBIF occurrences file, note that the output is a list, so you need to e.g. occs$points
-#' @param native_ranges (character) WCVP identifier
+#' to get GBIF occurrences file, note that the output is a list, so you need to e.g. my_occs$points
+#' @param native_ranges (data frame) Native ranges prepared using [`get_native_range()`]
 #'
 #' @return a dataframe with cleaned occurrence data
 #' @export

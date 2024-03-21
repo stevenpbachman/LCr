@@ -11,10 +11,11 @@
 #' World Online) using WCVP identifier. Other options to be added later e.g. GIFT
 
 
-get_native_range <- function(keys, name_col) {
+get_native_range <- function(keys) { #,name_col
 
   # get the search ids
-  search_ids <- as.vector(unlist(keys[, name_col]))
+  #search_ids <- as.vector(unlist(keys[, name_col]))
+  search_ids <- as.vector(unlist(keys[, "wcvp_ipni_id"]))
 
   # run the powo range function through map_dfr
   native_ranges <- purrr::map_dfr(search_ids, powo_range)

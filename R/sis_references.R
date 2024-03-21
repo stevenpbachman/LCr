@@ -1,7 +1,7 @@
 
 #' Generate the references.csv file
 #'
-#' @param wcvp_ipni_id (character) WCVP identifier.
+#' @param unique_id (character) Unique identifier.
 #' @param powo_ref (logical) Adds POWO reference if TRUE.
 #' @param gbif_ref (data frame) A GBIF download citation according to IUCN format.
 #'
@@ -9,7 +9,7 @@
 #' @export
 #'
 
-sis_references = function(wcvp_ipni_id, powo_ref = FALSE, gbif_ref) {
+sis_references = function(unique_id, powo_ref = FALSE, gbif_ref) {
 
   LCr_ref <-
   tibble::tibble(
@@ -25,18 +25,15 @@ sis_references = function(wcvp_ipni_id, powo_ref = FALSE, gbif_ref) {
   sis_refs <- LCr_ref
 
     if (powo_ref == TRUE) {
-  powo_ref <- powo_ref(wcvp_ipni_id)
+  powo_ref <- powo_ref()
   sis_refs <- dplyr::bind_rows(sis_refs, powo_ref)
     }
-
-    if (gbif_ref == TRUE) {
+  if (!is.null(gbif_ref)) {
     sis_refs <- dplyr::bind_rows(sis_refs, gbif_ref)
   }
 
-  sis_refs$internal_taxon_id <- wcvp_ipni_id
+  sis_refs$internal_taxon_id <- unique_id
 
   return(sis_refs)
 }
-
-
 

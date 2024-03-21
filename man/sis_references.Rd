@@ -4,10 +4,10 @@
 \alias{sis_references}
 \title{Generate the references.csv file}
 \usage{
-sis_references(wcvp_ipni_id, powo_ref = FALSE, gbif_ref)
+sis_references(unique_id, powo_ref = FALSE, gbif_ref)
 }
 \arguments{
-\item{wcvp_ipni_id}{(character) WCVP identifier.}
+\item{unique_id}{(character) Unique identifier.}
 
 \item{powo_ref}{(logical) Adds POWO reference if TRUE.}
 

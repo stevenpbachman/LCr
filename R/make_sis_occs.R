@@ -12,7 +12,6 @@
 
 make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institution = ""){
   sis_points <- dplyr::select(occs_clean,
-                              wcvp_ipni_id,
                               species,
                               recordedBy,
                               recordNumber,
@@ -30,7 +29,6 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
   )
 
   sis_points <- dplyr::rename(sis_points,
-                              internal_taxon_id = wcvp_ipni_id,
                               basisofrec = basisOfRecord,
                               sci_name = species,
                               catalog_no = catalogNumber,

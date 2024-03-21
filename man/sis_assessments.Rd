@@ -4,10 +4,10 @@
 \alias{sis_assessments}
 \title{Generate the assessments.csv file}
 \usage{
-sis_assessments(wcvp_ipni_id)
+sis_assessments(unique_id)
 }
 \arguments{
-\item{wcvp_ipni_id}{(character) WCVP identifier.}
+\item{unique_id}{(character) Unique identifier.}
 }
 \value{
 Returns an SIS compliant data frame

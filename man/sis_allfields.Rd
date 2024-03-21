@@ -4,10 +4,10 @@
 \alias{sis_allfields}
 \title{Generate the allfields.csv file}
 \usage{
-sis_allfields(wcvp_ipni_id)
+sis_allfields(unique_id)
 }
 \arguments{
-\item{wcvp_ipni_id}{(character) WCVP identifier.}
+\item{unique_id}{(character) Unique identifier.}
 }
 \value{
 Returns an SIS compliant data frame

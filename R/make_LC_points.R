@@ -1,8 +1,7 @@
 
 #' Combined function to get clean SIS points file using name identifiers
 #'
-#' @param wcvp_ipni_id (character) WCVP identifier
-#' @param gbif_id (character) GBIF_usageKey
+#' @param keys_df (data frame) Derived from [`get_name_keys()`] function. Must include at least GBIF_usageKey to obtain GBIF occurrences
 #' @param first_name (character) First name of assessor
 #' @param second_name (character) Second name of assessor
 #' @param institution (character) Name of institution or affiliation
@@ -14,7 +13,7 @@
 
 
 make_LC_points <-
-  function(keys_df, first_name = "", second_name = "", institution = "", range_check = TRUE) {
+  function(keys_df, first_name = "", second_name = "", institution = "", range_check = FALSE) {
 
     # get the raw gbif occs
     gbif_points <- get_gbif_occs(keys_df)
@@ -26,7 +25,7 @@ make_LC_points <-
     if (range_check == TRUE) {
 
       # get native ranges
-      native_ranges <- get_native_range(keys = keys_df, name_col = "wcvp_ipni_id")
+      native_ranges <- get_native_range(keys = keys_df)
 
       # run the cleaning
       lc_points <- clean_occs(gbif_points$points, native_ranges)
@@ -44,7 +43,16 @@ make_LC_points <-
                                 second_name = second_name,
                                 institution = institution)
 
-    res_list <- list("citation" = gbif_ref, "points" = final_points)
+    # Check if native_ranges exists
+    if (!is.null(native_ranges)) {
+      # If it exists, add it to the results list
+      res_list <- list("citation" = gbif_ref, "points" = final_points, "native_ranges" = native_ranges)
+    } else {
+      # If it doesn't exist, create the list without it
+      res_list <- list("citation" = gbif_ref, "points" = final_points)
+    }
+
+    #res_list <- list("citation" = gbif_ref, "points" = final_points)
     return(res_list)
 
   }

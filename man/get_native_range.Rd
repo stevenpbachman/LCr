@@ -4,7 +4,7 @@
 \alias{get_native_range}
 \title{Get native ranges for taxa}
 \usage{
-get_native_range(keys, name_col)
+get_native_range(keys)
 }
 \arguments{
 \item{keys}{(name_col) Column name for the identifier}

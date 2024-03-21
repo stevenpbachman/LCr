@@ -2,11 +2,10 @@
 #' Generate POWO download citation according to IUCN format
 #'
 #' This function uses queries POWO to get the native range
-#' @param wcvp_ipni_id (character) WCVP identifier.
 #' @returns Returns a dataframe with IUCN SIS Connect reference
 #' @export
 
-powo_ref <- function(wcvp_ipni_id){
+powo_ref <- function(){
   tibble::tibble(
     Reference_type = "Assessment",
     type = "electronic source",

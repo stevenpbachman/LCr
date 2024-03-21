@@ -9,9 +9,9 @@ clean_occs(gbif_occs, native_ranges = NULL)
 }
 \arguments{
 \item{gbif_occs}{(data frame) GBIF occurrence file in DWCA format. If [`get_gbif_occs()`] was used
-to get GBIF occurrences file, note that the output is a list, so you need to e.g. occs$points}
+to get GBIF occurrences file, note that the output is a list, so you need to e.g. my_occs$points}
 
-\item{native_ranges}{(character) WCVP identifier}
+\item{native_ranges}{(data frame) Native ranges prepared using [`get_native_range()`]}
 }
 \value{
 a dataframe with cleaned occurrence data
