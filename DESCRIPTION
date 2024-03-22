@@ -26,6 +26,7 @@ Imports:
     purrr,
     rgbif,
     rWCVP,
+    rWCVPdata,
     sf,
     tibble,
     tidyr,

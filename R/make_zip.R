@@ -2,7 +2,7 @@
 #' Generate the SIS connect zip file
 #'
 #' @param csv_list (list) List of SIS csv files you want to zip
-#' @param zip_filename (character) Defaults to "singlezip.zip"
+#' @param zip_filename (character) Defaults to "SIS_files.zip"
 #'
 #' @return Returns an SIS compliant zip file
 #' @export

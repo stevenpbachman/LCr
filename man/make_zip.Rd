@@ -9,7 +9,7 @@ make_zip(csv_list = list(sis_files), zip_filename = "SIS_files.zip")
 \arguments{
 \item{csv_list}{(list) List of SIS csv files you want to zip}
 
-\item{zip_filename}{(character) Defaults to "singlezip.zip"}
+\item{zip_filename}{(character) Defaults to "SIS_files.zip"}
 }
 \value{
 Returns an SIS compliant zip file
