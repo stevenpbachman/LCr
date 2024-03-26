@@ -31,7 +31,7 @@ make_sis_csvs <-
     credits <- sis_credits(unique_id, first_name, second_name, email, affiliation=institution)
 
   # need to embed map into the function, but these are a bit awkward - try again later
-    taxonomy <- purrr::map2(unique_id, wcvp_ipni_id, sis_taxonomy) %>%  bind_rows()
+    taxonomy <- purrr::map2(unique_id, wcvp_ipni_id, sis_taxonomy) %>%  dplyr::bind_rows()
     references <- purrr::map_dfr(unique_id, sis_references, powo_ref = TRUE, gbif_ref)
 
   return(list(allfields = allfields,

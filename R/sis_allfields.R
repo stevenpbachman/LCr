@@ -15,7 +15,7 @@ sis_allfields <- function(unique_id) {
       AOO.justification = "",
       EOO.range = "",
       EOO.justification = "",
-      SevereFragmentation.isFragmented = "0",
+      SevereFragmentation.isFragmented = "No",
       NoThreats.noThreats = "TRUE",
       ThreatsUnknown.value = "FALSE",
       GenerationLength.range = ""

@@ -18,11 +18,15 @@ sis_taxonomy = function(unique_id, wcvp_ipni_id){
     taxonomicAuthority = name_info$authors)
 
   tax = dplyr::inner_join(tax, iucn_taxonomy, by="family")
-  tax = tax[c(1, 6:9, 2:5)]
+  tax = tax[c(1, 7:10, 2:5)]
 
   tax$infratype = ""
   tax$infra_name = ""
   tax$infra_authority = ""
+
+  tax <- tax %>%
+    dplyr::rename("kingdom" = "kingdomName") %>%
+    dplyr::rename("phylum" = "phylumName")
 
   return(tax)
 }

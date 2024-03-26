@@ -14,16 +14,16 @@ sis_countries <- function(unique_id, wcvp_ipni_id, native_ranges) {
     unique_id <- unique_id[i]
     wcvp_ipni_id <- wcvp_ipni_id[i]
 
-    native_ranges_filtered <- filter(native_ranges, POWO_ID == wcvp_ipni_id)
+    native_ranges_filtered <- dplyr::filter(native_ranges, POWO_ID == wcvp_ipni_id)
 
-    country_table <- left_join(native_ranges_filtered, tdwg2iucn, by = c("LEVEL3_COD" = "Level.3.code"))
+    country_table <- dplyr::left_join(native_ranges_filtered, tdwg2iucn, by = c("LEVEL3_COD" = "Level.3.code"))
 
     country_table$CountryOccurrence.CountryOccurrenceSubfield.presence <- "Extant"
     country_table$CountryOccurrence.CountryOccurrenceSubfield.origin <- "Native"
     country_table$CountryOccurrence.CountryOccurrenceSubfield.seasonality <- "Resident"
     country_table$internal_taxon_id <- unique_id
 
-    country_table <- select(country_table,
+    country_table <- dplyr::select(country_table,
                             internal_taxon_id,
                             countryoccurrence.countryoccurrencesubfield.countryoccurrencename,
                             CountryOccurrence.CountryOccurrenceSubfield.presence,
@@ -31,7 +31,7 @@ sis_countries <- function(unique_id, wcvp_ipni_id, native_ranges) {
                             CountryOccurrence.CountryOccurrenceSubfield.seasonality,
                             countryoccurrence.countryoccurrencesubfield.countryoccurrencelookup)
 
-    country_table <- distinct(country_table, .keep_all = TRUE)
+    country_table <- dplyr::distinct(country_table, .keep_all = TRUE)
 
     return(country_table)
   })
