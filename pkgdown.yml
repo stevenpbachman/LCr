@@ -1,8 +1,9 @@
-pandoc: 2.19.2
+pandoc: 3.1.11
 pkgdown: 2.0.7
 pkgdown_sha: ~
-articles: {}
-last_built: 2024-02-15T17:02Z
+articles:
+  Generate-csvs: Generate-csvs.html
+last_built: 2024-03-27T15:20Z
 urls:
   reference: https://stevenpbachman.github.io/LCr/reference
   article: https://stevenpbachman.github.io/LCr/articles

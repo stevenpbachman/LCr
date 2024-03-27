@@ -10,6 +10,12 @@
     <loc>https://stevenpbachman.github.io/LCr/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://stevenpbachman.github.io/LCr/articles/Generate-csvs.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenpbachman.github.io/LCr/articles/index.html</loc>
+  </url>
+  <url>
     <loc>https://stevenpbachman.github.io/LCr/authors.html</loc>
   </url>
   <url>
@@ -40,7 +46,13 @@
     <loc>https://stevenpbachman.github.io/LCr/reference/make_LC_points.html</loc>
   </url>
   <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/make_sis_csvs.html</loc>
+  </url>
+  <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/make_sis_occs.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/make_zip.html</loc>
   </url>
   <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/name_search_gbif.html</loc>
@@ -67,6 +79,21 @@
     <loc>https://stevenpbachman.github.io/LCr/reference/sis_assessments.html</loc>
   </url>
   <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/sis_countries.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/sis_credits.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/sis_habitats.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/sis_plantspecific.html</loc>
+  </url>
+  <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/sis_references.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/sis_taxonomy.html</loc>
   </url>
 </urlset>
