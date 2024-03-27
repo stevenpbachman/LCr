@@ -45,7 +45,7 @@ Next we can reconcile the names against other data sources using existing packag
 In this case we want to enforce a single matching name for every name in our list so we set the `match` parameter to 'single', but you can set this to 'multiple' if you wish to allow multiple matches. 
 Similarly, we want to focus only on accepted species, so we set the `tax_status` parameter to 'accepted', but you can set this to 'any' if you wish to return a different taxonomic status.
 
-```{r}
+```{r eval=FALSE, include=TRUE}
 lc_keys <-
   get_name_keys(
     df = lc_species,
@@ -70,7 +70,7 @@ Note that we will use the `rGBIF` package to obtain the occurrence data. You wil
 
 The IUCN spatial point standards require some fields relating to the data compiler and associated institution. These can be manually entered as below.
 
-```{r message=TRUE, warning=FALSE}
+```{r eval=FALSE, include=TRUE}
 lc_sis_occs <-
   make_LC_points(
     keys_df = lc_keys,
@@ -80,13 +80,13 @@ lc_sis_occs <-
     range_check = TRUE
   )
 ```
-We can see that some occurrence records were removed as they did not pass the cleaning tests or were outside the native range. Note that the output from `make_LC_points` will likely be a large list with two or three objects: a data frame of occurrences called `points`, a data frame called `citation` that holds the citation details for this download, and if you set `range_check = TRUE` it will also return the native ranges as a data frame. The GBIF citation is important to retain as we need to cite the use of this data in the Red List assessment and we'll add this to the reference file later on.
+Some occurrence records were removed as they did not pass the cleaning tests or were outside the native range. Note that the output from `make_LC_points` will likely be a large list with two or three objects: a data frame of occurrences called `points`, a data frame called `citation` that holds the citation details for this download, and if you set `range_check = TRUE` it will also return the native ranges as a data frame. The GBIF citation is important to retain as we need to cite the use of this data in the Red List assessment and we'll add this to the reference file later on.
 
 ### Generate LC CSV files
 
 We can now generate the LC csv files. We can use the `wcvp_ipni_id` field as a unique identifier. We need to add the assessor details again as this is registered in the credits csv file, note that the email address is also required. Now we can add our GBIF citation back in so that it goes in the references csv file. Finally, the native ranges we generated earlier can be used to help define the list of countries that our species are native to. 
 
-```{r}
+```{r eval=FALSE, include=TRUE}
 lc_sis_files <- make_sis_csvs(unique_id = lc_keys$wcvp_ipni_id,
                               wcvp_ipni_id = lc_keys$wcvp_ipni_id,
                               first_name = "Steven",
@@ -102,7 +102,7 @@ The final step is to make a ZIP file as this is needed to import the data into [
 
 All done! Send those LC species to the Red list and start working on the next batch.
 
-```{r}
+```{r eval=FALSE, include=TRUE}
 make_zip(lc_sis_files)
 ```
 
