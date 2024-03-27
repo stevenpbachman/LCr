@@ -28,7 +28,9 @@ library(rWCVP)
 
 ### Get name keys from a species list
 
-The first step is to determine the list of LC species that you want to document. A [study](https://nph.onlinelibrary.wiley.com/doi/full/10.1111/nph.19592) predicted extinction risk for all species of flowering plants (Angiosperms). You can filter on species that are confidently predicted to be LC, but note that predictions can be wrong so please verify these are genuine LC species. You can either filter species from the predictions table or generate a data frame from a list as below.
+The first step is to determine the list of LC species that you want to document. A [study](https://nph.onlinelibrary.wiley.com/doi/full/10.1111/nph.19592) predicted extinction risk for all species of flowering plants (Angiosperms). You can filter on species that are confidently predicted to be LC, or manually generate a data frame from a list as shown below.
+
+Note that predictions can be wrong so please verify that your selected species are genuine LC species. A useful resource to help determine whether your species is LC is to check whether it has previously been assessed. The [ThreatSearch](https://tools.bgci.org/threat_search.php) resource maintained by BGCI contains evidence-based plant conservation assessments compiled from digital resources including national/regional Red Lists.  
 
 ```{r}
 lc_species <-
