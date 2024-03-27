@@ -24,6 +24,7 @@ Load the `LCr` library:
 library(LCr)
 library(dplyr)
 library(rWCVP)
+remotes::install_github('matildabrown/rWCVPdata')
 ```
 
 ### Get name keys from a species list
