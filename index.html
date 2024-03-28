@@ -79,7 +79,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>Generate minimal documentation for a species expected to be Least Concern (see <a href="https://www.iucnredlist.org/" class="external-link">IUCN Red List</a>. Submit to the IUCN Red List via <a href="https://connect.iucnredlist.org/" class="external-link">SIS Connect</a> (registration needed)</p>
+<p>Generate minimal documentation for species expected to be Least Concern (see <a href="https://www.iucnredlist.org/" class="external-link">IUCN Red List</a>). Submit to the IUCN Red List via <a href="https://connect.iucnredlist.org/" class="external-link">SIS Connect</a> (registration needed)</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -92,31 +92,46 @@
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>The workflow is broken into several steps and each step can be run independently:</p>
+<p>Basic workflow:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>name_search_gbif</code> or <code>name_search_powo</code> tp check name status against taxonomic name backbones</li>
+<code>get_name_keys</code> check name status against taxonomic name backbones</li>
 <li>
-<code>occs_gbif</code> gather occurrence records from GBIF</li>
+<code>make_LC_points</code> gather occurrence records from GBIF and convert to an IUCN standard point file</li>
 <li>
-<code>occs_clean</code> clean the occurrence data</li>
+<code>make_sis_csvs</code> generate SIS connect csv files</li>
 <li>
-<code>sis_zip</code> generate and zip SIS csv datafiles</li>
+<code>make_zip</code> make a zip file for SIS Connect imports</li>
 </ol>
-<p>Function will allow single species or a multiple species if a dataframe is supplied</p>
 <div class="section level3">
-<h3 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+<h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stevenpbachman/LCr" class="external-link">LCr</a></span><span class="op">)</span></span>
-<span><span class="co">## check a name against GBIF, Kew Names Matching Service and Plants of the World Online</span></span>
-<span><span class="fu"><a href="reference/name_search_gbif.html">name_search_gbif</a></span><span class="op">(</span><span class="st">"Poa annua L."</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 6</span></span>
-<span><span class="co">#&gt;   searchName   usageKey scientificName status   rank    confidence</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt;        &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 Poa annua L.  2704179 Poa annua L.   ACCEPTED SPECIES        100</span></span>
 <span></span>
-<span><span class="co">#etc...</span></span></code></pre></div>
+<span><span class="co"># some parameters needed for the point and csv files</span></span>
+<span><span class="va">first_name</span> <span class="op">=</span> <span class="st">"your first name"</span></span>
+<span><span class="va">second_name</span> <span class="op">=</span> <span class="st">"your second name"</span></span>
+<span><span class="va">email</span> <span class="op">=</span> <span class="st">"your email"</span></span>
+<span><span class="va">institution</span> <span class="op">=</span> <span class="st">"your institution"</span></span>
+<span></span>
+<span><span class="co"># create a species list</span></span>
+<span><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>sp_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Crabbea acaulis"</span>, <span class="st">"Crabbea cirsioides"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># check names against GBIF and WCVP name backbones </span></span>
+<span><span class="va">sp_keys</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_name_keys.html">get_name_keys</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">sp</span>, name_column <span class="op">=</span> <span class="st">"sp_col"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># generate a point file according to IUCN standards</span></span>
+<span><span class="va">sp_occs</span> <span class="op">&lt;-</span>  <span class="fu"><a href="reference/make_LC_points.html">make_LC_points</a></span><span class="op">(</span>keys_df <span class="op">=</span> <span class="va">sp_keys</span>, range_check <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># generate the csv files</span></span>
+<span><span class="va">sp_csvs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_sis_csvs.html">make_sis_csvs</a></span><span class="op">(</span>unique_id <span class="op">=</span> <span class="va">sp_keys</span><span class="op">$</span><span class="va">wcvp_ipni_id</span>,</span>
+<span>                              wcvp_ipni_id <span class="op">=</span> <span class="va">sp_keys</span><span class="op">$</span><span class="va">wcvp_ipni_id</span>,</span>
+<span>                              gbif_ref <span class="op">=</span> <span class="va">sp_occs</span><span class="op">$</span><span class="va">citation</span>,</span>
+<span>                              native_ranges <span class="op">=</span> <span class="va">sp_occs</span><span class="op">$</span><span class="va">native_ranges</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># make the ZIP file to send to IUCN SIS Connect</span></span>
+<span><span class="fu"><a href="reference/make_zip.html">make_zip</a></span><span class="op">(</span><span class="va">lc_sis_files</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
