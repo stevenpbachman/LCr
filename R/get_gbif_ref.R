@@ -14,7 +14,7 @@ occs_gbif_ref <- function(gbif_meta){
     author = "GBIF.org",
     year =  format(as.Date(Sys.Date(), format="%d/%m/%Y"),"%Y"),
     title = "GBIF Occurrence Download accessed from R via rgbif (https://github.com/ropensci/rgbif)",
-    url = paste0("https://doi.org", gbif_meta$doi),
+    url = paste0("https://doi.org/", gbif_meta$doi),
     access_date = format(as.Date(Sys.Date(), format="%d/%m/%Y"))
   )
 }
