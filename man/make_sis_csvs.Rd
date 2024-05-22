@@ -12,7 +12,9 @@ make_sis_csvs(
   email,
   institution,
   gbif_ref,
-  native_ranges
+  native_ranges,
+  kingdom = "plantae",
+  powo_ref = FALSE
 )
 }
 \arguments{
@@ -27,6 +29,8 @@ make_sis_csvs(
 \item{gbif_ref}{(data frame) A GBIF download citation according to IUCN format.}
 
 \item{native_ranges}{(data frame) Native ranges derived from [`get_native_range()`]}
+
+\item{kingdom}{(character) Default is 'plantae', but can also be 'fungi'}
 
 \item{keys}{(data frame) Derived from [`get_name_keys()`] function. Must include at least GBIF_usageKey to obtain GBIF occurrences}
 }

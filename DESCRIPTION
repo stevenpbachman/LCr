@@ -24,7 +24,6 @@ Imports:
     jsonlite,
     magrittr,
     purrr,
-    rCAT,
     remotes,
     rgbif,
     rWCVP,

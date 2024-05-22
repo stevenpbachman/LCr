@@ -4,10 +4,12 @@
 \alias{sis_plantspecific}
 \title{Generate the plantspecific.csv file}
 \usage{
-sis_plantspecific(unique_id)
+sis_plantspecific(unique_id, kingdom = "plantae")
 }
 \arguments{
-\item{unique_id}{(character) Unique identifier.}
+\item{unique_id}{(character) Unique identifier}
+
+\item{kingdom}{(character) Defaults to `plantae`, but can be `fungi`}
 }
 \value{
 An SIS compliant csv file
