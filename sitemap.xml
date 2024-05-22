@@ -31,19 +31,22 @@
     <loc>https://stevenpbachman.github.io/LCr/reference/get_gbif_occs.html</loc>
   </url>
   <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/get_iso_occs.html</loc>
-  </url>
-  <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/get_name_keys.html</loc>
   </url>
   <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/get_native_range.html</loc>
   </url>
   <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/get_occs_range.html</loc>
+  </url>
+  <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/index.html</loc>
   </url>
   <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/make_LC_points.html</loc>
+  </url>
+  <url>
+    <loc>https://stevenpbachman.github.io/LCr/reference/make_metrics.html</loc>
   </url>
   <url>
     <loc>https://stevenpbachman.github.io/LCr/reference/make_sis_csvs.html</loc>
