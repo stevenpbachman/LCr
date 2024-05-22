@@ -63,6 +63,6 @@ sp_csvs <- make_sis_csvs(unique_id = sp_keys$wcvp_ipni_id,
                               native_ranges = sp_occs$native_ranges)
 
 # make the ZIP file to send to IUCN SIS Connect
-make_zip(lc_sis_files)
+make_zip(sp_csvs)
 
 ```

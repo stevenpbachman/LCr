@@ -79,6 +79,10 @@ lc_sis_occs <-
     institution = "Royal Botanic Gardens, Kew",
     range_check = TRUE
   )
+
+# save the file - you'll need to submit this to IUCN
+library(readr)
+write_csv(lc_points$points, "lc_points_fungi.csv")
 ```
 Some occurrence records were removed as they did not pass the cleaning tests or were outside the native range. Note that the output from `make_LC_points` will likely be a large list with two or three objects: a data frame of occurrences called `points`, a data frame called `citation` that holds the citation details for this download, and if you set `range_check = TRUE` it will also return the native ranges as a data frame. The GBIF citation is important to retain as we need to cite the use of this data in the Red List assessment and we'll add this to the reference file later on.
 

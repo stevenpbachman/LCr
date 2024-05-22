@@ -66,9 +66,5 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
   )
   sis_points <- dplyr::select(sis_points, -gbifID)
 
-  # adding in ISO codes - not working due to duplicate codes returned e.g. Comores, Mayotte
-  #iso_codes <- get_iso_occs(sis_points)
-  #sis_points <- dplyr::bind_cols(sis_points, iso_codes)
-
   return(sis_points)
 }

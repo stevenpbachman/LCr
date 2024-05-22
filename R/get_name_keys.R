@@ -7,6 +7,8 @@
 #' @param match (character) Controls the output of the search. Use `single` to
 #' force a single match result that has the highest confidence or `any` to return
 #' all possible matches sorted in order of confidence
+#' @param kingdom (character) Defaults to `plantae` and carries out match to POWO. If set as `fungi`
+#' will only carry out GBIF search
 #'
 #' @return Returns a data frame with accepted GBIF and POWO identifiers
 #' @export
@@ -18,7 +20,7 @@
 #' to get native ranges. To see a wider range of plausible matches adjust 'tax_status' and 'match' to 'any'.
 
 # add option to determine which sources you want to search e.g. WCVP for plants, or IF for fungi
-get_name_keys <- function(df, name_column, tax_status = "accepted", match = "single", kingdom = "Plantae") {
+get_name_keys <- function(df, name_column, tax_status = "accepted", match = "single", kingdom = "plantae") {
   # search terms
   search_names <- as.vector(unlist(df[, name_column]))
 
@@ -32,7 +34,7 @@ get_name_keys <- function(df, name_column, tax_status = "accepted", match = "sin
 
   keys_df <- gbif_names_out
 
-  if (kingdom == "Plantae"){
+  if (kingdom == "plantae"){
 
   # get the POWO keys
     powo_names_out <-
@@ -44,7 +46,7 @@ get_name_keys <- function(df, name_column, tax_status = "accepted", match = "sin
   keys_df <-
     dplyr::inner_join(gbif_names_out,
                       powo_names_out,
-                      by = c("GBIF_searchName" = name_column))
+                      by = c("GBIF_searchName" = as.character(name_column)))
   }
 
   keys_df <-

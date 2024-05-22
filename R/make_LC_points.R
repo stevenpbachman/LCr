@@ -44,7 +44,7 @@ make_LC_points <-
                                 institution = institution)
 
     # Check if native_ranges exists
-    if (!is.null(native_ranges)) {
+    if (range_check == TRUE) {
       # If it exists, add it to the results list
       res_list <- list("citation" = gbif_ref, "points" = final_points, "native_ranges" = native_ranges)
     } else {

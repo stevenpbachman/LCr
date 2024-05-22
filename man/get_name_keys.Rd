@@ -9,7 +9,7 @@ get_name_keys(
   name_column,
   tax_status = "accepted",
   match = "single",
-  kingdom = "Plantae"
+  kingdom = "plantae"
 )
 }
 \arguments{
@@ -20,6 +20,9 @@ get_name_keys(
 \item{match}{(character) Controls the output of the search. Use `single` to
 force a single match result that has the highest confidence or `any` to return
 all possible matches sorted in order of confidence}
+
+\item{kingdom}{(character) Defaults to `plantae` and carries out match to POWO. If set as `fungi`
+will only carry out GBIF search}
 
 \item{name_col}{(character) Column for taxon names. Include taxonomic authority for better matching}
 }
