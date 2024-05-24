@@ -19,13 +19,17 @@
 #' @examples
 #' name_search_gbif("Poa annua L.")
 
-name_search_gbif = function(name, species_rank = TRUE, match = "single", gbif_tax_stat = "any") {
-
+name_search_gbif = function(name,
+                            species_rank = TRUE,
+                            match = "single",
+                            gbif_tax_stat = "any") {
   # set up default results table
   default_tbl = gbif_name_tbl_(name)
 
   # search using verbose to get fuzzy alternatives
-  matches = rgbif::name_backbone_verbose(name = name, strict = FALSE, rank = 'species')
+  matches = rgbif::name_backbone_verbose(name = name,
+                                         strict = FALSE,
+                                         rank = 'species')
 
   # bind together in case there are missing data
   matches = dplyr::bind_rows(matches$alternatives, matches$data)
@@ -43,7 +47,7 @@ name_search_gbif = function(name, species_rank = TRUE, match = "single", gbif_ta
     } else {
       results = matches
     }
-
+}
     results$searchName = name # adding the search name back in to results table
 
     # check if family column exists (not for some fungi)
@@ -52,48 +56,50 @@ name_search_gbif = function(name, species_rank = TRUE, match = "single", gbif_ta
       results = dplyr::select(results, colnames(default_tbl))
       results = dplyr::arrange(results, dplyr::desc(confidence))
     }
-       else
+    else
       # family column does not exist (for some fungi)
     {
       default_tbl = default_tbl %>% dplyr::select(-family)
       results = dplyr::select(results, colnames(default_tbl))
       results$family <- "incertae sedis"
       results = dplyr::arrange(results, dplyr::desc(confidence))
-      }
+    }
 
-  # option to filter on GBIF accepted species only
-  if (gbif_tax_stat == "any"){
-    results = results
-  } else {
-    if (gbif_tax_stat == "accepted") {
-      results = dplyr::filter(results, status == "ACCEPTED")
-      }
-  }
-
-  # option to filter on maximum confidence from GBIF search - one option only "single"
-  # or allow list of options "any"
-  if (match == "single") {
-    results = dplyr::slice_max(results, confidence, n = 1, with_ties = FALSE)
-  } else {
-    if (match == "any") {
+    # option to filter on GBIF accepted species only
+    if (gbif_tax_stat == "any") {
       results = results
-  }
-}
+    } else {
+      if (gbif_tax_stat == "accepted") {
+        results = dplyr::filter(results, status == "ACCEPTED")
+      }
+    }
+
+    # option to filter on maximum confidence from GBIF search - one option only "single"
+    # or allow list of options "any"
+    if (match == "single") {
+      results = dplyr::slice_max(results, confidence, n = 1, with_ties = FALSE)
+    } else {
+      if (match == "any") {
+        results = results
+      }
+    }
 
     #Check if the 'scientificName' column contains NA values
-     if (!is.na(results$scientificName)) {
+    if (!is.na(results$scientificName)) {
       gen_sp_auth <- rgbif::name_parse(results$scientificName) %>%
         dplyr::select(genusorabove, specificepithet, authorship) %>%
-        dplyr::rename(genus = genusorabove,
-                      species = specificepithet,
-                      taxonomicAuthority = authorship)
+        dplyr::rename(
+          genus = genusorabove,
+          species = specificepithet,
+          taxonomicAuthority = authorship
+        )
       #results <- results %>% dplyr::select(-genus, -species, -taxonomicAuthority)
       results <- dplyr::bind_cols(results, gen_sp_auth)
-      }
+    }
 
-  return(results)
+    return(results)
 
-}
+  }
 
 #' Generate the default table for GBIF name search results
 #'
@@ -114,4 +120,4 @@ gbif_name_tbl_ = function(query) {
     #taxonomicAuthority = NA_character_
   )
 }
-}
+
