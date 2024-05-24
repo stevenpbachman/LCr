@@ -20,7 +20,7 @@
 #' to get native ranges. To see a wider range of plausible matches adjust 'tax_status' and 'match' to 'any'.
 
 # add option to determine which sources you want to search e.g. WCVP for plants, or IF for fungi
-get_name_keys <- function(df, name_column, tax_status = "accepted", match = "single", kingdom = "plantae") {
+get_name_keys <- function(df, name_column, tax_status = "any", match = "single", kingdom = "plantae") {
   # search terms
   search_names <- as.vector(unlist(df[, name_column]))
 

@@ -11,8 +11,12 @@ make_sis_csvs(
   second_name,
   email,
   institution,
-  gbif_ref,
+  gbif_ref = NULL,
   native_ranges,
+  family,
+  genus,
+  species,
+  taxonomicAuthority,
   kingdom = "plantae",
   powo_ref = FALSE
 )

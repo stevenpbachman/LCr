@@ -4,7 +4,7 @@
 \alias{sis_taxonomy}
 \title{Generate the taxonomy.csv file}
 \usage{
-sis_taxonomy(unique_id, wcvp_ipni_id)
+sis_taxonomy(unique_id, family, genus, species, taxonomicAuthority)
 }
 \arguments{
 \item{unique_id}{(character) Unique identifier.}

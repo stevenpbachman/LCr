@@ -13,21 +13,50 @@ institution = "Royal Botanic Gardens, Kew"
 # species list
 lc_species <-
   data.frame(sp = c(
-    "Russula amethystina",
-    "Lactarius decipiens",
-    "Poa annua"
+    "Asplenium longissimum  Blume",
+    "Asplenium macrophyllum  Sw.",
+    "Asplenium nidus  L.",
+    "Boerhavia repens L. ",
+    "Canavalia cathartica  Thouars",
+    "Cassytha filiformis L.",
+    "Dactyloctenium ctenoides  (Steud.) Bosser",
+    "Euphorbia stoddartii  Fosberg",
+    "Ipomoea violacea L.",
+    "test test",
+    "Lagrezia micrantha (Bak.)Schinz."
+    #"lntsia bijuga  Colebr.) Kuntze",
+#     "Lepturus repens G.Forst.) R.Br.",
+#     "Triumfetta procumbens Forst.",
+# #"lpomoea pes-caprae  (L.) R.Br.",
+# #"Pisonia grandis R.Br.",
+# "Pteris tripartita  Sw.",
+# "Scaevola taccada  (Gaertn.) Roxb.",
+# "Sida pusilla Cav.",
+# "Stenotaphrum micranthum (Desv.) C.E. Hubb.",
+# #"Thelypteris opulentum  (Kaulf.) J.P.Roux",
+# "Triumfetta procumbens Forst."
   ))
 print(lc_species)
+
+# gbif_names_out <- purrr::map_dfr(chagos_names$name_in,
+#                                  name_search_gbif,
+#                                  match = match,
+#                                  gbif_tax_stat = "any")
 
 # get the keys
 lc_keys <-
   get_name_keys(
-    lc_species,
-    name_column = "sp",
-    tax_status = "accepted",
+    #lc_species,
+    Confident.LC.fungi.1.3.24_VS,
+    #name_column = "sp",
+    name_column = "acceptedNameAuthor",
+    tax_status = "any",
     match = "single",
-    kingdom = "fungi" # note this needs to change to remove the WCVP name check
+    kingdom = "fungi" # setting to fungi removes the WCVP check
   )
+
+# filter out the not accepted if you like
+lc_keys <- lc_keys %>% dplyr::filter(GBIF_status == "ACCEPTED")
 
 # make the LC points csv file
 lc_points <- make_LC_points(lc_keys, range_check = FALSE)
@@ -42,7 +71,11 @@ sis_occs <- make_sis_csvs(unique_id = lc_keys$GBIF_usageKey,
                               second_name = "Bachman",
                               email = "s.bachman@kew.org",
                               institution = "Royal Botanic Gardens, Kew",
-                              gbif_ref = lc_points$citation,
+                              family = lc_keys$GBIF_family,
+                              genus = lc_keys$GBIF_genus,
+                              species = lc_keys$GBIF_species,
+                              taxonomicAuthority = lc_keys$GBIF_taxonomicAuthority,
+                              #gbif_ref = lc_points$citation,
                               #native_ranges = lc_points$native_ranges, # remove this for fungi
                               kingdom = "fungi" # set to fungi
 )

@@ -7,10 +7,10 @@ devtools::load_all()
 devtools::check()
 ########################
 
-
 library(readr)
 library(dplyr)
 library(LCr)
+library(rgbif)
 
 first_name <- "Steven"
 second_name <- "Bachman"
@@ -22,8 +22,20 @@ lc_species <-
   data.frame(sp = c(
     #"Suaeda tampicensis",
     #"Celosia nitida"
-    "Russula amethystina",
-    "Lactarius decipiens"
+    #"Russula amethystina",
+    #"Lactarius decipiens",
+    # "Asplenium longissimum  Blume",
+    # "Asplenium macrophyllum  Sw.",
+    # "Asplenium nidus  L.",
+    # "Boerhavia repens L.",
+    # "Canavalia cathartica  Thouars",
+    # "Cassytha filiformis L.",
+    # "Dactyloctenium ctenoides  (Steud.) Bosser",
+    # "Euphorbia stoddartii  Fosberg",
+    # "Ipomoea violacea L.",
+    # "Lagrezia micrantha (Bak.)Schinz.",
+    # "Lepturus repens G.Forst.) R.Br."
+    "lntsia bijuga  Colebr.) Kuntze"
   ))
 print(lc_species)
 
@@ -36,6 +48,10 @@ lc_keys <-
     match = "single",
     kingdom = "fungi"
   )
+
+lc_keys
+
+test_taxonomy <- sis_taxonomy(lc_keys$GBIF_usageKey, family = lc_keys$GBIF_family)
 
 # ###########################
 # # get the GBIF occurrences

@@ -7,7 +7,7 @@
 get_name_keys(
   df,
   name_column,
-  tax_status = "accepted",
+  tax_status = "any",
   match = "single",
   kingdom = "plantae"
 )

@@ -4,7 +4,7 @@
 \alias{sis_references}
 \title{Generate the references.csv file}
 \usage{
-sis_references(unique_id, gbif_ref, powo_ref)
+sis_references(unique_id, gbif_ref = NULL, powo_ref = NULL)
 }
 \arguments{
 \item{unique_id}{(character) Unique identifier.}

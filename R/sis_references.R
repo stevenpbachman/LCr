@@ -9,7 +9,7 @@
 #' @export
 #'
 
-sis_references = function(unique_id, gbif_ref, powo_ref) {
+sis_references = function(unique_id, gbif_ref = NULL, powo_ref = NULL) {
 
   LCr_ref <-
   tibble::tibble(

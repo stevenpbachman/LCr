@@ -15,7 +15,9 @@
 
 make_sis_csvs <-
   function(unique_id, wcvp_ipni_id, first_name, second_name, email,
-           institution, gbif_ref, native_ranges, kingdom = "plantae", powo_ref = FALSE) {
+           institution, gbif_ref = NULL, native_ranges,
+           family, genus, species, taxonomicAuthority,
+           kingdom = "plantae", powo_ref = FALSE) {
 
     if (kingdom == "plantae") {
 
@@ -26,9 +28,9 @@ make_sis_csvs <-
       plantspecific <- sis_plantspecific(unique_id, kingdom)
       habitats <- sis_habitats(unique_id)
       credits <- sis_credits(unique_id, first_name, second_name, email, affiliation = institution)
+      taxonomy <- sis_taxonomy(unique_id, family, genus, species, taxonomicAuthority)
 
       # need to embed map into the function, but these are a bit awkward - try again later
-      taxonomy <- purrr::map2(unique_id, wcvp_ipni_id, sis_taxonomy) %>%  dplyr::bind_rows()
       references <- purrr::map_dfr(unique_id, sis_references, powo_ref = powo_ref, gbif_ref)
 
       return(
@@ -48,14 +50,14 @@ make_sis_csvs <-
       plantspecific <- sis_plantspecific(unique_id, kingdom)
       habitats <- sis_habitats(unique_id)
       credits <- sis_credits(unique_id, first_name, second_name, email, affiliation = institution)
+      taxonomy <- sis_taxonomy(unique_id, family,genus, species, taxonomicAuthority)
 
       # need to embed map into the function, but these are a bit awkward - try again later
-      #taxonomy <- purrr::map2(unique_id, wcvp_ipni_id, sis_taxonomy) %>%  dplyr::bind_rows()
       references <- purrr::map_dfr(unique_id, sis_references, gbif_ref, powo_ref)
 
       return(
         list(allfields = allfields, assessments = assessments, plantspecific = plantspecific,
-             habitats = habitats, credits = credits, references = references
+             habitats = habitats, credits = credits, taxonomy = taxonomy, references = references
         )
       )
   }
