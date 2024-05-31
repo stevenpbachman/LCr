@@ -54,23 +54,13 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_name_keys</span><span class="op">(</span></span>
-<span>  <span class="va">df</span>,</span>
-<span>  <span class="va">name_column</span>,</span>
-<span>  tax_status <span class="op">=</span> <span class="st">"any"</span>,</span>
-<span>  match <span class="op">=</span> <span class="st">"single"</span>,</span>
-<span>  kingdom <span class="op">=</span> <span class="st">"plantae"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_name_keys</span><span class="op">(</span><span class="va">df</span>, <span class="va">name_column</span>, match <span class="op">=</span> <span class="st">"single"</span>, kingdom <span class="op">=</span> <span class="st">"plantae"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>df</dt>
 <dd><p>character) Data frame with taxon names</p></dd>
-
-
-<dt>tax_status</dt>
-<dd><p>(character) Default `any` provides all taxonomic, otherwise 'accepted'</p></dd>
 
 
 <dt>match</dt>
@@ -96,12 +86,12 @@ will only carry out GBIF search</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Designed for batch processing. Default setting (tax_status = "accepted" and match = "single")
-returns an accepted name with the best single match against GBIF and POWO name backbones.
-Final list may return fewer names if there are discrepancies e.g. accepted
+    <p>Designed for batch processing. Default setting (match = "single", kingdom = "plantae")
+returns an accepted name with the best single match against GBIF and POWO name backbones (GBIF
+only for kingdom = "fungi"). Final list may return fewer names if there are discrepancies e.g. accepted
  in GBIF, but not in POWO. Output data frame includes GBIF 'usageKey' that can be used with
   [`get_gbif_occs()`] to get occurrences from GBIF, and 'wcvp_ipni_id' that can be used with [`powo_range()`]
-to get native ranges. To see a wider range of plausible matches adjust 'tax_status' and 'match' to 'any'.</p>
+to get native ranges. To see a wider range of plausible matches adjust 'match' to 'any'.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

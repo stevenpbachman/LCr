@@ -62,19 +62,23 @@
 <span>  <span class="va">email</span>,</span>
 <span>  <span class="va">institution</span>,</span>
 <span>  gbif_ref <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">native_ranges</span>,</span>
+<span>  powo_ref <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  native_ranges <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">family</span>,</span>
 <span>  <span class="va">genus</span>,</span>
 <span>  <span class="va">species</span>,</span>
 <span>  <span class="va">taxonomicAuthority</span>,</span>
-<span>  kingdom <span class="op">=</span> <span class="st">"plantae"</span>,</span>
-<span>  powo_ref <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  kingdom <span class="op">=</span> <span class="st">"plantae"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>first_name</dt>
+    <dl><dt>unique_id</dt>
+<dd><p>(character) Unique identifier - default is the GBIF usage key</p></dd>
+
+
+<dt>first_name</dt>
 <dd><p>(character) First name of assessor</p></dd>
 
 
@@ -94,16 +98,32 @@
 <dd><p>(data frame) A GBIF download citation according to IUCN format.</p></dd>
 
 
+<dt>powo_ref</dt>
+<dd><p>(data frame) A citation for use of POWO according to IUCN format.</p></dd>
+
+
 <dt>native_ranges</dt>
 <dd><p>(data frame) Native ranges derived from [`get_native_range()`]</p></dd>
 
 
+<dt>family</dt>
+<dd><p>(character) Field containing the family</p></dd>
+
+
+<dt>genus</dt>
+<dd><p>(character) Field containing the genus</p></dd>
+
+
+<dt>species</dt>
+<dd><p>(character) Field containing the specific epithet</p></dd>
+
+
+<dt>taxonomicAuthority</dt>
+<dd><p>(character) Field containing the taxonomic authority</p></dd>
+
+
 <dt>kingdom</dt>
 <dd><p>(character) Default is 'plantae', but can also be 'fungi'</p></dd>
-
-
-<dt>keys</dt>
-<dd><p>(data frame) Derived from [`get_name_keys()`] function. Must include at least GBIF_usageKey to obtain GBIF occurrences</p></dd>
 
 </dl></div>
     <div class="section level2">
