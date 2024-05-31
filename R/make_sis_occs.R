@@ -25,6 +25,7 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
                               basisOfRecord,
                               elevation,
                               catalogNumber,
+                              speciesKey,
                               gbifID
   )
 
@@ -42,6 +43,7 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
   )
 
   sis_points <- dplyr::mutate(sis_points,
+                              internal_taxon_id = speciesKey,
                               source = paste0("https://www.gbif.org/occurrence/", gbifID),
                               yrcompiled = format(Sys.Date(), "%Y"),
                               citation = institution,
@@ -56,15 +58,20 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
                                 basisofrec,
                                 "FOSSIL_SPECIMEN" = "FossilSpecimen",
                                 "HUMAN_OBSERVATION" = "HumanObservation",
-                                "LITERATURE" = "",
                                 "LIVING_SPECIMEN" = "LivingSpecimen",
                                 "MACHINE_OBSERVATION" = "MachineObservation",
-                                "OBSERVATION" = "",
                                 "PRESERVED_SPECIMEN" = "PreservedSpecimen",
-                                "UNKNOWN" = "Unknown"
+                                "UNKNOWN" = "Unknown",
+                                "OCCURRENCE" = "HumanObservation",
+                                "LITERATURE" = "",
+                                "OBSERVATION" = "HumanObservation",
+                                "MATERIAL_ENTITY" = "",
+                                "MATERIAL_SAMPLE" = "PreservedSpecimen",
+                                "MATERIAL_CITATION" = "PreservedSpecimen"
                               )
   )
-  sis_points <- dplyr::select(sis_points, -gbifID)
+
+  sis_points <- dplyr::select(sis_points, -speciesKey,-gbifID)
 
   return(sis_points)
 }

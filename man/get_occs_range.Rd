@@ -10,7 +10,7 @@ get_occs_range(sis_points)
 \item{sis_points}{(dataframe) SIS points file}
 }
 \value{
-Occurrence dataframe with ISO two-digit codes added
+Occurrence dataframe with ISO two-digit codes added and internal id
 }
 \description{
 Get ISO two-digit code from occurrence lat longs

@@ -4,18 +4,10 @@
 \alias{get_name_keys}
 \title{Get accepted GBIF and POWO identifiers (keys) for taxon names to support data downloads}
 \usage{
-get_name_keys(
-  df,
-  name_column,
-  tax_status = "any",
-  match = "single",
-  kingdom = "plantae"
-)
+get_name_keys(df, name_column, match = "single", kingdom = "plantae")
 }
 \arguments{
 \item{df}{character) Data frame with taxon names}
-
-\item{tax_status}{(character) Default `any` provides all taxonomic, otherwise 'accepted'}
 
 \item{match}{(character) Controls the output of the search. Use `single` to
 force a single match result that has the highest confidence or `any` to return
@@ -33,10 +25,10 @@ Returns a data frame with accepted GBIF and POWO identifiers
 Get accepted GBIF and POWO identifiers (keys) for taxon names to support data downloads
 }
 \details{
-Designed for batch processing. Default setting (tax_status = "accepted" and match = "single")
-returns an accepted name with the best single match against GBIF and POWO name backbones.
-Final list may return fewer names if there are discrepancies e.g. accepted
+Designed for batch processing. Default setting (match = "single", kingdom = "plantae")
+returns an accepted name with the best single match against GBIF and POWO name backbones (GBIF
+only for kingdom = "fungi"). Final list may return fewer names if there are discrepancies e.g. accepted
  in GBIF, but not in POWO. Output data frame includes GBIF 'usageKey' that can be used with
   [`get_gbif_occs()`] to get occurrences from GBIF, and 'wcvp_ipni_id' that can be used with [`powo_range()`]
-to get native ranges. To see a wider range of plausible matches adjust 'tax_status' and 'match' to 'any'.
+to get native ranges. To see a wider range of plausible matches adjust 'match' to 'any'.
 }

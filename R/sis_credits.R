@@ -1,4 +1,5 @@
 
+
 #' Generate the credits.csv file
 #'
 #' @param unique_id (character) Unique identifier
@@ -9,38 +10,23 @@
 #' @return Returns an SIS compliant csv file
 #' @export
 
-# sis_credits = function(unique_id, first_name="your first name",second_name = "your second name",
-#                        email="your email", affiliation="your affiliation") {
-#
-#   credits <- tibble::tibble(
-#     internal_taxon_id = unique_id,
-#     credit_type = "Assessor",
-#     firstName = first_name,
-#     lastName = second_name,
-#     initials = "",
-#     Order = "1",
-#     email = email,
-#     affiliation = affiliation,
-#     user_id = "1"
-#   )
-#
-#   return(credits)
-# }
-
-sis_credits = function(unique_id, first_name="your first name",second_name = "your second name",
-                       email="your email", affiliation="your affiliation") {
+sis_credits = function(unique_id,
+                       first_name = "your first name",
+                       second_name = "your second name",
+                       email = "your email",
+                       affiliation = "your affiliation") {
 
   combined_table <- purrr::map_dfr(unique_id, function(id) {
     credits <- tibble::tibble(
-    internal_taxon_id = id,
-    credit_type = "Assessor",
-    firstName = first_name,
-    lastName = second_name,
-    initials = "",
-    Order = "1",
-    email = email,
-    affiliation = affiliation,
-    user_id = "1"
+      internal_taxon_id = id,
+      credit_type = "Assessor",
+      firstName = first_name,
+      lastName = second_name,
+      initials = "",
+      Order = "1",
+      email = email,
+      affiliation = affiliation,
+      user_id = "1"
     )
   })
 

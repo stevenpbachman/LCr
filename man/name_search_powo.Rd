@@ -4,15 +4,12 @@
 \alias{name_search_powo}
 \title{Query taxon name against POWO (Plants of the World Online) backbone}
 \usage{
-name_search_powo(df, name_column, powo_tax_stat = "any")
+name_search_powo(df, name_column)
 }
 \arguments{
 \item{df}{(data frame) Taxon name(s)}
 
 \item{name_column}{(string) Column that contains the name(s)}
-
-\item{powo_tax_stat}{(character) Default `any` provides all taxonomic
-matches, otherwise `accepted` returns only accepted names according to POWO}
 }
 \value{
 Returns a data frame with initial search term and matching name(s)

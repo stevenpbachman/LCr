@@ -12,16 +12,18 @@ make_sis_csvs(
   email,
   institution,
   gbif_ref = NULL,
-  native_ranges,
+  powo_ref = FALSE,
+  native_ranges = NULL,
   family,
   genus,
   species,
   taxonomicAuthority,
-  kingdom = "plantae",
-  powo_ref = FALSE
+  kingdom = "plantae"
 )
 }
 \arguments{
+\item{unique_id}{(character) Unique identifier - default is the GBIF usage key}
+
 \item{first_name}{(character) First name of assessor}
 
 \item{second_name}{(character) Second name of assessor}
@@ -32,11 +34,19 @@ make_sis_csvs(
 
 \item{gbif_ref}{(data frame) A GBIF download citation according to IUCN format.}
 
+\item{powo_ref}{(data frame) A citation for use of POWO according to IUCN format.}
+
 \item{native_ranges}{(data frame) Native ranges derived from [`get_native_range()`]}
 
-\item{kingdom}{(character) Default is 'plantae', but can also be 'fungi'}
+\item{family}{(character) Field containing the family}
 
-\item{keys}{(data frame) Derived from [`get_name_keys()`] function. Must include at least GBIF_usageKey to obtain GBIF occurrences}
+\item{genus}{(character) Field containing the genus}
+
+\item{species}{(character) Field containing the specific epithet}
+
+\item{taxonomicAuthority}{(character) Field containing the taxonomic authority}
+
+\item{kingdom}{(character) Default is 'plantae', but can also be 'fungi'}
 }
 \value{
 Returns an SIS compliant zip file

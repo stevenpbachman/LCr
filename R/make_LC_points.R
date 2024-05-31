@@ -7,7 +7,7 @@
 #' @param institution (character) Name of institution or affiliation
 #' @param range_check (boolean) TRUE if you want to carry out occurrence cleaning with native range filter
 #'
-#' @return (list) Includes the GBIF citation, and "points" the cleaned SIS compatible point file
+#' @return (list) Includes the GBIF "citation", and "points" the cleaned SIS compatible point file
 #' @export
 #' @details Designed for batch processing using keys derived from [`get_name_keys()`]
 
@@ -52,7 +52,6 @@ make_LC_points <-
       res_list <- list("citation" = gbif_ref, "points" = final_points)
     }
 
-    #res_list <- list("citation" = gbif_ref, "points" = final_points)
     return(res_list)
 
   }

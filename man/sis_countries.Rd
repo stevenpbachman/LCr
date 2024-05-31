@@ -4,13 +4,9 @@
 \alias{sis_countries}
 \title{Generate the countries.csv file}
 \usage{
-sis_countries(unique_id, wcvp_ipni_id, native_ranges)
+sis_countries(native_ranges)
 }
 \arguments{
-\item{unique_id}{(character) Unique identifier}
-
-\item{wcvp_ipni_id}{(character) WCVP identifier}
-
 \item{native_ranges}{(character) native range list of WGSRPD level 3}
 }
 \value{

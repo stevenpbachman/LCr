@@ -2,6 +2,10 @@
 #' Generate the taxonomy.csv file
 #'
 #' @param unique_id (character) Unique identifier.
+#' @param family (character) field containing family.
+#' @param genus (character) field containing genus.
+#' @param species (character) field containing species.
+#' @param taxonomicAuthority (character) field containing taxonomic author.
 #'
 #' @return Returns an SIS compliant csv file
 #' @export

@@ -24,7 +24,7 @@ make_LC_points(
 \item{range_check}{(boolean) TRUE if you want to carry out occurrence cleaning with native range filter}
 }
 \value{
-(list) Includes the GBIF citation, and "points" the cleaned SIS compatible point file
+(list) Includes the GBIF "citation", and "points" the cleaned SIS compatible point file
 }
 \description{
 Combined function to get clean SIS points file using name identifiers

@@ -8,6 +8,14 @@ sis_taxonomy(unique_id, family, genus, species, taxonomicAuthority)
 }
 \arguments{
 \item{unique_id}{(character) Unique identifier.}
+
+\item{family}{(character) field containing family.}
+
+\item{genus}{(character) field containing genus.}
+
+\item{species}{(character) field containing species.}
+
+\item{taxonomicAuthority}{(character) field containing taxonomic author.}
 }
 \value{
 Returns an SIS compliant csv file

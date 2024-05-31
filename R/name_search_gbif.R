@@ -10,8 +10,6 @@
 #' @param match (character) Controls the output of the search. Use `single` to
 #' force a single match result that has the highest confidence or `any` to return
 #' all possible matches sorted in order of confidence
-#' @param gbif_tax_stat (character) Default `any` provides all taxonomic
-#' matches, otherwise `accepted` returns only accepted names according to GBIF
 #'
 #' @return Returns a data frame with initial search term and matching name(s)
 #' @export
@@ -21,8 +19,8 @@
 
 name_search_gbif = function(name,
                             species_rank = TRUE,
-                            match = "single",
-                            gbif_tax_stat = "any") {
+                            match = "single") {
+                            #gbif_tax_stat = "any") { #removed as was not working well
   # set up default results table
   default_tbl = gbif_name_tbl_(name)
 
@@ -65,14 +63,14 @@ name_search_gbif = function(name,
       results = dplyr::arrange(results, dplyr::desc(confidence))
     }
 
-    # option to filter on GBIF accepted species only
-    if (gbif_tax_stat == "any") {
-      results = results
-    } else {
-      if (gbif_tax_stat == "accepted") {
-        results = dplyr::filter(results, status == "ACCEPTED")
-      }
-    }
+    # # option to filter on GBIF accepted species only
+    # if (gbif_tax_stat == "any") {
+    #   results = results
+    # } else {
+    #   if (gbif_tax_stat == "accepted") {
+    #     results = dplyr::filter(results, status == "ACCEPTED")
+    #   }
+    # }
 
     # option to filter on maximum confidence from GBIF search - one option only "single"
     # or allow list of options "any"
