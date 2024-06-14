@@ -84,13 +84,27 @@ name_search_gbif = function(name,
 
     #Check if the 'scientificName' column contains NA values
     if (!is.na(results$scientificName)) {
-      gen_sp_auth <- rgbif::name_parse(results$scientificName) %>%
-        dplyr::select(genusorabove, specificepithet, authorship) %>%
+      gen_sp_auth <- rgbif::name_parse(results$scientificName)
+
+      # Check if the 'bracketAuthorship' column exists
+      if ("bracketauthorship" %in% colnames(gen_sp_auth)) {
+        # Create 'taxonomicAuthority' by concatenating 'authorship' and 'bracketAuthorship'
+        gen_sp_auth <- gen_sp_auth %>%
+          dplyr::mutate(taxonomicAuthority = paste(paste0("(", bracketauthorship, ")"), authorship, sep = " ")) %>%
+          dplyr::select(genusorabove, specificepithet, taxonomicAuthority)
+      } else {
+        # Use 'authorship' as 'taxonomicauthority'
+        gen_sp_auth <- gen_sp_auth %>%
+          dplyr::mutate(taxonomicAuthority = authorship) %>%
+          dplyr::select(genusorabove, specificepithet, taxonomicAuthority)
+      }
+      # Rename columns
+      gen_sp_auth <- gen_sp_auth %>%
         dplyr::rename(
           genus = genusorabove,
-          species = specificepithet,
-          taxonomicAuthority = authorship
+          species = specificepithet
         )
+
       #results <- results %>% dplyr::select(-genus, -species, -taxonomicAuthority)
       results <- dplyr::bind_cols(results, gen_sp_auth)
     }
