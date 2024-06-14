@@ -11,11 +11,14 @@ sis_allfields <- function(unique_id) {
     tibble(
       internal_taxon_id = id,
       CurrentTrendDataDerivation.value = "Suspected",
+      AreaRestricted.isRestricted = "0",
+      AreaRestricted.justification = "This species does not have a restricted AOO or number of locations, based on occurrence data from GBIF (see references for DOI).",
       AOO.range = "",
       AOO.justification = "",
       EOO.range = "",
       EOO.justification = "",
       SevereFragmentation.isFragmented = "No",
+      NotUtilized.isNotUtilized = "TRUE",
       NoThreats.noThreats = "TRUE",
       ThreatsUnknown.value = "FALSE",
       GenerationLength.range = ""
