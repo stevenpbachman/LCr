@@ -1,102 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/404.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/articles/Generate-csvs.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/index.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/LCr-package.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/clean_occs.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/get_gbif_occs.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/get_name_keys.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/get_native_range.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/get_occs_range.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/make_LC_points.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/make_metrics.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/make_sis_csvs.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/make_sis_occs.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/make_zip.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/name_search_gbif.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/name_search_powo.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/occs_gbif_ref.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/powo_lookup.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/powo_range.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/powo_ref.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/sis_allfields.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/sis_assessments.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/sis_countries.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/sis_credits.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/sis_habitats.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/sis_plantspecific.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/sis_references.html</loc>
-  </url>
-  <url>
-    <loc>https://stevenpbachman.github.io/LCr/reference/sis_taxonomy.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://stevenpbachman.github.io/LCr/404.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/LICENSE-text.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/LICENSE.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/articles/Generate-csvs.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/articles/index.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/authors.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/index.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/LCr-package.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/clean_occs.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/get_gbif_occs.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/get_name_keys.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/get_native_range.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/get_occs_range.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/index.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/make_LC_points.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/make_metrics.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/make_sis_csvs.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/make_sis_occs.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/make_zip.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/name_search_gbif.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/name_search_powo.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/occs_gbif_ref.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/powo_lookup.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/powo_range.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/powo_ref.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/sis_allfields.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/sis_assessments.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/sis_countries.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/sis_credits.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/sis_habitats.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/sis_plantspecific.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/sis_references.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/sis_taxonomy.html</loc></url>
 </urlset>
+
