@@ -3,7 +3,7 @@ pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   Generate-csvs: Generate-csvs.html
-last_built: 2024-07-18T13:07Z
+last_built: 2024-07-18T13:18Z
 urls:
   reference: https://stevenpbachman.github.io/LCr/reference
   article: https://stevenpbachman.github.io/LCr/articles
