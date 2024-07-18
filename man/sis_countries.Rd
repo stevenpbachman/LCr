@@ -4,7 +4,7 @@
 \alias{sis_countries}
 \title{Generate the countries.csv file}
 \usage{
-sis_countries(native_ranges)
+sis_countries(native_ranges, unique_id)
 }
 \arguments{
 \item{native_ranges}{(character) native range list of WGSRPD level 3}
