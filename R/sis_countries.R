@@ -12,7 +12,7 @@ sis_countries <- function(native_ranges, unique_id) {
 
         country_table <- dplyr::filter(native_ranges, POWO_ID == id)
 
-        country_table <- dplyr::left_join(sp_countries, tdwg2iucn, by = c("LEVEL3_COD" = "Level.3.code"))
+        country_table <- dplyr::left_join(country_table, tdwg2iucn, by = c("LEVEL3_COD" = "Level.3.code"))
 
         country_table$CountryOccurrence.CountryOccurrenceSubfield.presence <- "Extant"
         country_table$CountryOccurrence.CountryOccurrenceSubfield.origin <- "Native"
