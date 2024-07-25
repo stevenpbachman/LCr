@@ -18,7 +18,7 @@
 #' name_search_gbif("Poa annua L.")
 
 name_search_gbif = function(name,
-                            species_rank = TRUE,
+                            #species_rank = TRUE,
                             match = "single") {
                             #gbif_tax_stat = "any") { #removed as was not working well
   # set up default results table
@@ -40,11 +40,11 @@ name_search_gbif = function(name,
     results = default_tbl
   } else {
     # filter on species rank as default, but if not return all ranks
-    if (species_rank == TRUE) {
-      results = dplyr::filter(matches, rank == "SPECIES")
-    } else {
+    #if (species_rank == TRUE) {
+    #  results = dplyr::filter(matches, rank == "SPECIES")
+    #} else {
       results = matches
-    }
+    #}
 }
     results$searchName = name # adding the search name back in to results table
 
@@ -53,60 +53,55 @@ name_search_gbif = function(name,
       # family column exists
       results = dplyr::select(results, colnames(default_tbl))
       results = dplyr::arrange(results, dplyr::desc(confidence))
-    }
-    else
+    } else {
       # family column does not exist (for some fungi)
-    {
       default_tbl = default_tbl %>% dplyr::select(-family)
       results = dplyr::select(results, colnames(default_tbl))
       results$family <- "incertae sedis"
       results = dplyr::arrange(results, dplyr::desc(confidence))
     }
 
-    # # option to filter on GBIF accepted species only
-    # if (gbif_tax_stat == "any") {
-    #   results = results
-    # } else {
-    #   if (gbif_tax_stat == "accepted") {
-    #     results = dplyr::filter(results, status == "ACCEPTED")
-    #   }
-    # }
-
     # option to filter on maximum confidence from GBIF search - one option only "single"
+    # accepted should be at top of list
     # or allow list of options "any"
     if (match == "single") {
+      results = reorder_status(results)
       results = dplyr::slice_max(results, confidence, n = 1, with_ties = FALSE)
     } else {
       if (match == "any") {
-        results = results
+        results = reorder_status(results)
       }
     }
 
     #Check if the 'scientificName' column contains NA values
+    # add return if scientific name is not present
     if (!is.na(results$scientificName)) {
-      gen_sp_auth <- rgbif::name_parse(results$scientificName)
 
-      # Check if the 'bracketAuthorship' column exists
-      if ("bracketauthorship" %in% colnames(gen_sp_auth)) {
-        # Create 'taxonomicAuthority' by concatenating 'authorship' and 'bracketAuthorship'
-        gen_sp_auth <- gen_sp_auth %>%
-          dplyr::mutate(taxonomicAuthority = paste(paste0("(", bracketauthorship, ")"), authorship, sep = " ")) %>%
-          dplyr::select(genusorabove, specificepithet, taxonomicAuthority)
-      } else {
-        # Use 'authorship' as 'taxonomicauthority'
-        gen_sp_auth <- gen_sp_auth %>%
-          dplyr::mutate(taxonomicAuthority = authorship) %>%
-          dplyr::select(genusorabove, specificepithet, taxonomicAuthority)
-      }
+      gen_sp_auth <- rgbif::name_parse(results$scientificName)
+      gen_sp_auth <- check_tax_auth(gen_sp_auth)
+
+          if ("specificepithet" %in% colnames(gen_sp_auth)) {
+            gen_sp_auth <- gen_sp_auth %>%
+              dplyr::select(genusorabove, specificepithet, taxonomicAuthority)
+          } else {
+            gen_sp_auth$specificepithet <- ""
+            gen_sp_auth <- gen_sp_auth %>%
+              dplyr::select(genusorabove, specificepithet, taxonomicAuthority)
+          }
+
       # Rename columns
       gen_sp_auth <- gen_sp_auth %>%
-        dplyr::rename(
-          genus = genusorabove,
-          species = specificepithet
-        )
+        dplyr::rename(genus = genusorabove,
+                      species = specificepithet,
+                      authorship = taxonomicAuthority)
 
       #results <- results %>% dplyr::select(-genus, -species, -taxonomicAuthority)
       results <- dplyr::bind_cols(results, gen_sp_auth)
+
+    } else {
+      results$genus <- ""
+      results$species <- ""
+      results$authorship <- ""
     }
 
     return(results)
