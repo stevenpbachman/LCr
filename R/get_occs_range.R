@@ -2,6 +2,7 @@
 #'
 #' @param sis_points (dataframe) SIS points file
 #'
+#' @export
 #' @return Occurrence dataframe with ISO two-digit codes added and internal id
 
 get_occs_range <- function(sis_points) {
