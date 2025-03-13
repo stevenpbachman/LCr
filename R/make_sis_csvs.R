@@ -73,7 +73,7 @@ make_sis_csvs <-
     if (kingdom == "fungi") {
       # get most of the csvs here
       if (!is.null(native_ranges)) {
-        countries <- sis_countries(native_ranges)
+        countries <- sis_countries(native_ranges, unique_id)
       }
       allfields <- sis_allfields(unique_id)
       assessments <- sis_assessments(unique_id)
