@@ -10,7 +10,7 @@ sis_countries <- function(native_ranges, unique_id) {
 
   country_table <- purrr::map_dfr(unique_id, function(id) {
 
-        country_table <- dplyr::filter(native_ranges, POWO_ID == id)
+        country_table <- dplyr::filter(native_ranges, internal == id)
 
         country_table <- dplyr::left_join(country_table, tdwg2iucn, by = c("LEVEL3_COD" = "Level.3.code"))
 
