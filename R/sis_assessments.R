@@ -28,9 +28,9 @@ sis_assessments = function(unique_id) {
       Language.value	= "English",
       RangeDocumentation.narrative	= " ",
       PopulationDocumentation.narrative	= "This taxon has a widespread distribution across multiple countries; as such the global population is suspected to be large.",
-      HabitatDocumentation.narrative	= "This taxon is not known to be utilised.",
+      HabitatDocumentation.narrative	= " ",
       ThreatsDocumentation.value	= "This taxon may face threats associated with land use change in some areas of its wide distribution; however, no major threats have been identified that are likely to affect its extinction risk in a short time",
-      usetradedocumentation.value = " ",
+      usetradedocumentation.value = "This taxon is not known to be utilised",
       RedlistCriteria.isManual	= "TRUE",
       BiogeographicRealm.realm = ""
     )
