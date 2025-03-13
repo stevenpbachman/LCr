@@ -15,7 +15,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/stevenpbachman/LCr, https://stevenpbachman.github.io/LCr/
 BugReports: https://github.com/stevenpbachman/LCr/issues
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Imports: 
     CoordinateCleaner (>= 3.0.1),
     dplyr,

@@ -12,7 +12,7 @@ check_tax_auth <- function(df) {
 
   if (has_bracket & has_author) {
     df <- df %>%
-      dplyr::mutate(taxonomicAuthority = paste(bracketauthorship, authorship))
+      dplyr::mutate(taxonomicAuthority = paste0("(", bracketauthorship, ") ", authorship))
   } else if (has_author) {
     df <- df %>%
       dplyr::mutate(taxonomicAuthority = authorship)
