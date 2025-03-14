@@ -41,14 +41,12 @@ make_sis_csvs <-
       if (!is.null(native_ranges)) {
       countries <- sis_countries(native_ranges, unique_id)
       }
-
       if (!is.null(occs)) {
-      allfields <- sis_allfields(unique_id)
+      allfields <- sis_allfields(unique_id, occs = occs)
       } else {
-        allfields <- sis_allfields(unique_id, occs = occs)
+        allfields <- sis_allfields(unique_id)
       }
-
-      assessments <- sis_assessments(unique_id)
+      assessments <- sis_assessments(unique_id, native_ranges)
       plantspecific <- sis_plantspecific(unique_id, kingdom)
       habitats <- sis_habitats(unique_id)
       credits <- sis_credits(unique_id, first_name, second_name, email, affiliation = institution)
@@ -82,8 +80,12 @@ make_sis_csvs <-
       if (!is.null(native_ranges)) {
         countries <- sis_countries(native_ranges, unique_id)
       }
-      allfields <- sis_allfields(unique_id)
-      assessments <- sis_assessments(unique_id)
+      if (!is.null(occs)) {
+        allfields <- sis_allfields(unique_id, occs = occs)
+      } else {
+        allfields <- sis_allfields(unique_id)
+      }
+      assessments <- sis_assessments(unique_id, native_ranges)
       plantspecific <- sis_plantspecific(unique_id, kingdom)
       habitats <- sis_habitats(unique_id)
       credits <- sis_credits(unique_id, first_name, second_name, email, affiliation = institution)

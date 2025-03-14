@@ -37,7 +37,6 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
                               coorduncert = coordinateUncertaintyInMeters,
                               event_year = year,
                               min_elev = elevation,
-                              max_elev = elevation,
                               recordedby = recordedBy,
                               recordno = recordNumber,
                               dist_comm = habitat,

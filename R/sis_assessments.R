@@ -6,7 +6,7 @@
 #' @return Returns an SIS compliant data frame
 #' @export
 
-sis_assessments = function(unique_id) {
+sis_assessments = function(unique_id, native_ranges) {
   rationale_str = paste(
     "This species has a very wide distribution,",
     "large population,",
@@ -35,6 +35,16 @@ sis_assessments = function(unique_id) {
       BiogeographicRealm.realm = ""
     )
   })
+
+  # If native_ranges and TDWG_realms are provided, calculate realms and merge
+  if (!is.null(native_ranges)) {
+    realm_data <- make_biorealms(native_ranges)
+
+    combined_table <- combined_table %>%
+      left_join(realm_data, by = "internal_taxon_id") %>%
+      mutate(BiogeographicRealm.realm = coalesce(BiogeographicRealm.realm.y, BiogeographicRealm.realm.x)) %>%
+      select(-BiogeographicRealm.realm.x, -BiogeographicRealm.realm.y)
+  }
 
   return(combined_table)
 }
