@@ -14,6 +14,7 @@ make_sis_csvs(
   gbif_ref = NULL,
   powo_ref = FALSE,
   native_ranges = NULL,
+  occs = NULL,
   family,
   genus,
   species,

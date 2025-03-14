@@ -29,6 +29,7 @@ make_sis_csvs <-
            gbif_ref = NULL,
            powo_ref = FALSE,
            native_ranges = NULL,
+           occs = NULL,
            family,
            genus,
            species,
@@ -40,7 +41,13 @@ make_sis_csvs <-
       if (!is.null(native_ranges)) {
       countries <- sis_countries(native_ranges, unique_id)
       }
+
+      if (!is.null(occs)) {
       allfields <- sis_allfields(unique_id)
+      } else {
+        allfields <- sis_allfields(unique_id, occs = occs)
+      }
+
       assessments <- sis_assessments(unique_id)
       plantspecific <- sis_plantspecific(unique_id, kingdom)
       habitats <- sis_habitats(unique_id)

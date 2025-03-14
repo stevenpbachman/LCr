@@ -4,7 +4,7 @@
 \alias{sis_allfields}
 \title{Generate the allfields.csv file}
 \usage{
-sis_allfields(unique_id)
+sis_allfields(unique_id, occs = NULL)
 }
 \arguments{
 \item{unique_id}{(character) Unique identifier.}
