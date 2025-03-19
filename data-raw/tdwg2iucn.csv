@@ -1,0 +1,867 @@
+﻿ID,Level.3.code,TDWG_Name,countryoccurrence.countryoccurrencesubfield.countryoccurrencename,countryoccurrence.countryoccurrencesubfield.countryoccurrencelookup
+1,ABT,Alberta,Alberta,ABT-OO
+2,ABT,Alberta,Canada,CA
+3,AFG,Afghanistan,Afghanistan,AF
+4,AGE,Buenos Aires,Buenos Aires,AGE-BA
+5,AGE,Chaco,Chaco,AGE-CH
+6,AGE,Corrientes,Corrientes,AGE-CN
+7,AGE,Córdoba,Córdoba,AGE-CO
+8,AGE,Argentina Distrito Federal,Argentina Distrito Federal,AGE-DF
+9,AGE,Entre Ríos,Entre Ríos,AGE-ER
+10,AGE,Formosa,Formosa,AGE-FO
+11,AGE,La Pampa,La Pampa,AGE-LP
+12,AGE,Misiones,Misiones,AGE-MI
+13,AGE,Santa Fé,Santa Fé,AGE-SF
+14,AGE,Argentina Northeast,Argentina,AR
+15,AGS,Chubut,Chubut,AGS-CB
+16,AGS,Neuquén,Neuquén,AGS-NE
+17,AGS,Rio Negro,Rio Negro,AGS-RN
+18,AGS,Santa Cruz,Santa Cruz,AGS-SC
+19,AGS,Tierra del Fuego,Tierra del Fuego,AGS-TF
+20,AGS,Argentina South,Argentina,AR
+21,AGW,Catamarca,Catamarca,AGW-CA
+22,AGW,Jujuy,Jujuy,AGW-JU
+23,AGW,La Rioja,La Rioja,AGW-LR
+24,AGW,Mendoza,Mendoza,AGW-ME
+25,AGW,Salta,Salta,AGW-SA
+26,AGW,Santiago del Estero,Santiago del Estero,AGW-SE
+27,AGW,San Juan,San Juan,AGW-SJ
+28,AGW,San Luis,San Luis,AGW-SL
+29,AGW,Tucumán,Tucumán,AGW-TU
+30,AGW,Argentina Northwest,Argentina,AR
+31,ALA,Alabama,Alabama,ALA-OO
+32,ALA,Alabama,United States,US
+33,ALB,Albania,Albania,AL
+34,ALD,Aldabra,Aldabra,ALD-OO
+35,ALD,Aldabra,Seychelles,SC
+36,ALG,Algeria,Algeria,DZ
+37,ALT,Altay,Altay,ALT-OO
+38,ALT,Altay,Russian Federation,RU
+39,ALT,Altay,Eastern Asian Russia,RU-EA
+40,ALU,Aleutian Is.,Aleutian Is.,ALU-OO
+41,ALU,Aleutian Is.,United States,US
+42,AMU,Amur,Amur,AMU-OO
+43,AMU,Amur,Russian Federation,RU
+44,AMU,Amur,Eastern Asian Russia,RU-EA
+45,AND,Andaman Is.,Andaman Is.,AND-AN
+46,AND,Andaman Is.,Coco Is.,AND-CO
+47,AND,Andaman Is.,India,IN
+48,ANG,Angola,Angola,ANG-OO
+49,ANG,Angola,Angola,AO
+50,ANT,Antarctica,Antarctica,AQ
+51,ARI,Arizona,Arizona,ARI-OO
+52,ARI,Arizona,United States,US
+53,ARK,Arkansas,Arkansas,ARK-OO
+54,ARK,Arkansas,United States,US
+55,ARU,Aruba,Aruba,AW
+56,ASC,Ascension,Ascension,ASC-OO
+57,ASC,Ascension,"Saint Helena, Ascension and Tristan da Cunha",SH
+58,ASK,Alaska,Alaska,ASK-OO
+59,ASK,Alaska,United States,US
+60,ASP,Amsterdam-St.Paul Is.,Amsterdam-St. Paul Is.,ASP-OO
+61,ASP,Amsterdam-St.Paul Is.,French Southern Territories,TF
+62,ASS,Assam,Assam,ASS-AS
+63,ASS,Manipur,Manipur,ASS-MA
+64,ASS,Meghalaya,Meghalaya,ASS-ME
+65,ASS,Mizoram,Mizoram,ASS-MI
+66,ASS,Nagaland,Nagaland,ASS-NA
+67,ASS,Tripura,Tripura,ASS-TR
+68,ASS,Assam,India,IN
+69,ATP,Antipodean Is.,Antipodean Is.,ATP-OO
+70,ATP,Antipodean Is.,New Zealand,NZ
+71,AUT,Austria,Austria,AT
+72,AUT,Liechtenstein,Liechtenstein,LI
+73,AZO,Azores,Azores,AZO-OO
+74,AZO,Azores,Portugal,PT
+75,BAH,Bahamas,Bahamas,BS
+76,BAL,Baleares,Baleares,BAL-OO
+77,BAL,Baleares,Spain,ES
+78,BAN,Bangladesh,Bangladesh,BD
+79,BEN,Benin,Benin,BJ
+80,BER,Bermuda,Bermuda,BM
+81,BGM,Belgium,Belgium,BE
+82,BGM,Belgium,Luxembourg,LU
+83,BIS,Bismarck Archipelago,Bismarck Archipelago,BIS-OO
+84,BIS,Bismarck Archipelago,Papua New Guinea,PG
+85,BKN,Burkina,Burkina Faso,BF
+86,BLR,Belarus,Belarus,BY
+87,BLT,Baltic States,Estonia,EE
+88,BLT,Baltic States,Lithuania,LT
+89,BLT,Baltic States,Latvia,LV
+90,BLT,Baltic States,Russian Federation,RU
+91,BLT,Kaliningrad,Russian Federation,BLT-KA
+92,BLZ,Belize,Belize,BZ
+93,BOL,Bolivia,"Bolivia, Plurinational States of",BO
+94,BOR,Borneo,Brunei Darussalam,BN
+95,BOR,Borneo,Kalimantan,BOR-KA
+96,BOR,Borneo,Sabah,BOR-SB
+97,BOR,Borneo,Sarawak,BOR-SR
+98,BOR,Borneo,Indonesia,ID
+99,BOR,Borneo,Malaysia,MY
+100,BOT,Botswana,Botswana,BW
+101,BOU,Bouvet I.,Bouvet Island,BV
+102,BRC,British Columbia,British Columbia,BRC-OO
+103,BRC,British Columbia,Canada,CA
+104,BRY,Buryatiya,Buryatiya,BRY-OO
+105,BRY,Buryatiya,Russian Federation,RU
+106,BRY,Buryatiya,Eastern Asian Russia,RU-EA
+107,BUL,Bulgaria,Bulgaria,BG
+108,BUR,Burundi,Burundi,BI
+109,BZC,Brazil West-Central,Brazil,BR
+110,BZC,Brasília Distrito Federal,Brasília Distrito Federal,BZC-DF
+111,BZC,Goiás,Goiás,BZC-GO
+112,BZC,Mato Grosso do Sul,Mato Grosso do Sul,BZC-MS
+113,BZC,Mato Grosso,Mato Grosso,BZC-MT
+114,BZE,Brazil Northeast,Brazil,BR
+115,BZE,Alagoas,Alagoas,BZE-AL
+116,BZE,Bahia,Bahia,BZE-BA
+117,BZE,Ceará,Ceará,BZE-CE
+118,BZE,Fernando de Noronha,Fernando de Noronha,BZE-FN
+119,BZE,Maranhão,Maranhão,BZE-MA
+120,BZE,Paraíba,Paraíba,BZE-PB
+121,BZE,Pernambuco,Pernambuco,BZE-PE
+122,BZE,Piauí,Piauí,BZE-PI
+123,BZE,Rio Grande do Norte,Rio Grande do Norte,BZE-RN
+124,BZE,Sergipe,Sergipe,BZE-SE
+125,BZL,Brazil Southeast,Brazil,BR
+126,BZL,Espírito Santo,Espírito Santo,BZL-ES
+127,BZL,Minas Gerais,Minas Gerais,BZL-MG
+128,BZL,Rio de Janeiro,Rio de Janeiro,BZL-RJ
+129,BZL,São Paulo,São Paulo,BZL-SP
+130,BZL,Trindade,Trindade,BZL-TR
+131,BZN,Brazil North,Brazil,BR
+132,BZN,Acre,Acre,BZN-AC
+133,BZN,Amapá,Amapá,BZN-AP
+134,BZN,Amazonas,Amazonas,BZN-AZ
+135,BZN,Pará,Pará,BZN-PA
+136,BZN,Roraima,Roraima,BZN-RM
+137,BZN,Rondônia,Rondônia,BZN-RO
+138,BZN,Tocantins,Tocantins,BZN-TO
+139,BZS,Brazil South,Brazil,BR
+140,BZS,Paraná,Paraná,BZS-PR
+141,BZS,Rio Grande do Sul,Rio Grande do Sul,BZS-RS
+142,BZS,Santa Catarina,Santa Catarina,BZS-SC
+143,CAB,Cabinda,Angola,AO
+144,CAB,Cabinda,Cabinda,CAB-OO
+145,CAF,Central African Republic,Central African Republic,CF
+146,CAL,California,California,CAL-OO
+147,CAL,California,United States,US
+148,CAY,Cayman Is.,Cayman Islands,KY
+149,CBD,Cambodia,Cambodia,KH
+150,CGS,Chagos Archipelago,Chagos Archipelago,CGS-OO
+151,CGS,Chagos Archipelago,British Indian Ocean Territory,IO
+152,CHA,Chad,Chad,TD
+153,CHC,China South-Central,China,CN
+154,CHC,Chongqing,Chongqing,CHC-CQ
+155,CHC,Guizhou,Guizhou,CHC-GZ
+156,CHC,Hubei,Hubei,CHC-HU
+157,CHC,Sichuan,Sichuan,CHC-SC
+158,CHC,Yunnan,Yunnan,CHC-YN
+159,CHH,Hainan,Hainan,CHH-OO
+160,CHH,Hainan,China,CN
+161,CHI,Inner Mongolia,China,CN
+162,CHI,Nei Mongol,Nei Mongol,CHI-NM
+163,CHI,Ningxia,Ningxia,CHI-NX
+164,CHM,Manchuria,China,CN
+165,CHM,Heilongjiang,Heilongjiang,CHM-HJ
+166,CHM,Jilin,Jilin,CHM-JL
+167,CHM,Liaoning,Liaoning,CHM-LN
+168,CHN,China North-Central,China,CN
+169,CHN,Beijing,Beijing,CHN-BJ
+170,CHN,Gansu,Gansu,CHN-GS
+171,CHN,Hebei,Hebei,CHN-HB
+172,CHN,Shaanxi,Shaanxi,CHN-SA
+173,CHN,Shandong,Shandong,CHN-SD
+174,CHN,Shanxi,Shanxi,CHN-SX
+175,CHN,Tianjin,Tianjin,CHN-TJ
+176,CHQ,Qinghai,Qinghai,CHQ-OO
+177,CHQ,Qinghai,China,CN
+178,CHS,China Southeast,China,CN
+179,CHS,Hong Kong,Hong Kong,HK
+180,CHS,Anhui,Anhui,CHS-AH
+181,CHS,Fujian,Fujian,CHS-FJ
+182,CHS,Guangdong,Guangdong,CHS-GD
+183,CHS,Guangxi,Guangxi,CHS-GX
+184,CHS,Henan,Henan,CHS-HE
+185,CHS,Hunan,Hunan,CHS-HN
+186,CHS,Jiangsu,Jiangsu,CHS-JS
+187,CHS,Jiangxi,Jiangxi,CHS-JX
+188,CHS,Kin-Men,Kin-Men,CHS-KI
+189,CHS,Ma-tsu-Pai-chuan,Ma-tsu-Pai-chuan,CHS-MP
+190,CHS,Shanghai,Shanghai,CHS-SH
+191,CHS,Zhejiang,Zhejiang,CHS-ZJ
+192,CHS,Macao,Macao,MO
+193,CHT,Tibet,Tibet [or Xizang],CHT-OO
+194,CHT,Tibet,China,CN
+195,CHX,Xinjiang,Xinjiang,CHX-OO
+196,CHX,Xinjiang,China,CN
+197,CKI,Cocos (Keeling) I.,Cocos (Keeling) Islands,CC
+198,CLC,Chile Central,Chile,CL
+199,CLC,Biobío,Biobío,CLC-BI
+200,CLC,Coquimbo,Coquimbo,CLC-CO
+201,CLC,La Araucania,La Araucania,CLC-LA
+202,CLC,Maule,Maule,CLC-MA
+203,CLC,O'Higgins,O'Higgins,CLC-OH
+204,CLC,Santiago,Santiago,CLC-SA
+205,CLC,Valparaíso,Valparaíso,CLC-VA
+206,CLM,Colombia,Colombia (mainland),CLM-OO
+207,CLM,Colombia,Colombia,CO
+208,CLN,Chile North,Chile,CL
+209,CLN,Antofagasta,Antofagasta,CLN-AN
+210,CLN,Atacama,Atacama,CLN-AT
+211,CLN,Tarapacá,Tarapacá,CLN-TA
+212,CLS,Chile South,Chile,CL
+213,CLS,Aisén,Aisén,CLS-AI
+214,CLS,Los Lagos,Los Lagos,CLS-LL
+215,CLS,Magellanes,Magellanes,CLS-MG
+216,CMN,Cameroon,Cameroon,CM
+217,CNT,Connecticut,Connecticut,CNT-OO
+218,CNT,Connecticut,United States,US
+219,CNY,Canary Is.,Canary Is.,CNY-OO
+220,CNY,Canary Is.,Spain,ES
+221,COL,Colorado,Colorado,COL-OO
+222,COL,Colorado,United States,US
+223,COM,Comoros,Comoros,KM
+224,COM,Comoros,Mayotte,YT
+225,CON,Congo,Congo,CG
+226,COO,Cook Is.,Cook Islands,CK
+227,COO,Cook Is.,Cook Is.,COO-OO
+228,COR,Corse,Corsica,COR-OO
+229,COS,Costa Rica,Costa Rica (mainland),COS-OO
+230,COS,Costa Rica,Costa Rica,CR
+231,CPI,C. American Pacific Is.,Colombia,CO
+232,CPI,C. American Pacific Is.,Clipperton I.,CPI-CL
+233,CPI,C. American Pacific Is.,Malpelo I.,CPI-MA
+234,CPI,C. American Pacific Is.,Cocos I.,CPI-CO
+235,CPI,C. American Pacific Is.,Costa Rica,CR
+236,CPI,C. American Pacific Is.,France,FR
+237,CPP,Cape Provinces,South Africa,ZA
+238,CPP,Eastern Cape Province,Eastern Cape Province,CPP-EC
+239,CPP,Northern Cape Province,Northern Cape Province,CPP-NC
+240,CPP,Western Cape,Western Cape,CPP-WC
+241,CPV,Caprivi Strip,Caprivi Strip,CPV-OO
+242,CPV,Caprivi Strip,Namibia,NA
+243,CRL,Caroline Is.,"Micronesia, Federated States of",FM
+244,CRL,Caroline Is.,Palau,PW
+245,CRZ,Crozet Is.,Crozet Is.,CRZ-OO
+246,CRZ,Crozet Is.,French Southern Territories,TF
+247,CTA,Chita,Chita,CTA-OO
+248,CTA,Chita,Russian Federation,RU
+249,CTA,Chita,Central European Russia,RUC-OO
+250,CTM,Chatham Is.,Chatham Is.,CTM-OO
+251,CTM,Chatham Is.,New Zealand,NZ
+252,CUB,Cuba,Cuba,CU
+253,CVI,Cape Verde,Cabo Verde,CV
+254,CYP,Cyprus,Cyprus,CY
+255,CZE,Czechoslovakia,Czechia,CZ
+256,CZE,Czechoslovakia,Slovakia,SK
+257,DEL,Delaware,Delaware,DEL-OO
+258,DEL,Delaware,United States,US
+259,DEN,Denmark,Denmark,DK
+260,DJI,Djibouti,Djibouti,DJ
+261,DOM,Dominican Republic,Dominican Republic,DO
+262,DSV,Desventurados Is.,Chile,CL
+263,DSV,Desventurados Is.,Desventurados Is.,DSV-OO
+264,EAI,East Aegean Is.,East Aegean Is.,EAI-OO
+265,EAI,East Aegean Is.,Greece,GR
+266,EAS,Easter Is.,Chile,CL
+267,EAS,Easter Is.,Easter Is.,EAS-OO
+268,ECU,Ecuador,Ecuador,EC
+269,ECU,Ecuador,Ecuador (mainland),ECU-OO
+270,EGY,Egypt,Egypt,EG
+271,EGY,Egypt,Egypt (African part),EGY-OO
+272,EHM,East Himalaya,Bhutan,BT
+273,EHM,East Himalaya,India,IN
+274,EHM,Arunachal Pradesh,Arunachal Pradesh,EHM-AP
+275,EHM,Darjiling,Darjiling,EHM-DJ
+276,EHM,Sikkim,Sikkim,EHM-SI
+277,ELS,El Salvador,El Salvador,SV
+278,EQG,Equatorial Guinea,Equatorial Guinea (mainland),EQG-OO
+279,EQG,Equatorial Guinea,Equatorial Guinea,GQ
+280,ERI,Eritrea,Eritrea,ER
+281,ETH,Ethiopia,Ethiopia,ET
+282,FAL,Falkland Is.,Falkland Islands (Malvinas),FK
+283,FIJ,Fiji,Fiji,FJ
+284,FIN,Finland,Finland,FI
+285,FLA,Florida,Florida,FLA-OO
+286,FLA,Florida,United States,US
+287,FOR,Faroe Islands,Faroe Islands,FO
+288,FRA,France,France,FR
+289,FRA,France,France (mainland),FRA-FR
+290,FRA,Monaco,Monaco,MC
+291,FRG,French Guiana,French Guiana,GF
+292,GAB,Gabon,Gabon,GA
+293,GAL,Galápagos,Ecuador,EC
+294,GAL,Galápagos,Ecuador,EC
+295,GAL,Galápagos,Galápagos,GAL-OO
+296,GAM,Gambia,Gambia,GM
+297,GEO,Georgia,Georgia,GEO-OO
+298,GEO,Georgia,United States,US
+299,GER,Germany,Germany,DE
+300,GGI,Gulf of Guinea Is.,Annobón,GGI-AN
+301,GGI,Gulf of Guinea Is.,Bioko,GGI-BI
+302,GGI,Gulf of Guinea Is.,Principe,GGI-PR
+303,GGI,Gulf of Guinea Is.,Sâo Tomé,GGI-ST
+304,GGI,Gulf of Guinea Is.,Equatorial Guinea,GQ
+305,GGI,Gulf of Guinea Is.,Sao Tome and Principe,ST
+306,GHA,Ghana,Ghana,GH
+307,GIL,Gilbert Is.,Gilbert Is.,GIL-OO
+308,GIL,Gilbert Is.,Kiribati,KI
+309,GNB,Guinea-Bissau,Guinea-Bissau,GW
+310,GNL,Greenland,Greenland,GL
+311,GRB,Great Britain,United Kingdom,GRB-OO
+312,GRB,Great Britain,Isle of Man,IM
+313,GRC,Greece,Greece,GR
+314,GRC,Greece,Greece (mainland),GRC-OO
+315,GST,Gulf States,United Arab Emirates,AE
+316,GST,Gulf States,Bahrain,BH
+317,GST,Gulf States,Qatar,QA
+318,GUA,Guatemala,Guatemala,GT
+319,GUI,Guinea,Guinea,GN
+320,GUY,Guyana,Guyana,GY
+321,HAI,Haiti,Haiti,HT
+322,HAI,Navassa I.,Navassa I.,HAI-NI
+323,HAW,Hawaii,Hawaiian Is.,HAW-HI
+324,HAW,Hawaii,United States,US
+325,HBI,Howland-Baker Is.,Howland-Baker Is.,HBI-OO
+326,HBI,Howland-Baker Is.,United States Minor Outlying Islands,UM
+327,HMD,Heard-McDonald Is.,Heard Island and McDonald Islands,HM
+328,HON,Honduras,Honduras,HN
+329,HON,Honduras,Honduras (mainland),HON-OO
+330,HUN,Hungary,Hungary,HU
+331,ICE,Iceland,Iceland,IS
+332,IDA,Idaho,Idaho,IDA-OO
+333,IDA,Idaho,United States,US
+334,ILL,Illinois,Illinois,ILL-OO
+335,ILL,Illinois,United States,US
+336,IND,India,India,IN
+337,IND,Andhra Pradesh,Andhra Pradesh,IND-AP
+338,IND,Bihar,Bihar,IND-BI
+339,IND,Chandigarh,Chandigarh,IND-CH
+340,IND,Chattisgarh,Chattisgarh,IND-CT
+341,IND,Dadra-Nagar-Haveli,Dadra-Nagar-Haveli,IND-DD
+342,IND,Delhi,Delhi,IND-DE
+343,IND,Diu,Diu,IND-DI
+344,IND,Daman,Daman,IND-DM
+345,IND,Goa,Goa,IND-GO
+346,IND,Gujarat,Gujarat,IND-GU
+347,IND,Haryana,Haryana,IND-HA
+348,IND,Jharkhand,Jharkand,IND-JK
+349,IND,Kerala,Kerala,IND-KE
+350,IND,Karaikal,Karaikal,IND-KL
+351,IND,Karnataka,Karnataka,IND-KT
+352,IND,Mahé,Mahé,IND-MH
+353,IND,Madhya Pradesh,Madhya Pradesh,IND-MP
+354,IND,Maharashtra,Maharashtra,IND-MR
+355,IND,Orissa,Orissa,IND-OR
+356,IND,Pondicherry,Pondicherry,IND-PO
+357,IND,Punjab,Punjab,IND-PU
+358,IND,Rajasthan,Rajasthan,IND-RA
+359,IND,Tamil Nadu,Tamil Nadu,IND-TN
+360,IND,Uttar Pradesh,Uttar Pradesh,IND-UP
+361,IND,West Bengal,West Bengal,IND-WB
+362,IND,Yanam,Yanam,IND-YA
+363,INI,Indiana,Indiana,INI-OO
+364,INI,Indiana,United States,US
+365,IOW,Iowa,Iowa,IOW-OO
+366,IOW,Iowa,United States,US
+367,IRE,Ireland,United Kingdom,GB
+368,IRE,Ireland,Ireland,IE
+369,IRE,Ireland,Northern Ireland,IRE-NI
+370,IRK,Irkutsk,Irkutsk,IRK-OO
+371,IRK,Irkutsk,Russian Federation,RU
+372,IRK,Irkutsk,East European Russia,RUE-OO
+373,IRN,Iran,"Iran, Islamic Republic of",IR
+374,IRQ,Iraq,Iraq,IQ
+375,ITA,Italy,Italy,IT
+376,ITA,Italy,Italy (mainland),ITA-IT
+377,ITA,San Marino,San Marino,SM
+378,ITA,Holy See (Vatican City State),Holy See (Vatican City State),VA
+379,IVO,Ivory Coast,Côte d'Ivoire,CI
+380,JAM,Jamaica,Jamaica,JM
+381,JAP,Japan,Japan,JP
+382,JAP,Hokkaido,Hokkaido,JAP-HK
+383,JAP,Honshu,Honshu,JAP-HN
+384,JAP,Kyushu,Kyushu,JAP-KY
+385,JAP,Shikoku,Shikoku,JAP-SH
+386,JAW,Jawa,Indonesia,ID
+387,JAW,Jawa,Jawa,JAW-OO
+388,JNF,Juan Fernández Is.,Chile,CL
+389,JNF,Juan Fernández Is.,Juan Fernández Is.,JNF-OO
+390,KAM,Kamchatka,Kamchatka,KAM-OO
+391,KAM,Kamchatka,Russian Federation,RU
+392,KAM,Kamchatka,East European Russia,RUE-OO
+393,KAN,Kansas,Kansas,KAN-OO
+394,KAN,Kansas,United States,US
+395,KAZ,Kazakhstan,Kazakhstan,KZ
+396,KEG,Kerguelen,Kerguelen,KEG-OO
+397,KEG,Kerguelen,French Southern Territories,TF
+398,KEN,Kenya,Kenya,KE
+399,KER,Kermadec Is.,Kermadec Is.,KER-OO
+400,KER,Kermadec Is.,New Zealand,NZ
+401,KGZ,Kirgizistan,Kyrgyzstan,KG
+402,KHA,Khabarovsk,Khabarovsk,KHA-OO
+403,KHA,Khabarovsk,Russian Federation,RU
+404,KHA,Khabarovsk,East European Russia,RUE-OO
+405,KOR,Korea,"Korea, Democratic People's Republic of",KP
+406,KOR,Korea,"Korea, Republic of",KR
+407,KRA,Krasnoyarsk,Krasnoyarsk,KRA-OO
+408,KRA,Krasnoyarsk,Russian Federation,RU
+409,KRA,Krasnoyarsk,East European Russia,RUE-OO
+410,KRI,Kriti,Greece,GR
+411,KRI,Kriti,Kriti,KRI-OO
+412,KRY,Krym,Krym,KRY-OO
+413,KRY,Krym,Russian Federation,RU
+414,KRY,Krym,South European Russia,RUS-OO
+415,KTY,Kentucky,Kentucky,KTY-OO
+416,KTY,Kentucky,United States,US
+417,KUR,Kuril Is.,Kuril Is.,KUR-OO
+418,KUR,Kuril Is.,Russian Federation,RU
+419,KUR,Kuril Is.,East European Russia,RUE-OO
+420,KUW,Kuwait,Kuwait,KW
+421,KZN,Kazan-retto,Japan,JP
+422,KZN,Kazan-retto,Kazan-retto,KZN-OO
+423,LAB,Labrador,Canada,CA
+424,LAB,Labrador,Labrador,LAB-OO
+425,LAO,Laos,Lao People's Democratic Republic,LA
+426,LBR,Liberia,Liberia,LR
+427,LBS,Lebanon-Syria,Lebanon,LB
+428,LBS,Lebanon-Syria,Syrian Arab Republic,SY
+429,LBY,Libya,Libya,LY
+430,LDV,Laccadive Is.,India,IN
+431,LDV,Laccadive Is.,Laccadive Is.,LDV-OO
+432,LEE,Leeward Is. AB Ant,Antigua and Barbuda,AG
+433,LEE,Leeward Is. AB Ant,Anguilla,AI
+434,LEE,Leeward Is. AB Ant,Saint Barthélemy,BL
+435,LEE,Leeward Is. AB Ant,"Bonaire, Sint Eustatius and Saba",BQ
+436,LEE,Leeward Is. AB Ant,Guadeloupe,GP
+437,LEE,Leeward Is. AB Ant,Saint Kitts and Nevis,KN
+438,LEE,Leeward Is. AB Ant,Aves I.,LEE-AV
+439,LEE,Leeward Is. AB Ant,Saint Martin (French part),MF
+440,LEE,Leeward Is. AB Ant,Montserrat,MS
+441,LEE,Leeward Is. AB Ant,Saba,NLA-SA
+442,LEE,Leeward Is. AB Ant,Sint Eustatius,NLA-SE
+443,LEE,Leeward Is. AB Ant,Sint Maarten (Dutch part),SX
+444,LEE,Leeward Is. AB Ant,"Venezuela, Bolivarian Republic of",VE
+445,LEE,Leeward Is. AB Ant,"Virgin Islands, British",VG
+446,LEE,Leeward Is. AB Ant,"Virgin Islands, U.S.",VI
+447,LES,Lesotho,Lesotho,LS
+448,LIN,Line Is.,Kiribati,KI
+449,LIN,Line Is.,Kiribati Line Is.,LIN-KI
+450,LIN,Line Is.,US Line Is.,LIN-US
+451,LIN,Line Is.,United States Minor Outlying Islands,UM
+452,LOU,Louisiana,Louisiana,LOU-OO
+453,LOU,Louisiana,United States,US
+454,LSI,Lesser Sunda Is.,Indonesia,ID
+455,LSI,Lesser Sunda Is.,Lesser Sunda Is.,LSI-LS
+456,LSI,Bali,Bali,LSI-BA
+457,LSI,Timor-Leste,Timor-Leste,TL
+458,MAG,Magadan,Magadan,MAG-OO
+459,MAG,Magadan,Russian Federation,RU
+460,MAG,Magadan,East European Russia,RUE-OO
+461,MAI,Maine,Maine,MAI-OO
+462,MAI,Maine,United States,US
+463,MAN,Manitoba,Canada,CA
+464,MAN,Manitoba,Manitoba,MAN-OO
+465,MAQ,Macquarie Is.,Australia,AU
+466,MAQ,Macquarie Is.,Macquarie Is.,MAQ-OO
+467,MAS,Massachusetts,Massachusetts,MAS-OO
+468,MAS,Massachusetts,United States,US
+469,MAU,Mauritius,Mauritius (main island),MAU-OO
+470,MAU,Mauritius,Mauritius,MU
+471,MCI,Mozambique Channel Is.,Mozambique Channel Is.,MCI-OO
+472,MCI,Mozambique Channel Is.,French Southern Territories,TF
+473,MCS,Marcus I.,Japan,JP
+474,MCS,Marcus I.,Marcus I.,MCS-OO
+475,MDG,Madagascar,Madagascar,MG
+476,MDR,Madeira,Madeira,MDR-OO
+477,MDR,Madeira,Portugal,PT
+478,MDV,Maldives,Maldives,MV
+479,MIC,Michigan,Michigan,MIC-OO
+480,MIC,Michigan,United States,US
+481,MIN,Minnesota,Minnesota,MIN-OO
+482,MIN,Minnesota,United States,US
+483,MLI,Mali,Mali,ML
+484,MLW,Malawi,Malawi,MW
+485,MLY,Malaya,Peninsular Malaysia,MLY-PM
+486,MLY,Malaya,Malaysia,MY
+487,MLY,Malaya,Singapore,SG
+488,MNT,Montana,Montana,MNT-OO
+489,MNT,Montana,United States,US
+490,MOL,Maluku,Indonesia,ID
+491,MOL,Maluku,Maluku,MOL-OO
+492,MON,Mongolia,Mongolia,MN
+493,MOR,Morocco,Morocco,MA
+494,MOR,Spanish North African Territories,Spanish North African Territories,MOR-SP
+495,MOZ,Mozambique,Mozambique,MZ
+496,MPE,Marion-Prince Edward Is.,Marion-Prince Edward Is.,MPE-OO
+497,MPE,Marion-Prince Edward Is.,South Africa,ZA
+498,MRN,Marianas,Guam,GU
+499,MRN,Marianas,Northern Mariana Islands,MP
+500,MRQ,Marquesas,Marquesas,MRQ-OO
+501,MRQ,Marquesas,French Polynesia,PF
+502,MRS,Marshall Is.,Marshall Islands,MH
+503,MRY,Maryland,Maryland,MRY-OO
+504,MRY,Maryland,United States,US
+505,MSI,Mississippi,Mississippi,MSI-OO
+506,MSI,Mississippi,United States,US
+507,MSO,Missouri,Missouri,MSO-OO
+508,MSO,Missouri,United States,US
+509,MTN,Mauritania,Mauritania,MR
+510,MXC,Mexico Central,Mexico,MX
+511,MXC,México Distrito Federal,México Distrito Federal,MXC-DF
+512,MXC,México State,México State,MXC-ME
+513,MXC,Morelos,Morelos,MXC-MO
+514,MXC,Puebla,Puebla,MXC-PU
+515,MXC,Tlaxcala,Tlaxcala,MXC-TL
+516,MXE,Mexico Northeast,Mexico,MX
+517,MXE,Aguascalientes,Aguascalientes,MXE-AG
+518,MXE,Coahuila,Coahuila,MXE-CO
+519,MXE,Chihuahua,Chihuahua,MXE-CU
+520,MXE,Durango,Durango,MXE-DU
+521,MXE,Guanajuato,Guanajuato,MXE-GU
+522,MXE,Hidalgo,Hidalgo,MXE-HI
+523,MXE,Nuevo León,Nuevo León,MXE-NL
+524,MXE,Querétaro,Querétaro,MXE-QU
+525,MXE,San Luis Potosí,San Luis Potosí,MXE-SL
+526,MXE,Tamaulipas,Tamaulipas,MXE-TA
+527,MXE,Zacatecas,Zacatecas,MXE-ZA
+528,MXG,Mexico Gulf,Mexico,MX
+529,MXG,Veracruz,Veracruz,MXG-VC
+530,MXI,Mexican Pacific Is.,Mexico,MX
+531,MXI,Guadalupe I.,Guadalupe I.,MXI-GU
+532,MXI,Rocas Alijos,Rocas Alijos,MXI-RA
+533,MXI,Revillagigedo Is.,Revillagigedo Is.,MXI-RG
+534,MXN,Mexico Northwest,Mexico,MX
+535,MXN,Baja California,Baja California,MXN-BC
+536,MXN,Baja California Sur,Baja California Sur,MXN-BS
+537,MXN,Sinaloa,Sinaloa,MXN-SI
+538,MXN,Sonora,Sonora,MXN-SO
+539,MXS,Mexico Southwest,Mexico,MX
+540,MXS,Colima,Colima,MXS-CL
+541,MXS,Guerrero,Guerrero,MXS-GR
+542,MXS,Jalisco,Jalisco,MXS-JA
+543,MXS,Michoacán,Michoacán,MXS-MI
+544,MXS,Nayarit,Nayarit,MXS-NA
+545,MXS,Oaxaca,Oaxaca,MXS-OA
+546,MXT,Mexico Southeast,Mexico,MX
+547,MXT,Campeche,Campeche,MXT-CA
+548,MXT,Chiapas,Chiapas,MXT-CI
+549,MXT,Quintana Roo,Quintana Roo,MXT-QR
+550,MXT,Tabasco,Tabasco,MXT-TB
+551,MXT,Yucatán,Yucatán,MXT-YU
+552,MYA,Myanmar,Myanmar,MM
+553,MYA,Myanmar,Myanmar (mainland),MYA-OO
+554,NAM,Namibia,Namibia (main part),NAM-OO
+555,NAM,Namibia,Namibia,NA
+556,NAT,KwaZulu-Natal,KwaZulu-Natal,NAT-OO
+557,NAT,KwaZulu-Natal,South Africa,ZA
+558,NBR,New Brunswick,Canada,CA
+559,NBR,New Brunswick,New Brunswick,NBR-OO
+560,NCA,North Carolina,North Carolina,NCA-OO
+561,NCA,North Carolina,United States,US
+562,NCB,Nicobar Is.,India,IN
+563,NCB,Nicobar Is.,Nicobar Is.,NCB-OO
+564,NCS,North Caucasus,Russian Federation,RU
+565,NCS,Chechnya,Chechnya,NCS-CH
+566,NCS,Dagestan,Dagestan,NCS-DA
+567,NCS,Ingushetiya,Ingushetiya,NCS-IN
+568,NCS,Kabardino-Balkariya,Kabardino-Balkariya,NCS-KB
+569,NCS,Karachaevo-Cherkessiya,Karachaevo-Cherkessiya,NCS-KC
+570,NCS,Krasnodar,Krasnodar,NCS-KR
+571,NCS,Severo-Osetiya,Severo-Osetiya,NCS-SO
+572,NCS,Stavropol,Stavropol,NCS-ST
+573,NDA,North Dakota,North Dakota,NDA-OO
+574,NDA,North Dakota,United States,US
+575,NEB,Nebraska,Nebraska,NEB-OO
+576,NEB,Nebraska,United States,US
+577,NEP,Nepal,Nepal,NP
+578,NET,Netherlands,Netherlands,NL
+579,NEV,Nevada,Nevada,NEV-OO
+580,NEV,Nevada,United States,US
+581,NFK,Norfolk Is.,Norfolk Island,NF
+582,NFK,Lord Howe Is.,Lord Howe Is.,NFK-LH
+583,NFL,Newfoundland,Canada,CA
+584,NFL,Newfoundland,Newfoundland I,NFL-NE
+585,NFL,Saint Pierre and Miquelon,Saint Pierre and Miquelon,PM
+586,NGA,Nigeria,Nigeria,NG
+587,NGR,Niger,Niger,NE
+588,NIC,Nicaragua,Nicaragua,NI
+589,NIC,Nicaragua,Nicaragua (mainland),NIC-OO
+590,NLA,Netherlands Antilles,"Bonaire, Sint Eustatius and Saba",BQ
+591,NLA,Netherlands Antilles,Curaçao,CW
+592,NLA,Netherlands Antilles,Bonaire,NLA-BO
+593,NNS,Nansei-shoto,Japan,JP
+594,NNS,Nansei-shoto,Nansei-shoto,NNS-OO
+595,NOR,Norway,Norway,NO
+596,NRU,Nauru,Nauru,NR
+597,NSC,Nova Scotia,Canada,CA
+598,NSC,Nova Scotia,Nova Scotia,NSC-OO
+599,NSW,New South Wales,Australia,AU
+600,NSW,New South Wales,New South Wales,NSW-NS
+601,NSW,Australian Capital Territory,Australian Capital Territory,NSW-CT
+602,NTA,Northern Territory,Australia,AU
+603,NTA,Northern Territory,Northern Territory,NTA-OO
+604,NUE,Niue,Niue,NU
+605,NUN,Nunavut,Canada,CA
+606,NUN,Nunavut,Nunavut,NUN-OO
+607,NWC,New Caledonia,New Caledonia,NC
+608,NWG,New Guinea,Indonesia,ID
+609,NWG,New Guinea,Papua New Guinea (main island group),NWG-PN
+610,NWG,New Guinea,Papua New Guinea,PG
+611,NWG,Irian Jaya,Papua,NWG-IJ
+612,NWH,New Hampshire,New Hampshire,NWH-OO
+613,NWH,New Hampshire,United States,US
+614,NWJ,New Jersey,New Jersey,NWJ-OO
+615,NWJ,New Jersey,United States,US
+616,NWM,New Mexico,New Mexico,NWM-OO
+617,NWM,New Mexico,United States,US
+618,NWT,Northwest Territories,Canada,CA
+619,NWT,Northwest Territories,Northwest Territories,NWT-OO
+620,NWY,New York,New York,NWY-OO
+621,NWY,New York,United States,US
+622,NZN,New Zealand North,New Zealand,NZ
+623,NZN,New Zealand North,North Is.,NZN-OO
+624,NZS,New Zealand South,New Zealand,NZ
+625,NZS,New Zealand South,South Is.,NZS-OO
+626,OFS,Free State,Free State,OFS-OO
+627,OFS,Free State,South Africa,ZA
+628,OGA,Ogasawara-shoto,Japan,JP
+629,OGA,Ogasawara-shoto,Ogasawara-shoto,OGA-OO
+630,OHI,Ohio,Ohio,OHI-OO
+631,OHI,Ohio,United States,US
+632,OKL,Oklahoma,Oklahoma,OKL-OO
+633,OKL,Oklahoma,United States,US
+634,OMA,Oman,Oman,OM
+635,ONT,Ontario,Canada,CA
+636,ONT,Ontario,Ontario,ONT-OO
+637,ORE,Oregon,Oregon,ORE-OO
+638,ORE,Oregon,United States,US
+639,PAK,Pakistan,Pakistan,PK
+640,PAL,Palestine,Israel,IL
+641,PAL,Palestine,Jordan,JO
+642,PAL,Palestine,"Palestine, State of",PS
+643,PAN,Panama,Panama,PA
+644,PAR,Paraguay,Paraguay,PY
+645,PEI,Prince Edward I.,Canada,CA
+646,PEI,Prince Edward I.,Prince Edward I.,PEI-OO
+647,PEN,Pennsylvania,Pennsylvania,PEN-OO
+648,PEN,Pennsylvania,United States,US
+649,PER,Peru,Peru,PE
+650,PHI,Philippines,Philippines,PH
+651,PHX,Phoenix Is.,Kiribati,KI
+652,PHX,Phoenix Is.,Phoenix Is.,PHX-OO
+653,PIT,Pitcairn Is.,Pitcairn,PN
+654,POL,Poland,Poland,PL
+655,POR,Portugal,Portugal (mainland),POR-OO
+656,POR,Portugal,Portugal,PT
+657,PRM,Primorye,Primoryi,PRM-OO
+658,PRM,Primorye,Russian Federation,RU
+659,PRM,Primorye,Northwest European Russia,RUW-OO
+660,PUE,Puerto Rico,Puerto Rico,PR
+661,PUE,Puerto Rico,Puerto Rico (main island),PUE-OO
+662,QLD,Queensland,Australia,AU
+663,QLD,Queensland,Queensland,QLD-QU
+664,QUE,Québec,Canada,CA
+665,QUE,Québec,Québec,QUE-OO
+666,REU,Réunion,Réunion,RE
+667,RHO,Rhode I.,Rhode Island,RHO-OO
+668,RHO,Rhode I.,United States,US
+669,ROD,Rodrigues,Mauritius,MU
+670,ROD,Rodrigues,Rodrigues,ROD-OO
+671,ROM,Romania,Romania,RO
+672,RUC,Central European Russia,Russian Federation,RU
+673,RUC,Central European Russia,Central European Russia,RUC-OO
+674,RUE,East European Russia,Russian Federation,RU
+675,RUE,East European Russia,East European Russia,RUE-OO
+676,RUN,North European Russia,Russian Federation,RU
+677,RUN,North European Russia,North European Russia,RUN-OO
+678,RUS,South European Russia,Russian Federation,RU
+679,RUS,South European Russia,South European Russia,RUS-OO
+680,RUW,Northwest European Russia,Russian Federation,RU
+681,RUW,Northwest European Russia,Northwest European Russia,RUW-OO
+682,RWA,Rwanda,Rwanda,RW
+683,SAK,Sakhalin,Russian Federation,RU
+684,SAK,Sakhalin,Northwest European Russia,RUW-OO
+685,SAK,Sakhalin,Sakhalin,SAK-OO
+686,SAM,Samoa,Samoa,WS
+687,SAM,American Samoa,American Samoa,SAM-AS
+688,SAR,Sardegna,Italy,IT
+689,SAR,Sardegna,Sardegna,SAR-OO
+690,SAS,Saskatchewan,Canada,CA
+691,SAS,Saskatchewan,Saskatchewan,SAS-OO
+692,SAU,Saudi Arabia,Saudi Arabia,SA
+693,SCA,South Carolina,South Carolina,SCA-OO
+694,SCA,South Carolina,United States,US
+695,SCI,Society Is.,French Polynesia,PF
+696,SCI,Society Is.,Society Is.,SCI-OO
+697,SCS,South China Sea,Disputed Territory,DT
+698,SCS,South China Sea,Paracel Is.,SCS-PI
+699,SCS,South China Sea,Spratly Is.,SCS-PI
+700,SCZ,Santa Cruz Is.,Solomon Islands,SB
+701,SCZ,Santa Cruz Is.,Santa Cruz Is.,SCZ-OO
+702,SDA,South Dakota,South Dakota,SDA-OO
+703,SDA,South Dakota,United States,US
+704,SEL,Selvagens,Portugal,PT
+705,SEL,Selvagens,Selvagens,SEL-OO
+706,SEN,Senegal,Senegal,SN
+707,SEY,Seychelles,Seychelles,SC
+708,SEY,Seychelles,Seychelles (main island group),SEY-OO
+709,SGE,South Georgia,South Georgia and the South Sandwich Islands,GS
+710,SGE,South Georgia,South Georgia,SGE-OO
+711,SIC,Sicilia,Italy,IT
+712,SIC,Sicilia,Malta,MT
+713,SIC,Sicilia,Sicilia,SIC-SI
+714,SIE,Sierra Leone,Sierra Leone,SL
+715,SIN,Sinai,Egypt,EG
+716,SIN,Sinai,Sinai,SIN-OO
+717,SOA,South Australia,Australia,AU
+718,SOA,South Australia,South Australia,SOA-OO
+719,SOC,Socotra,Socotra,SOC-OO
+720,SOC,Socotra,Yemen,YE
+721,SOL,Solomon Is.,Papua New Guinea,PG
+722,SOL,Solomon Is.,Solomon Islands,SB
+723,SOL,North Solomons,North Solomons,SOL-NO
+724,SOL,South Solomons,South Solomons,SOL-SO
+725,SOM,Somalia,Somalia,SO
+726,SPA,Spain,Spain,ES
+727,SPA,Spain,Gibraltar,GI
+728,SPA,Spain,Spain (mainland),SPA-SP
+729,SPA,Andorra,Andorra,AD
+730,SRL,Sri Lanka,Sri Lanka,LK
+731,SSA,South Sandwich Is.,South Georgia and the South Sandwich Islands,GS
+732,SSA,South Sandwich Is.,South Sandwich Is.,SSA-OO
+733,STH,St.Helena,Saint Helena (main island),STH-OO
+734,SUD,Sudan,Sudan,SD
+735,SUD,Sudan,South Sudan,SS
+736,SUL,Sulawesi,Indonesia,ID
+737,SUL,Sulawesi,Sulawesi,SUL-OO
+738,SUM,Sumatera,Indonesia,ID
+739,SUM,Sumatera,Sumatera,SUM-OO
+740,SUR,Surinam,Suriname,SR
+741,SVA,Svalbard,Svalbard and Jan Mayen,SJ
+742,SWC,Southwest Caribbean,Colombia,CO
+743,SWC,Southwest Caribbean,Honduras,HN
+744,SWC,Southwest Caribbean,Nicaragua,NI
+745,SWC,Southwest Caribbean,Colombian Caribbean Is.,SWC-CC
+746,SWC,Southwest Caribbean,Honduran Caribbean Is.,SWC-HC
+747,SWC,Southwest Caribbean,Nicaraguan Caribbean Is.,SWC-NC
+748,SWE,Sweden,Sweden,SE
+749,SWI,Switzerland,Switzerland,CH
+750,SWZ,Swaziland,Eswatini,SZ
+751,TAI,Taiwan,"Taiwan, Province of China (main island)",TAI-OO
+752,TAI,Taiwan,"Taiwan, Province of China",TW
+753,TAN,Tanzania,"Tanzania, United Republic of",TZ
+754,TAS,Tasmania,Australia,AU
+755,TAS,Tasmania,Tasmania,TAS-OO
+756,TCI,Turks-Caicos Is.,Turks and Caicos Islands,TC
+757,TCS,Transcaucasus,Armenia,AM
+758,TCS,Transcaucasus,Azerbaijan,AZ
+759,TCS,Transcaucasus,Georgia,GE
+760,TCS,Transcaucasus,Abkhaziya,TCS-AB
+761,TCS,Transcaucasus,Adzhariya,TCS-AD
+762,TCS,Transcaucasus,Armenia,TCS-AR
+763,TCS,Transcaucasus,Gruziya,TCS-GR
+764,TCS,Transcaucasus,Nakhichevan,TCS-NA
+765,TCS,Transcaucasus,Nagorno-Karabakh,TCS-NK
+767,TDC,Tristan da Cunha,"Saint Helena, Ascension and Tristan da Cunha",SH
+768,TDC,Tristan da Cunha,Tristan da Cunha,TDC-OO
+769,TEN,Tennessee,Tennessee,TEN-OO
+770,TEN,Tennessee,United States,US
+771,TEX,Texas,Texas,TEX-OO
+772,TEX,Texas,United States,US
+773,THA,Thailand,Thailand,TH
+774,TKM,Turkmenistan,Turkmenistan,TM
+775,TOG,Togo,Togo,TG
+776,TOK,Tokelau-Manihiki,American Samoa,AS
+777,TOK,Tokelau-Manihiki,Tokelau,TK
+778,TOK,Tokelau-Manihiki,Manihiki Is.,TOK-MA
+779,TOK,Tokelau-Manihiki,Swains Is.,TOK-SW
+780,TON,Tonga,Tonga,TO
+781,TRT,Trinidad-Tobago,Trinidad and Tobago,TT
+782,TUA,Tuamotu,French Polynesia,PF
+783,TUA,Tuamotu,Tuamotu,TUA-OO
+784,TUB,Tubuai Is.,French Polynesia,PF
+785,TUB,Tubuai Is.,Tubuai Is.,TUB-OO
+786,TUE,Turkey-in-Europe,Turkey-in-Europe,TUE-OO
+787,TUE,Turkey-in-Europe,Turkey,TR
+788,TUN,Tunisia,Tunisia,TN
+789,TUR,Turkey,Turkey,TR
+790,TUV,Tuvalu,Tuvalu,TV
+791,TVA,Tuva,Russian Federation,RU
+792,TVA,Tuva,South European Russia,RUS-OO
+793,TVA,Tuva,Tuva,TVA-OO
+794,TVL,Northern Provinces,South Africa,ZA
+795,TVL,Gauteng,Gauteng,TVL-GA
+796,TVL,Mpumalanga,Mpumalanga,TVL-MP
+797,TVL,Limpopo Province,Limpopo Province,TVL-NP
+798,TVL,North-West Province,North-West Province,TVL-NW
+799,TZK,Tadzhikistan,Tajikistan,TJ
+800,UGA,Uganda,Uganda,UG
+801,UKR,Ukraine,Moldova,MD
+802,UKR,Ukraine,Ukraine,UA
+803,UKR,Ukraine,Ukraine (main part),UKR-UK
+804,URU,Uruguay,Uruguay,UY
+805,UTA,Utah,United States,US
+806,UTA,Utah,Utah,UTA-OO
+807,UZB,Uzbekistan,Uzbekistan,UZ
+808,VAN,Vanuatu,Vanuatu,VU
+809,VEN,Venezuela,"Venezuela, Bolivarian Republic of",VE
+810,VEN,Venezuela,Venezuela (mainland),VEN-OO
+811,VER,Vermont,United States,US
+812,VER,Vermont,Vermont,VER-OO
+813,VIC,Victoria,Australia,AU
+814,VIC,Victoria,Victoria,VIC-OO
+815,VIE,Vietnam,Viet Nam,VN
+816,VNA,Venezuelan Antilles,"Venezuela, Bolivarian Republic of",VE
+817,VNA,Venezuelan Antilles,Venezuelan Antilles,VNA-OO
+818,VRG,Virginia,United States,US
+819,VRG,Virginia,Virginia,VRG-OO
+820,WAK,Wake I.,United States Minor Outlying Islands,UM
+821,WAK,Wake I.,Wake Is.,WAK-OO
+822,WAL,Wallis-Futuna Is.,Wallis and Futuna,WF
+823,WAS,Washington,United States,US
+824,WAS,Washington,Washington,WAS-OO
+825,WAU,Western Australia,Australia,AU
+826,WAU,Western Australia,Western Australia,WAU-WA
+827,WDC,District of Columbia,United States,US
+828,WDC,District of Columbia,District of Columbia,WDC-OO
+829,WHM,West Himalaya,India,IN
+830,WHM,West Himalaya,Himachal Pradesh,WHM-HP
+831,WHM,West Himalaya,Jammu-Kashmir,WHM-JK
+832,WHM,West Himalaya,Uttaranchal,WHM-UT
+833,WIN,Windward Is.,Barbados,BB
+834,WIN,Windward Is.,Dominica,DM
+835,WIN,Windward Is.,Grenada,GD
+836,WIN,Windward Is.,Saint Lucia,LC
+837,WIN,Windward Is.,Martinique,MQ
+838,WIN,Windward Is.,Saint Vincent and the Grenadines,VC
+839,WIS,Wisconsin,United States,US
+840,WIS,Wisconsin,Wisconsin,WIS-OO
+841,WSA,Western Sahara,Western Sahara,EH
+842,WSB,West Siberia,Russian Federation,RU
+843,WSB,West Siberia,South European Russia,RUS-OO
+844,WSB,West Siberia,West Siberia,WSB-OO
+845,WVA,West Virginia,United States,US
+846,WVA,West Virginia,West Virginia,WVA-OO
+847,WYO,Wyoming,United States,US
+848,WYO,Wyoming,Wyoming,WYO-OO
+849,XMS,Christmas I.,Christmas Island,CX
+850,YAK,Yakutskiya,Russian Federation,RU
+851,YAK,Yakutskiya,South European Russia,RUS-OO
+852,YAK,Yakutskiya,Yakutiya,YAK-OO
+853,YEM,Yemen,Yemen,YE
+854,YEM,North Yemen,North Yemen,YEM-NY
+855,YEM,South Yemen,South Yemen,YEM-SY
+856,YUG,Yugoslavia,Bosnia and Herzegovina,BA
+857,YUG,Yugoslavia,Croatia,HR
+858,YUG,Yugoslavia,Montenegro,ME
+859,YUG,Yugoslavia,North Macedonia,MK
+860,YUG,Yugoslavia,Serbia,RS
+861,YUG,Yugoslavia,Slovenia,SI
+862,YUG,Yugoslavia,Kosovo,YUG-KO
+863,YUK,Yukon,Canada,CA
+864,YUK,Yukon,Yukon,YUK-OO
+865,ZAI,Zaïre,"Congo, The Democratic Republic of the",CD
+866,ZAM,Zambia,Zambia,ZM
+867,ZIM,Zimbabwe,Zimbabwe,ZW

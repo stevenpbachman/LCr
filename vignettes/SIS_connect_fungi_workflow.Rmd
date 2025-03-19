@@ -1,0 +1,136 @@
+---
+title: "SIS connect files - fungi workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SIS_connect_fungi_workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The following workflow is specific to fungi and demonstrates how to generate CSV files with the minimal required information to support a Least Concern assessment. There are slight differences to the plant workflow due to there being no fungi equivalent of the native range dataset from the World Checklist of Vascular Plants.
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+#| eval: false
+#| echo: true
+
+# install LCr and load libraries
+devtools::install_github("stevenpbachman/LCr")
+library(LCr)
+library(dplyr)
+```
+
+Provide a dataframe with species you believe should be classified as Least Concern e.g. 
+
+```{r}
+#| echo: true
+
+# dataframe of LC fungi species
+lc_species <-
+  data.frame(sp = c(
+    "Morchella brunnea M.Kuo", "Trichoderma sinuosum P.Chaverri & Samuels", "Amanita rhacopus Y.Lamoureux"
+  ))
+print(lc_species)
+```
+
+Run the get_name_keys function. This will check the names against the GBIF names backbone. Make sure to list `kingdon = "fungi"`. The `name_column` is the column that contains the species to be assessed. To ensure good name matching, this should be a field that contains a string with the binomial author(s) combined. To enforce a single matching name for every name in our list set the `match` parameter to 'single', or set to 'multiple' if you wish to allow multiple matches. 
+
+```{r}
+#| eval: false
+#| echo: true
+
+# get keys
+lc_keys <-
+  LCr::get_name_keys(
+    df = lc_species,
+    name_column = "sp",
+    match = "single",
+    kingdom = "fungi"
+  )
+```
+
+Run the `make_LC_points` function. This will generate a list of two objects: a dataframe with cleaned occurrence data associated with each species in the supplied list and a citation dataframe that can be added to the references csv later.
+
+Note that this can take some time as you may be requesting a large download from GBIF. This step will also generate a GBIF DOI for the download.
+
+Note that we will use the `rGBIF` package to obtain the occurrence data. You will need to set up your GBIF credentials to obtain the downloads. After you have set up an account at [GBIF](https://www.gbif.org/) you need to register your credentials in the r environment - see this [post](https://docs.ropensci.org/rgbif/articles/gbif_credentials.html) for an explanation.
+
+For fungi, make sure that `range_check = FALSE` - we will generate the native ranges for fungi using another method. 
+
+```{r}
+#| eval: false
+#| echo: true
+
+# get occs
+lc_sis_occs <-
+  make_LC_points(
+    keys_df = lc_keys,
+    first_name = "Steven",
+    second_name = "Bachman",
+    institution = "Royal Botanic Gardens, Kew",
+    range_check = FALSE # FALSE for fungi, so that you don't try and check POWO ranges
+  )
+```
+
+You may want to save the occurrence file at this stage.
+
+```{r}
+#| eval: false
+#| echo: true
+
+# save the occurrence file
+write.csv(lc_sis_occs$points, file = "my_LC_occs.csv")
+```
+
+As we don't have an equivalent to World Checklist of Vascular Plantsnative ranges for fungi, we will use our clean occurrence data to calculate the WGSRPD regions for each species. 
+
+```{r}
+#| eval: false
+#| echo: true
+
+# for fungi - get the native ranges
+native_ranges <- get_occs_range(lc_sis_occs$points)
+```
+
+We can now generate the SIS Connect csv files
+
+```{r}
+#| eval: false
+#| echo: true
+
+# get SIS files
+lc_sis_files <- LCr::make_sis_csvs(
+  unique_id = lc_keys$GBIF_usageKey,
+  first_name = "Steven",
+  second_name = "Bachman",
+  email = "s.bachman@kew.org",
+  institution = "Royal Botanic Gardens, Kew",
+  family = lc_keys$GBIF_family,
+  genus = lc_keys$GBIF_genus,
+  species = lc_keys$GBIF_species,
+  gbif_ref = lc_sis_occs$citation,
+  taxonomicAuthority = lc_keys$GBIF_authorship,
+  kingdom = "fungi",
+  native_ranges = native_ranges
+
+)
+```
+
+And finally, one more step to combine those files into a ZIP. This will save the ZIP in your working directory. Just note the ZIP might hoover up other files e.g. your point occurrence file. You'll need to send the point occurrence file to IUCN Red List Unit separately.
+
+You can now upload this ZIP file into SIS Connect https://connect.iucnredlist.org/
+
+```{r}
+#| eval: false
+#| echo: true
+
+make_zip(lc_sis_files)
+```
+

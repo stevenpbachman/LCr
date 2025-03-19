@@ -1,0 +1,391 @@
+LEVEL3_NAM,LEVEL3_COD,FID_Ecoreg,REALM
+Aldabra,ALD,0,Afrotropical
+Amsterdam-St.Paul Is.,ASP,0,Afrotropical
+Angola,ANG,0,Afrotropical
+Ascension,ASC,0,Afrotropical
+Benin,BEN,0,Afrotropical
+Botswana,BOT,0,Afrotropical
+Burkina,BKN,0,Afrotropical
+Burundi,BUR,0,Afrotropical
+Cabinda,CAB,0,Afrotropical
+Cameroon,CMN,0,Afrotropical
+Cape Provinces,CPP,0,Afrotropical
+Cape Verde,CVI,0,Afrotropical
+Caprivi Strip,CPV,0,Afrotropical
+Central African Republic,CAF,0,Afrotropical
+Chad,CHA,0,Afrotropical
+Comoros,COM,0,Afrotropical
+Congo,CON,0,Afrotropical
+Djibouti,DJI,0,Afrotropical
+Equatorial Guinea,EQG,0,Afrotropical
+Eritrea,ERI,0,Afrotropical
+Ethiopia,ETH,0,Afrotropical
+Free State,OFS,0,Afrotropical
+Gabon,GAB,0,Afrotropical
+"Gambia, The",GAM,0,Afrotropical
+Ghana,GHA,0,Afrotropical
+Guinea,GUI,0,Afrotropical
+Guinea-Bissau,GNB,0,Afrotropical
+Gulf of Guinea Is.,GGI,0,Afrotropical
+Ivory Coast,IVO,0,Afrotropical
+Kenya,KEN,0,Afrotropical
+KwaZulu-Natal,NAT,0,Afrotropical
+Lesotho,LES,0,Afrotropical
+Liberia,LBR,0,Afrotropical
+Madagascar,MDG,0,Afrotropical
+Malawi,MLW,0,Afrotropical
+Mali,MLI,0,Afrotropical
+Mauritania,MTN,0,Afrotropical
+Mauritius,MAU,0,Afrotropical
+Mozambique,MOZ,0,Afrotropical
+Namibia,NAM,0,Afrotropical
+Niger,NGR,0,Afrotropical
+Nigeria,NGA,0,Afrotropical
+Northern Provinces,TVL,0,Afrotropical
+Oman,OMA,0,Afrotropical
+Réunion,REU,0,Afrotropical
+Rodrigues,ROD,0,Afrotropical
+Rwanda,RWA,0,Afrotropical
+Saudi Arabia,SAU,0,Afrotropical
+Senegal,SEN,0,Afrotropical
+Seychelles,SEY,0,Afrotropical
+Sierra Leone,SIE,0,Afrotropical
+Socotra,SOC,0,Afrotropical
+Somalia,SOM,0,Afrotropical
+St.Helena,STH,0,Afrotropical
+Sudan,SUD,0,Afrotropical
+Swaziland,SWZ,0,Afrotropical
+Tanzania,TAN,0,Afrotropical
+Togo,TOG,0,Afrotropical
+Tristan da Cunha,TDC,0,Afrotropical
+Uganda,UGA,0,Afrotropical
+Yemen,YEM,0,Afrotropical
+Zaïre,ZAI,0,Afrotropical
+Zambia,ZAM,0,Afrotropical
+Zimbabwe,ZIM,0,Afrotropical
+Algeria,ALG,0,Afrotropical
+Antarctica,ANT,1,Antarctic
+Bouvet I.,BOU,1,Antarctic
+Crozet Is.,CRZ,1,Antarctic
+Heard-McDonald Is.,HMD,1,Antarctic
+Kerguelen,KEG,1,Antarctic
+Marion-Prince Edward Is.,MPE,1,Antarctic
+South Georgia,SGE,1,Antarctic
+South Sandwich Is.,SSA,1,Antarctic
+Antipodean Is.,ATP,2,Australasian
+Bismarck Archipelago,BIS,2,Australasian
+Chatham Is.,CTM,2,Australasian
+Lesser Sunda Is.,LSI,2,Australasian
+Macquarie Is.,MAQ,2,Australasian
+Maluku,MOL,2,Australasian
+New Caledonia,NWC,2,Australasian
+New Guinea,NWG,2,Australasian
+New South Wales,NSW,2,Australasian
+New Zealand North,NZN,2,Australasian
+New Zealand South,NZS,2,Australasian
+Norfolk Is.,NFK,2,Australasian
+Northern Territory,NTA,2,Australasian
+Queensland,QLD,2,Australasian
+Santa Cruz Is.,SCZ,2,Australasian
+Solomon Is.,SOL,2,Australasian
+South Australia,SOA,2,Australasian
+Sulawesi,SUL,2,Australasian
+Tasmania,TAS,2,Australasian
+Vanuatu,VAN,2,Australasian
+Victoria,VIC,2,Australasian
+Western Australia,WAU,2,Australasian
+Andaman Is.,AND,3,Indomalayan
+Assam,ASS,3,Indomalayan
+Bangladesh,BAN,3,Indomalayan
+Borneo,BOR,3,Indomalayan
+Cambodia,CBD,3,Indomalayan
+Chagos Archipelago,CGS,3,Indomalayan
+China South-Central,CHC,3,Indomalayan
+China Southeast,CHS,3,Indomalayan
+Christmas I.,XMS,3,Indomalayan
+Cocos (Keeling) I.,CKI,3,Indomalayan
+East Himalaya,EHM,3,Indomalayan
+Hainan,CHH,3,Indomalayan
+India,IND,3,Indomalayan
+Japan,JAP,3,Indomalayan
+Jawa,JAW,3,Indomalayan
+Laccadive Is.,LDV,3,Indomalayan
+Laos,LAO,3,Indomalayan
+Lesser Sunda Is.,LSI,3,Indomalayan
+Malaya,MLY,3,Indomalayan
+Maldives,MDV,3,Indomalayan
+Myanmar,MYA,3,Indomalayan
+Nansei-shoto,NNS,3,Indomalayan
+Nepal,NEP,3,Indomalayan
+Nicobar Is.,NCB,3,Indomalayan
+Pakistan,PAK,3,Indomalayan
+Philippines,PHI,3,Indomalayan
+South China Sea,SCS,3,Indomalayan
+Sri Lanka,SRL,3,Indomalayan
+Sumatera,SUM,3,Indomalayan
+Taiwan,TAI,3,Indomalayan
+Thailand,THA,3,Indomalayan
+Vietnam,VIE,3,Indomalayan
+West Himalaya,WHM,3,Indomalayan
+Alabama,ALA,5,Nearctic
+Alaska,ASK,5,Nearctic
+Alberta,ABT,5,Nearctic
+Aleutian Is.,ALU,5,Nearctic
+Arizona,ARI,5,Nearctic
+Arkansas,ARK,5,Nearctic
+Bermuda,BER,5,Nearctic
+British Columbia,BRC,5,Nearctic
+California,CAL,5,Nearctic
+Colorado,COL,5,Nearctic
+Connecticut,CNT,5,Nearctic
+Delaware,DEL,5,Nearctic
+District of Columbia,WDC,5,Nearctic
+Florida,FLA,5,Nearctic
+Georgia,GEO,5,Nearctic
+Greenland,GNL,5,Nearctic
+Idaho,IDA,5,Nearctic
+Illinois,ILL,5,Nearctic
+Indiana,INI,5,Nearctic
+Iowa,IOW,5,Nearctic
+Kansas,KAN,5,Nearctic
+Kentucky,KTY,5,Nearctic
+Labrador,LAB,5,Nearctic
+Louisiana,LOU,5,Nearctic
+Maine,MAI,5,Nearctic
+Manitoba,MAN,5,Nearctic
+Maryland,MRY,5,Nearctic
+Massachusetts,MAS,5,Nearctic
+Mexican Pacific Is.,MXI,5,Nearctic
+Mexico Central,MXC,5,Nearctic
+Mexico Gulf,MXG,5,Nearctic
+Mexico Northeast,MXE,5,Nearctic
+Mexico Northwest,MXN,5,Nearctic
+Mexico Southwest,MXS,5,Nearctic
+Michigan,MIC,5,Nearctic
+Minnesota,MIN,5,Nearctic
+Mississippi,MSI,5,Nearctic
+Missouri,MSO,5,Nearctic
+Montana,MNT,5,Nearctic
+Nebraska,NEB,5,Nearctic
+Nevada,NEV,5,Nearctic
+New Brunswick,NBR,5,Nearctic
+New Hampshire,NWH,5,Nearctic
+New Jersey,NWJ,5,Nearctic
+New Mexico,NWM,5,Nearctic
+New York,NWY,5,Nearctic
+Newfoundland,NFL,5,Nearctic
+North Carolina,NCA,5,Nearctic
+North Dakota,NDA,5,Nearctic
+Northwest Territories,NWT,5,Nearctic
+Nova Scotia,NSC,5,Nearctic
+Nunavut,NUN,5,Nearctic
+Ohio,OHI,5,Nearctic
+Oklahoma,OKL,5,Nearctic
+Ontario,ONT,5,Nearctic
+Oregon,ORE,5,Nearctic
+Pennsylvania,PEN,5,Nearctic
+Prince Edward I.,PEI,5,Nearctic
+Québec,QUE,5,Nearctic
+Rhode I.,RHO,5,Nearctic
+Saskatchewan,SAS,5,Nearctic
+South Carolina,SCA,5,Nearctic
+South Dakota,SDA,5,Nearctic
+Tennessee,TEN,5,Nearctic
+Texas,TEX,5,Nearctic
+Utah,UTA,5,Nearctic
+Vermont,VER,5,Nearctic
+Virginia,VRG,5,Nearctic
+Washington,WAS,5,Nearctic
+West Virginia,WVA,5,Nearctic
+Wisconsin,WIS,5,Nearctic
+Wyoming,WYO,5,Nearctic
+Yukon,YUK,5,Nearctic
+Argentina Northeast,AGE,6,Neotropical
+Argentina Northwest,AGW,6,Neotropical
+Argentina South,AGS,6,Neotropical
+Aruba,ARU,6,Neotropical
+Bahamas,BAH,6,Neotropical
+Belize,BLZ,6,Neotropical
+Bolivia,BOL,6,Neotropical
+Brazil North,BZN,6,Neotropical
+Brazil Northeast,BZE,6,Neotropical
+Brazil South,BZS,6,Neotropical
+Brazil Southeast,BZL,6,Neotropical
+Brazil West-Central,BZC,6,Neotropical
+C. American Pacific Is.,CPI,6,Neotropical
+Cayman Is.,CAY,6,Neotropical
+Chile Central,CLC,6,Neotropical
+Chile North,CLN,6,Neotropical
+Chile South,CLS,6,Neotropical
+Colombia,CLM,6,Neotropical
+Costa Rica,COS,6,Neotropical
+Cuba,CUB,6,Neotropical
+Desventurados Is.,DSV,6,Neotropical
+Dominican Republic,DOM,6,Neotropical
+Ecuador,ECU,6,Neotropical
+El Salvador,ELS,6,Neotropical
+Falkland Is.,FAL,6,Neotropical
+Florida,FLA,6,Neotropical
+French Guiana,FRG,6,Neotropical
+Galápagos,GAL,6,Neotropical
+Guatemala,GUA,6,Neotropical
+Guyana,GUY,6,Neotropical
+Haiti,HAI,6,Neotropical
+Honduras,HON,6,Neotropical
+Jamaica,JAM,6,Neotropical
+Juan Fernández Is.,JNF,6,Neotropical
+Leeward Is. AB Ant,LEE,6,Neotropical
+Mexican Pacific Is.,MXI,6,Neotropical
+Mexico Central,MXC,6,Neotropical
+Mexico Gulf,MXG,6,Neotropical
+Mexico Northeast,MXE,6,Neotropical
+Mexico Northwest,MXN,6,Neotropical
+Mexico Southeast,MXT,6,Neotropical
+Mexico Southwest,MXS,6,Neotropical
+Netherlands Antilles,NLA,6,Neotropical
+Nicaragua,NIC,6,Neotropical
+Panama,PAN,6,Neotropical
+Paraguay,PAR,6,Neotropical
+Peru,PER,6,Neotropical
+Puerto Rico,PUE,6,Neotropical
+Southwest Caribbean,SWC,6,Neotropical
+Surinam,SUR,6,Neotropical
+Trinidad-Tobago,TRT,6,Neotropical
+Turks-Caicos Is.,TCI,6,Neotropical
+Uruguay,URU,6,Neotropical
+Venezuela,VEN,6,Neotropical
+Venezuelan Antilles,VNA,6,Neotropical
+Windward Is.,WIN,6,Neotropical
+Caroline Is.,CRL,7,Oceanian
+Cook Is.,COO,7,Oceanian
+Easter Is.,EAS,7,Oceanian
+Fiji,FIJ,7,Oceanian
+Gilbert Is.,GIL,7,Oceanian
+Hawaii,HAW,7,Oceanian
+Howland-Baker Is.,HBI,7,Oceanian
+Kazan-retto,KZN,7,Oceanian
+Kermadec Is.,KER,7,Oceanian
+Line Is.,LIN,7,Oceanian
+Marianas,MRN,7,Oceanian
+Marquesas,MRQ,7,Oceanian
+Marshall Is.,MRS,7,Oceanian
+Niue,NUE,7,Oceanian
+Ogasawara-shoto,OGA,7,Oceanian
+Phoenix Is.,PHX,7,Oceanian
+Pitcairn Is.,PIT,7,Oceanian
+Samoa,SAM,7,Oceanian
+Society Is.,SCI,7,Oceanian
+Tokelau-Manihiki,TOK,7,Oceanian
+Tonga,TON,7,Oceanian
+Tuamotu,TUA,7,Oceanian
+Tubuai Is.,TUB,7,Oceanian
+Tuvalu,TUV,7,Oceanian
+Wake I.,WAK,7,Oceanian
+Wallis-Futuna Is.,WAL,7,Oceanian
+Afghanistan,AFG,8,Palearctic
+Albania,ALB,8,Palearctic
+Algeria,ALG,8,Palearctic
+Altay,ALT,8,Palearctic
+Amur,AMU,8,Palearctic
+Austria,AUT,8,Palearctic
+Azores,AZO,8,Palearctic
+Baleares,BAL,8,Palearctic
+Baltic States,BLT,8,Palearctic
+Belarus,BLR,8,Palearctic
+Belgium,BGM,8,Palearctic
+Bulgaria,BUL,8,Palearctic
+Buryatiya,BRY,8,Palearctic
+Canary Is.,CNY,8,Palearctic
+Central European Russia,RUC,8,Palearctic
+Chad,CHA,8,Palearctic
+China North-Central,CHN,8,Palearctic
+China South-Central,CHC,8,Palearctic
+China Southeast,CHS,8,Palearctic
+Chita,CTA,8,Palearctic
+Corse,COR,8,Palearctic
+Cyprus,CYP,8,Palearctic
+Czechoslovakia,CZE,8,Palearctic
+Denmark,DEN,8,Palearctic
+East Aegean Is.,EAI,8,Palearctic
+East European Russia,RUE,8,Palearctic
+East Himalaya,EHM,8,Palearctic
+Egypt,EGY,8,Palearctic
+Finland,FIN,8,Palearctic
+Føroyar,FOR,8,Palearctic
+France,FRA,8,Palearctic
+Germany,GER,8,Palearctic
+Great Britain,GRB,8,Palearctic
+Greece,GRC,8,Palearctic
+Gulf States,GST,8,Palearctic
+Hungary,HUN,8,Palearctic
+Iceland,ICE,8,Palearctic
+Inner Mongolia,CHI,8,Palearctic
+Iran,IRN,8,Palearctic
+Iraq,IRQ,8,Palearctic
+Ireland,IRE,8,Palearctic
+Irkutsk,IRK,8,Palearctic
+Italy,ITA,8,Palearctic
+Japan,JAP,8,Palearctic
+Kamchatka,KAM,8,Palearctic
+Kazakhstan,KAZ,8,Palearctic
+Khabarovsk,KHA,8,Palearctic
+Kirgizistan,KGZ,8,Palearctic
+Korea,KOR,8,Palearctic
+Krasnoyarsk,KRA,8,Palearctic
+Kriti,KRI,8,Palearctic
+Krym,KRY,8,Palearctic
+Kuril Is.,KUR,8,Palearctic
+Kuwait,KUW,8,Palearctic
+Lebanon-Syria,LBS,8,Palearctic
+Libya,LBY,8,Palearctic
+Madeira,MDR,8,Palearctic
+Magadan,MAG,8,Palearctic
+Mali,MLI,8,Palearctic
+Manchuria,CHM,8,Palearctic
+Mauritania,MTN,8,Palearctic
+Mongolia,MON,8,Palearctic
+Morocco,MOR,8,Palearctic
+Myanmar,MYA,8,Palearctic
+Nepal,NEP,8,Palearctic
+Netherlands,NET,8,Palearctic
+Niger,NGR,8,Palearctic
+North Caucasus,NCS,8,Palearctic
+North European Russia,RUN,8,Palearctic
+Northwest European Russia,RUW,8,Palearctic
+Norway,NOR,8,Palearctic
+Oman,OMA,8,Palearctic
+Pakistan,PAK,8,Palearctic
+Palestine,PAL,8,Palearctic
+Poland,POL,8,Palearctic
+Portugal,POR,8,Palearctic
+Primorye,PRM,8,Palearctic
+Qinghai,CHQ,8,Palearctic
+Romania,ROM,8,Palearctic
+Sakhalin,SAK,8,Palearctic
+Sardegna,SAR,8,Palearctic
+Saudi Arabia,SAU,8,Palearctic
+Sicilia,SIC,8,Palearctic
+Sinai,SIN,8,Palearctic
+South European Russia,RUS,8,Palearctic
+Spain,SPA,8,Palearctic
+Sudan,SUD,8,Palearctic
+Svalbard,SVA,8,Palearctic
+Sweden,SWE,8,Palearctic
+Switzerland,SWI,8,Palearctic
+Tadzhikistan,TZK,8,Palearctic
+Tibet,CHT,8,Palearctic
+Transcaucasus,TCS,8,Palearctic
+Tunisia,TUN,8,Palearctic
+Turkey,TUR,8,Palearctic
+Turkey-in-Europe,TUE,8,Palearctic
+Turkmenistan,TKM,8,Palearctic
+Tuva,TVA,8,Palearctic
+Ukraine,UKR,8,Palearctic
+Uzbekistan,UZB,8,Palearctic
+West Himalaya,WHM,8,Palearctic
+West Siberia,WSB,8,Palearctic
+Western Sahara,WSA,8,Palearctic
+Xinjiang,CHX,8,Palearctic
+Yakutskiya,YAK,8,Palearctic
+Yemen,YEM,8,Palearctic
+Yugoslavia,YUG,8,Palearctic
