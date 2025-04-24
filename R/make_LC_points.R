@@ -13,7 +13,7 @@
 
 
 make_LC_points <-
-  function(keys_df, first_name = "", second_name = "", institution = "", range_check = FALSE) {
+  function(keys_df, first_name = "", second_name = "", institution = "", range_check = FALSE, kingdom = "plantae") {
 
     # get the raw gbif occs
     gbif_points <- get_gbif_occs(keys_df)
@@ -24,8 +24,16 @@ make_LC_points <-
     # clean the points - option to include native range
     if (range_check == TRUE) {
 
-      # get native ranges
-      native_ranges <- get_native_range(keys = keys_df)
+      # get native ranges based on kingdom parameter
+      if (tolower(kingdom) == "plantae") {
+        # use existing function for plants
+        native_ranges <- get_native_range(keys = keys_df)
+      } else if (tolower(kingdom) == "fungi") {
+        # use alternate function for fungi
+        native_ranges <- get_occs_range(keys = keys_df)
+      } else {
+        stop("kingdom must be either 'plantae' or 'fungi'")
+      }
 
       # run the cleaning
       lc_points <- clean_occs(gbif_points$points, native_ranges)

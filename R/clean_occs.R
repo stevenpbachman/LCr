@@ -36,7 +36,7 @@ clean_occs <- function(gbif_occs, native_ranges = NULL){
     distributions <- native_ranges
 
     # reduce distributions to id and L3 code
-    distributions_IDs <- dplyr::select(distributions, POWO_ID | LEVEL3_COD)
+    distributions_IDs <- dplyr::select(distributions, wcvp_ipni_id | LEVEL3_COD)
 
     # getting invalid spherical geometry error - suggest turn off the s2 processing
     # https://stackoverflow.com/questions/68808238/how-to-fix-spherical-geometry-errors-caused-by-conversion-from-geos-to-s2
@@ -52,7 +52,7 @@ clean_occs <- function(gbif_occs, native_ranges = NULL){
       sf::st_join(LCr::tdwg_level3 %>% dplyr::select(LEVEL3_COD)) %>%
       dplyr::inner_join(
         distributions_IDs,
-        by = c("wcvp_ipni_id" = "POWO_ID", "LEVEL3_COD"),
+        by = c("wcvp_ipni_id" = "wcvp_ipni_id", "LEVEL3_COD"),
         keep = TRUE
       )
 

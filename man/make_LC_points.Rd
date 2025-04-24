@@ -9,7 +9,8 @@ make_LC_points(
   first_name = "",
   second_name = "",
   institution = "",
-  range_check = FALSE
+  range_check = FALSE,
+  kingdom = "plantae"
 )
 }
 \arguments{

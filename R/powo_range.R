@@ -22,8 +22,7 @@ powo_range = function(wcvp_ipni_id){
   distribution <- returned_data$distribution$natives
 
   if (! is.null(distribution)) {
-    results = dplyr::mutate(distribution, internal_taxon_id=wcvp_ipni_id)
-    results = dplyr::rename(results, LEVEL3_NAM=name, LEVEL3_COD=tdwgCode)
+    results = dplyr::rename(distribution, LEVEL3_NAM=name, LEVEL3_COD=tdwgCode)
     results = dplyr::mutate(results, LEVEL3_NAM=dplyr::recode(LEVEL3_NAM, "á"="a"))
   }
 
