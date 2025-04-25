@@ -11,8 +11,8 @@
 get_gbif_occs <- function(keys_df) {
   gbif_download <- rgbif::occ_download(
     rgbif::pred_in("taxonKey", keys_df$GBIF_usageKey),    # important to use pred_in
-    rgbif::pred("hasGeospatialIssue", FALSE),
-    rgbif::pred("hasCoordinate", TRUE),    # filter on those with coordinates
+    #rgbif::pred("hasGeospatialIssue", FALSE),
+    #rgbif::pred("hasCoordinate", TRUE),    # filter on those with coordinates
     format = "DWCA"
   )
 
@@ -25,7 +25,7 @@ get_gbif_occs <- function(keys_df) {
 
   the_points <- dplyr::left_join(the_points,
                        keys_df,
-                       by = c("acceptedTaxonKey" = "GBIF_usageKey"))
+                       by = c("speciesKey" = "GBIF_usageKey"))
 
 
   meta <- rgbif::occ_download_meta(gbif_download) # get meta data to get the citation data

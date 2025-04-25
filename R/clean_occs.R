@@ -1,75 +1,137 @@
-#' Cleans a GBIF occurrence download using CoordinateCleaner and native
-#' range filter.
+#' Clean GBIF occurrences based on user-selected flags and/or specific gbifIDs
 #'
-#' @param gbif_occs (data frame) GBIF occurrence file in DWCA format. If [`get_gbif_occs()`] was used
-#' to get GBIF occurrences file, note that the output is a list, so you need to e.g. my_occs$points
-#' @param native_ranges (data frame) Native ranges prepared using [`get_native_range()`]
+#' @param flagged_occs Result from flag_occs() function
+#' @param remove_flags Vector of flag names to use for cleaning.
+#'                     Set to NULL to ignore all automatic flags.
+#' @param remove_gbifids Vector of gbifIDs to remove from the dataset, or a named list where
+#'                       names are reasons and values are vectors of gbifIDs sharing that reason.
+#'                       Example: list("identification uncertain" = c("1234", "5678"),
+#'                                    "habitat mismatch" = c("9012"))
+#' @param gbifid_reason Character string providing the default reason for manual gbifID removal
+#'                     when remove_gbifids is a simple vector.
 #'
-#' @return a dataframe with cleaned occurrence data
+#' @return A list containing:
+#'   - clean_occs: Cleaned occurrences based on selected flags and/or gbifIDs
+#'   - problem_occs: Occurrences that were filtered out with their flags/reasons
+#'
 #' @export
+clean_occs <- function(flagged_occs,
+                       remove_flags = c("flag_no_coords",
+                                        "flag_cc_capitals",
+                                        "flag_cc_centroids",
+                                        "flag_cc_institutions",
+                                        "flag_cc_equal",
+                                        "flag_cc_gbif",
+                                        "flag_cc_zeros",
+                                        "flag_high_uncertainty",
+                                        "flag_outside_native"),
+                       remove_gbifids = NULL,
+                       gbifid_reason = NULL) {
 
-clean_occs <- function(gbif_occs, native_ranges = NULL){
+  data <- flagged_occs$flagged_data
 
-  occs_ll <- tidyr::drop_na(gbif_occs, "decimalLongitude",
-                            "decimalLatitude")
+  # Initialize the problematic flag
+  data$is_problematic <- FALSE
 
-  # coordinate cleaner defaults
-  cleaned_occs <-
-    CoordinateCleaner::clean_coordinates(
-      occs_ll,
-      lat = "decimalLatitude",
-      lon = "decimalLongitude",
-      species = "scientificName",
-      tests = c("capitals", "centroids", "institutions",
-                "equal", "gbif", "zeros"),
-      centroids_detail = 'country',
-      value = "clean"
-    )
-
-  # remove highly uncertain coords
-  cleaned_occs <-
-    dplyr::filter(cleaned_occs, coordinateUncertaintyInMeters <= 100000 | is.na(coordinateUncertaintyInMeters) )
-
-  # clean using POWO native range
-  if (!is.null(native_ranges)) {
-
-    distributions <- native_ranges
-
-    # reduce distributions to id and L3 code
-    distributions_IDs <- dplyr::select(distributions, wcvp_ipni_id | LEVEL3_COD)
-
-    # getting invalid spherical geometry error - suggest turn off the s2 processing
-    # https://stackoverflow.com/questions/68808238/how-to-fix-spherical-geometry-errors-caused-by-conversion-from-geos-to-s2
-    sf::sf_use_s2(FALSE)
-
-    # join species distributions with TDWG polygons
-    cleaned_occs <-
-      cleaned_occs %>%
-      sf::st_as_sf(
-        coords = c("decimalLongitude", "decimalLatitude"),
-        crs = sf::st_crs("EPSG:4326")
-      ) %>%
-      sf::st_join(LCr::tdwg_level3 %>% dplyr::select(LEVEL3_COD)) %>%
-      dplyr::inner_join(
-        distributions_IDs,
-        by = c("wcvp_ipni_id" = "wcvp_ipni_id", "LEVEL3_COD"),
-        keep = TRUE
-      )
-
-    # Use st_coordinates to extract latitude and longitude
-    coordinates <- sf::st_coordinates(cleaned_occs)
-
-    # Extract latitude and longitude columns
-    latitude <- coordinates[, "Y"]
-    longitude <- coordinates[, "X"]
-
-    cleaned_occs <- dplyr::mutate(cleaned_occs,
-                                  decimalLongitude = longitude,
-                                  decimalLatitude = latitude)
-    cleaned_occs <- sf::st_drop_geometry(cleaned_occs)
-
+  # Handle flags based on user input
+  if (!is.null(remove_flags)) {
+    # Apply selected flags
+    for (flag in remove_flags) {
+      if (flag %in% colnames(data)) {
+        data$is_problematic <- data$is_problematic | data[[flag]]
+      }
+    }
   }
 
-  return(cleaned_occs)
+  # Add gbifID-based filtering
+  if (!is.null(remove_gbifids)) {
+    # Create a new column to store reasons for manual removal
+    data$manual_removal_reason <- NA_character_
 
+    if (is.list(remove_gbifids)) {
+      # If remove_gbifids is a named list, process each reason group
+      for (reason_name in names(remove_gbifids)) {
+        ids_for_reason <- remove_gbifids[[reason_name]]
+        # Mark records with this reason
+        matches <- data$gbifID %in% ids_for_reason
+        data$is_problematic <- data$is_problematic | matches
+        # Set the removal reason for these specific records
+        data$manual_removal_reason[matches] <- paste0("Manually removed by gbifID - ", reason_name)
+      }
+    } else if (is.vector(remove_gbifids)) {
+      # If remove_gbifids is a simple vector, use the default reason
+      matches <- data$gbifID %in% remove_gbifids
+      data$is_problematic <- data$is_problematic | matches
+
+      # Format the default reason
+      default_reason <- "Manually removed by gbifID"
+      if (!is.null(gbifid_reason) && nchar(gbifid_reason) > 0) {
+        default_reason <- paste0(default_reason, " - ", gbifid_reason)
+      }
+
+      # Set the removal reason for these records
+      data$manual_removal_reason[matches] <- default_reason
+    }
+
+    # Mark records as manually removed for flagging
+    data$flag_manual_gbifid <- !is.na(data$manual_removal_reason)
+
+    # Add the gbifID flag to remove_flags for tracking reasons
+    if (is.null(remove_flags)) {
+      remove_flags <- "flag_manual_gbifid"
+    } else {
+      remove_flags <- c(remove_flags, "flag_manual_gbifid")
+    }
+  } else {
+    # Add empty flag and reason column if not using gbifID filtering
+    data$flag_manual_gbifid <- FALSE
+    data$manual_removal_reason <- NA_character_
+  }
+
+  # Add a problem_reason column that lists all problems - improved approach to avoid extra commas
+  data <- data %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      problem_reasons = {
+        reasons <- c()
+        if (flag_no_coords & "flag_no_coords" %in% remove_flags) reasons <- c(reasons, "Missing coordinates")
+        if (flag_cc_capitals & "flag_cc_capitals" %in% remove_flags) reasons <- c(reasons, "Near country capitals")
+        if (flag_cc_centroids & "flag_cc_centroids" %in% remove_flags) reasons <- c(reasons, "Near country centroids")
+        if (flag_cc_institutions & "flag_cc_institutions" %in% remove_flags) reasons <- c(reasons, "Near biodiversity institutions")
+        if (flag_cc_equal & "flag_cc_equal" %in% remove_flags) reasons <- c(reasons, "Equal coordinates")
+        if (flag_cc_gbif & "flag_cc_gbif" %in% remove_flags) reasons <- c(reasons, "GBIF headquarters")
+        if (flag_cc_zeros & "flag_cc_zeros" %in% remove_flags) reasons <- c(reasons, "Zero coordinates")
+        if (flag_high_uncertainty & "flag_high_uncertainty" %in% remove_flags) reasons <- c(reasons, "High coordinate uncertainty")
+        if (flag_outside_native & "flag_outside_native" %in% remove_flags) reasons <- c(reasons, "Outside native range")
+
+        # Add the specific manual removal reason if present
+        if (flag_manual_gbifid & "flag_manual_gbifid" %in% remove_flags && !is.na(manual_removal_reason)) {
+          reasons <- c(reasons, manual_removal_reason)
+        }
+
+        # Join with commas only if there are reasons
+        if (length(reasons) > 0) {
+          paste(reasons, collapse = ", ")
+        } else {
+          ""
+        }
+      }
+    ) %>%
+    dplyr::ungroup()
+
+  # Split into clean and problem datasets
+  clean_occs <- dplyr::filter(data, !is_problematic)
+  problem_occs <- dplyr::filter(data, is_problematic)
+
+  # Remove flag columns from clean occurrences but keep problem reasons in problem dataset
+  clean_cols <- colnames(clean_occs)[!grepl("^flag_|is_problematic|problem_reasons|manual_removal_reason", colnames(clean_occs))]
+  clean_occs <- clean_occs[, clean_cols]
+
+  problem_cols <- c(colnames(problem_occs)[!grepl("^flag_|is_problematic|manual_removal_reason", colnames(problem_occs))])
+  problem_occs <- problem_occs[, problem_cols]
+
+  return(list(
+    clean_occs = clean_occs,
+    problem_occs = problem_occs
+  ))
 }

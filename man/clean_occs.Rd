@@ -2,21 +2,36 @@
 % Please edit documentation in R/clean_occs.R
 \name{clean_occs}
 \alias{clean_occs}
-\title{Cleans a GBIF occurrence download using CoordinateCleaner and native
-range filter.}
+\title{Clean GBIF occurrences based on user-selected flags and/or specific gbifIDs}
 \usage{
-clean_occs(gbif_occs, native_ranges = NULL)
+clean_occs(
+  flagged_occs,
+  remove_flags = c("flag_no_coords", "flag_cc_capitals", "flag_cc_centroids",
+    "flag_cc_institutions", "flag_cc_equal", "flag_cc_gbif", "flag_cc_zeros",
+    "flag_high_uncertainty", "flag_outside_native"),
+  remove_gbifids = NULL,
+  gbifid_reason = NULL
+)
 }
 \arguments{
-\item{gbif_occs}{(data frame) GBIF occurrence file in DWCA format. If [`get_gbif_occs()`] was used
-to get GBIF occurrences file, note that the output is a list, so you need to e.g. my_occs$points}
+\item{flagged_occs}{Result from flag_occs() function}
 
-\item{native_ranges}{(data frame) Native ranges prepared using [`get_native_range()`]}
+\item{remove_flags}{Vector of flag names to use for cleaning.
+Set to NULL to ignore all automatic flags.}
+
+\item{remove_gbifids}{Vector of gbifIDs to remove from the dataset, or a named list where
+names are reasons and values are vectors of gbifIDs sharing that reason.
+Example: list("identification uncertain" = c("1234", "5678"),
+             "habitat mismatch" = c("9012"))}
+
+\item{gbifid_reason}{Character string providing the default reason for manual gbifID removal
+when remove_gbifids is a simple vector.}
 }
 \value{
-a dataframe with cleaned occurrence data
+A list containing:
+  - clean_occs: Cleaned occurrences based on selected flags and/or gbifIDs
+  - problem_occs: Occurrences that were filtered out with their flags/reasons
 }
 \description{
-Cleans a GBIF occurrence download using CoordinateCleaner and native
-range filter.
+Clean GBIF occurrences based on user-selected flags and/or specific gbifIDs
 }
