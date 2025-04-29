@@ -114,9 +114,18 @@ flag_occs <- function(gbif_occs, native_ranges = NULL) {
         crs = sf::st_crs("EPSG:4326")
       )
 
+    valid_coords_projected <- valid_coords %>%
+      sf::st_transform(crs = "+proj=eqearth +datum=WGS84")
+
+    tdwg_level3_projected <- LCr::tdwg_level3 %>%
+      sf::st_transform(crs = "+proj=eqearth +datum=WGS84") %>%
+      dplyr::select(LEVEL3_COD)
+
+
     # Join with TDWG polygons
-    valid_coords_tdwg <- valid_coords %>%
-      sf::st_join(LCr::tdwg_level3 %>% dplyr::select(LEVEL3_COD))
+    valid_coords_tdwg <- valid_coords_projected %>%
+      sf::st_join(tdwg_level3_projected %>%
+                    sf::st_buffer(dist = 1000))
 
     # Extract the LEVEL3_COD values
     id_col <- if("gbifID" %in% colnames(flagged_occs)) "gbifID" else ".row_id"

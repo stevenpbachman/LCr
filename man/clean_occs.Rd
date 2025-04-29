@@ -17,7 +17,10 @@ clean_occs(
 \item{flagged_occs}{Result from flag_occs() function}
 
 \item{remove_flags}{Vector of flag names to use for cleaning.
-Set to NULL to ignore all automatic flags.}
+Set to NULL to ignore all automatic flags. Flag names must be: "flag_no_coords" Missing coordinates;
+"flag_cc_capitals" Near country capitals; "flag_cc_centroids" Near country centroids;
+"flag_cc_institutions" Near biodiversity institutions; "flag_cc_equal" Equal coordinates; "flag_cc_gbif"
+GBIF headquarters; "flag_high_uncertainty" High coordinate uncertainty; "flag_outside_native" Outside native range}
 
 \item{remove_gbifids}{Vector of gbifIDs to remove from the dataset, or a named list where
 names are reasons and values are vectors of gbifIDs sharing that reason.

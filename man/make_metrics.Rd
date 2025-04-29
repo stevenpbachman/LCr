@@ -4,9 +4,27 @@
 \alias{make_metrics}
 \title{Generate metrics from a clean point occurrence file}
 \usage{
-make_metrics(occs_clean)
+make_metrics(
+  occs,
+  native_ranges = FALSE,
+  eoo_thresh = 30000,
+  aoo_thresh = 3000,
+  points_thresh = 75,
+  regions_thresh = 5,
+  recent_thresh = 50
+)
 }
 \arguments{
+\item{native_ranges}{(df) WGSRPD native ranges at level 3}
+
+\item{eoo_thresh}{(integer) threshold for EOO to determine Least Concern}
+
+\item{aoo_thresh}{(integer) threshold for AOO to determine Least Concern}
+
+\item{points_thresh}{(integer) threshold for number of points to determine Least Concern}
+
+\item{regions_thresh}{(integer) threshold for number of regions to determine Least Concern}
+
 \item{occs_clean}{(character) Cleaned GBIF occurrence file in DWCA format. See
 occs_clean() function.}
 }

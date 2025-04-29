@@ -11,6 +11,7 @@
 get_gbif_occs <- function(keys_df) {
   gbif_download <- rgbif::occ_download(
     rgbif::pred_in("taxonKey", keys_df$GBIF_usageKey),    # important to use pred_in
+    rgbif::pred("occurrenceStatus", "present"),
     #rgbif::pred("hasGeospatialIssue", FALSE),
     #rgbif::pred("hasCoordinate", TRUE),    # filter on those with coordinates
     format = "DWCA"

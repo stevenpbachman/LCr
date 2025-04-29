@@ -23,6 +23,7 @@ Imports:
     httr,
     jsonlite,
     leaflet,
+    leaflet.extras,
     magrittr,
     purrr,
     remotes,

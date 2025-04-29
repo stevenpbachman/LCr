@@ -1,11 +1,14 @@
 #' Display a leaflet map to show the distribution of occurrence data for each species
 #'
 #' @param data A data frame containing occurrence data
+#' @param native_ranges A data frame containing occurrence data
 #'
 #' @return Interactive leaflet map
 #' @export
 
-create_species_map <- function(data) {
+# add the native range
+
+create_species_map <- function(data, species_range = NULL) {
   # List of validation flags
   validation_flags <- c(
     "flag_cc_capitals", "flag_cc_centroids", "flag_cc_institutions",
@@ -15,14 +18,14 @@ create_species_map <- function(data) {
 
   # Remove any rows with NA coordinates
   species_data <- data %>%
-      dplyr::filter(!is.na(decimalLatitude), !is.na(decimalLongitude))
+    dplyr::filter(!is.na(decimalLatitude), !is.na(decimalLongitude))
 
-    # Add source URL if gbifID exists
-    if ("gbifID" %in% colnames(species_data)) {
-      species_data$source <- paste0("https://www.gbif.org/occurrence/", species_data$gbifID)
-    } else {
-      species_data$source <- "No GBIF ID available"
-    }
+  # Add source URL if gbifID exists
+  if ("gbifID" %in% colnames(species_data)) {
+    species_data$source <- paste0("https://www.gbif.org/occurrence/", species_data$gbifID)
+  } else {
+    species_data$source <- "No GBIF ID available"
+  }
 
   # Create valid data subset: all flags are FALSE or NA
   valid_data <- species_data %>%
@@ -36,6 +39,38 @@ create_species_map <- function(data) {
   m <- leaflet() %>%
     addProviderTiles("OpenStreetMap", group = "OpenStreetMap") %>%
     addProviderTiles("Esri.WorldImagery", group = "Satellite")
+
+  # Add measuring tool
+  m <- m %>%
+    addMeasure(
+      position = "topleft",
+      primaryLengthUnit = "kilometers",
+      secondaryLengthUnit = "miles",
+      primaryAreaUnit = "sqmeters",
+      secondaryAreaUnit = "acres"
+    )
+
+  # Add native range polygon if provided
+  if (!is.null(species_range) && nrow(species_range) > 0) {
+    # Filter the tdwg_level3 polygons by the LEVEL3_COD values in species_range
+    native_polygons <- LCr::tdwg_level3 %>%
+      dplyr::filter(LEVEL3_COD %in% species_range$LEVEL3_COD)
+
+    if (nrow(native_polygons) > 0) {
+      m <- m %>%
+        addPolygons(
+          data = native_polygons,
+          fillColor = "blue",
+          weight = 1,
+          opacity = 1,
+          color = "black",
+          dashArray = "3",
+          fillOpacity = 0.3,
+          group = "Native Range",
+          popup = ~paste("Region:", LEVEL3_COD)
+        )
+    }
+  }
 
   # Add valid points (green)
   if (nrow(valid_data) > 0) {
@@ -58,7 +93,7 @@ create_species_map <- function(data) {
   }
 
   # Add problem points for each flag
-for (i in seq_along(validation_flags)) {
+  for (i in seq_along(validation_flags)) {
     flag <- validation_flags[i]
     flag_data <- problem_data %>% filter(.data[[flag]] == TRUE)
 
@@ -82,27 +117,39 @@ for (i in seq_along(validation_flags)) {
     }
   }
 
-  # Add layer control
+  # Update layer control to include Native Range
+  overlay_groups <- c("Valid Points", validation_flags)
+  if (!is.null(species_range) && nrow(species_range) > 0) {
+    overlay_groups <- c("Native Range", overlay_groups)
+  }
+
   m <- m %>%
     addLayersControl(
       baseGroups = c("Satellite", "OpenStreetMap"),
-      overlayGroups = c("Valid Points", validation_flags),
+      overlayGroups = overlay_groups,
       options = layersControlOptions(collapsed = FALSE)
     )
 
-  # Add legend
+  # Update legend to include Native Range
+  legend_colors <- c("green", "red")
+  legend_labels <- c("Valid Points", "Problematic Points")
+
+  if (!is.null(species_range) && nrow(species_range) > 0) {
+    legend_colors <- c("blue", legend_colors)
+    legend_labels <- c("Native Range", legend_labels)
+  }
+
   m <- m %>%
     addLegend(
       position = "bottomright",
       title = "Data Quality",
-      colors = c("green", "red"),
-      labels = c("Valid Points", "Problematic Points"),
+      colors = legend_colors,
+      labels = legend_labels,
       opacity = 0.8
     )
 
   return(m)
 }
-
 
 
 

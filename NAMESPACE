@@ -2,6 +2,7 @@
 
 export(clean_occs)
 export(create_species_map)
+export(create_status_gauge)
 export(flag_occs)
 export(get_gbif_occs)
 export(get_name_keys)
