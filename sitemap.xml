@@ -11,6 +11,7 @@
 <url><loc>https://stevenpbachman.github.io/LCr/reference/check_tax_auth.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/clean_occs.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/create_species_map.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/create_status_gauge.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/flag_occs.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/get_gbif_occs.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/get_name_keys.html</loc></url>
@@ -30,7 +31,9 @@
 <url><loc>https://stevenpbachman.github.io/LCr/reference/powo_lookup.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/powo_range.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/powo_ref.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/powo_text.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/reorder_status.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/replace_cardinal_directions.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/sis_allfields.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/sis_assessments.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/sis_countries.html</loc></url>

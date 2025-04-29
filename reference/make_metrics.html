@@ -42,14 +42,42 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_metrics</span><span class="op">(</span><span class="va">occs_clean</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_metrics</span><span class="op">(</span></span>
+<span>  <span class="va">occs</span>,</span>
+<span>  native_ranges <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  eoo_thresh <span class="op">=</span> <span class="fl">30000</span>,</span>
+<span>  aoo_thresh <span class="op">=</span> <span class="fl">3000</span>,</span>
+<span>  points_thresh <span class="op">=</span> <span class="fl">75</span>,</span>
+<span>  regions_thresh <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  recent_thresh <span class="op">=</span> <span class="fl">50</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-occs-clean">occs_clean<a class="anchor" aria-label="anchor" href="#arg-occs-clean"></a></dt>
+<dl><dt id="arg-native-ranges">native_ranges<a class="anchor" aria-label="anchor" href="#arg-native-ranges"></a></dt>
+<dd><p>(df) WGSRPD native ranges at level 3</p></dd>
+
+
+<dt id="arg-eoo-thresh">eoo_thresh<a class="anchor" aria-label="anchor" href="#arg-eoo-thresh"></a></dt>
+<dd><p>(integer) threshold for EOO to determine Least Concern</p></dd>
+
+
+<dt id="arg-aoo-thresh">aoo_thresh<a class="anchor" aria-label="anchor" href="#arg-aoo-thresh"></a></dt>
+<dd><p>(integer) threshold for AOO to determine Least Concern</p></dd>
+
+
+<dt id="arg-points-thresh">points_thresh<a class="anchor" aria-label="anchor" href="#arg-points-thresh"></a></dt>
+<dd><p>(integer) threshold for number of points to determine Least Concern</p></dd>
+
+
+<dt id="arg-regions-thresh">regions_thresh<a class="anchor" aria-label="anchor" href="#arg-regions-thresh"></a></dt>
+<dd><p>(integer) threshold for number of regions to determine Least Concern</p></dd>
+
+
+<dt id="arg-occs-clean">occs_clean<a class="anchor" aria-label="anchor" href="#arg-occs-clean"></a></dt>
 <dd><p>(character) Cleaned GBIF occurrence file in DWCA format. See
 occs_clean() function.</p></dd>
 
