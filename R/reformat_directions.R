@@ -14,13 +14,14 @@ replace_cardinal_directions <- function(text) {
     "NE\\." = "northeast",
     "E\\." = "east",
     "S\\." = "south",
-    "S\\.E\\." = "southeast", # Handle S.E. first before S.
+    "S\\.E\\." = "southeast", # Handle S.E. first before S.data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAkCAYAAAD7PHgWAAABBklEQVR4Xu2XMQrCQBBFBQvR6wgJHsEDpHVjBDvvoBhbI3bWCkZbFUyhFrYiEat0WgmC6AVkdQqbIVmWZAOi82C64b+/bDWZDEEQP4phTLMaa9d003bTGMgu1psF7JVGNzuWPdzs18GDz443rgrIcndXbvW8g1axGfZKo7P2eBXc+WB74a3FGXtiA1kwzfnpqTF7hL3SwDfAaz+BqvjkwYADe6WhglQwJlQwKVQwKakVTGOoYNL5z4JxwBlUMEwqAu9SwTCpCLxLBcOkIvCusoKT9/WFQ6OkIvCukoJwt5rO0sehUVIReBem6ng+OLBXmnKjn4PbGM5PeKnqgXIlo5vHXoL4Nl4ZYqbbEGA7+wAAAABJRU5ErkJggg==
     "SE\\." = "southeast",
     "S\\.W\\." = "southwest", # Handle S.W. first before S.
     "SW\\." = "southwest",
     "W\\." = "west",
     "N\\.W\\." = "northwest", # Handle N.W. first before N.
-    "NW\\." = "northwest"
+    "NW\\." = "northwest",
+    "C\\." = "central"
   )
 
   # Apply replacements sequentially

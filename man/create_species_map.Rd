@@ -4,12 +4,14 @@
 \alias{create_species_map}
 \title{Display a leaflet map to show the distribution of occurrence data for each species}
 \usage{
-create_species_map(data, species_range = NULL)
+create_species_map(data, species_range = NULL, show_flags = TRUE)
 }
 \arguments{
 \item{data}{A data frame containing occurrence data}
 
-\item{native_ranges}{A data frame containing occurrence data}
+\item{show_flags}{Set to false if you just want to see the points map without flags}
+
+\item{native_ranges}{A data frame containing occurrence data show_flags}
 }
 \value{
 Interactive leaflet map
