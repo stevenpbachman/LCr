@@ -40,6 +40,7 @@ sis_assessments = function(unique_id, native_ranges, wcvp_ipni_id) {
       internal_taxon_id = id,
       RedListRationale.value = rationale_str,
       MapStatus.status = "Done",
+      MapStatus.narrative = "Occurrence data sourced from GBIF, cleaned using standard protocols and native range filter using Plants of the World Online.",
       RedListAssessmentDate.value = format(Sys.Date(), "%d/%m/%Y"),
       RedListCriteria.critVersion	= "3.1",
       RedListCriteria.manualCategory	= "LC",
