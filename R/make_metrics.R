@@ -28,7 +28,7 @@ make_metrics <- function(occs, native_ranges = FALSE,
     dplyr::mutate(recent = year >= (current_year - 30))
 
   # Step 2: Get EOO, AOO, and number of points (NOP)
-  resultsdf <- rCAT::batchCon(occs$speciesKey,
+  resultsdf <- batchCon_new(occs$speciesKey,
                               occs$decimalLongitude,
                               occs$decimalLatitude,
                               cellsize = 10000)

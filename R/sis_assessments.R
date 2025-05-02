@@ -6,7 +6,7 @@
 #' @return Returns an SIS compliant data frame
 #' @export
 
-sis_assessments = function(unique_id, native_ranges, wcvp_ipni_id) {
+sis_assessments = function(unique_id, native_ranges, wcvp_ipni_id, occs = NULL) {
   rationale_str = paste(
     "This species has a very wide distribution,",
     "large population,",
@@ -18,7 +18,7 @@ sis_assessments = function(unique_id, native_ranges, wcvp_ipni_id) {
   # Generate distribution text for each WCVP IPNI ID
   distribution_data <- lapply(wcvp_ipni_id, function(id) {
     # Call powo_text and extract the iucn_dist_text element
-    powo_result <- powo_text(id)
+    powo_result <- powo_text(id, occs)
     return(powo_result$iucn_dist_text)
   })
 
@@ -28,8 +28,6 @@ sis_assessments = function(unique_id, native_ranges, wcvp_ipni_id) {
     powo_result <- powo_text(id)
     return(powo_result$iucn_habit_text)
   })
-
-
 
   combined_table <- purrr::map2_dfr(unique_id, seq_along(unique_id), function(id, index) {
 
@@ -51,7 +49,7 @@ sis_assessments = function(unique_id, native_ranges, wcvp_ipni_id) {
       PopulationDocumentation.narrative	= "This taxon has a widespread distribution across multiple countries; as such the global population is suspected to be large.",
       HabitatDocumentation.narrative	= hab_text,
       ThreatsDocumentation.value	= "This taxon may face threats associated with land use change in some areas of its wide distribution; however, no major threats have been identified that are likely to affect its extinction risk in a short time",
-      usetradedocumentation.value = "This taxon is not known to be utilised",
+      #usetradedocumentation.value = "This taxon is not known to be utilised",
       RedlistCriteria.isManual	= "TRUE",
       BiogeographicRealm.realm = ""
     )

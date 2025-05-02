@@ -8,8 +8,8 @@
 
 make_elevation <- function(occs) {
   elevation_stats <- occs %>%
-    group_by(internal_taxon_id) %>%
-    summarise(
+    dplyr::group_by(internal_taxon_id) %>%
+    dplyr::summarise(
       ElevationLower.limit = round(quantile(min_elev, 0.05, na.rm = TRUE)),
       ElevationUpper.limit = round(quantile(min_elev, 0.95, na.rm = TRUE)),
       #n = n(),

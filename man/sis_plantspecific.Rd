@@ -4,10 +4,12 @@
 \alias{sis_plantspecific}
 \title{Generate the plantspecific.csv file}
 \usage{
-sis_plantspecific(unique_id, kingdom = "plantae")
+sis_plantspecific(unique_id, wcvp_ipni_id, kingdom = "plantae")
 }
 \arguments{
 \item{unique_id}{(character) Unique identifier}
+
+\item{wcvp_ipni_id}{(character) Vector of WCVP IPNI IDs}
 
 \item{kingdom}{(character) Defaults to `plantae`, but can be `fungi`}
 }

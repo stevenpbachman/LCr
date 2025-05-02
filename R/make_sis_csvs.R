@@ -46,7 +46,11 @@ make_sis_csvs <-
       } else {
         allfields <- sis_allfields(unique_id)
       }
-      assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id)
+      if (!is.null(occs)) {
+        assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id, occs = occs)
+      } else {
+        assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id)
+      }
       plantspecific <- sis_plantspecific(unique_id, kingdom)
       habitats <- sis_habitats(unique_id)
       credits <- sis_credits(unique_id, first_name, second_name, email, affiliation = institution)

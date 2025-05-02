@@ -4,7 +4,7 @@
 \alias{flag_occs}
 \title{Flags GBIF occurrence data based on common coordinate issues}
 \usage{
-flag_occs(gbif_occs, native_ranges = NULL)
+flag_occs(gbif_occs, native_ranges = NULL, buffer = 1000)
 }
 \arguments{
 \item{gbif_occs}{(data frame) GBIF occurrence file in DWCA format}

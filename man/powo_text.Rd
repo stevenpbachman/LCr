@@ -4,10 +4,12 @@
 \alias{powo_text}
 \title{Lookup distribution, habit and climate text in POWO (Plants of the World Online) using WCVP ID}
 \usage{
-powo_text(wcvp_ipni_id, distribution = FALSE)
+powo_text(wcvp_ipni_id, occs)
 }
 \arguments{
 \item{wcvp_ipni_id}{(character) WCVP identifier}
+
+\item{occs}{(df) Occurrence data with elevation information}
 }
 \value{
 Returns a list with POWO data

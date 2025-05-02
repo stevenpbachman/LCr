@@ -8,7 +8,7 @@
 #'   - summary: summary of error counts
 #'
 #' @export
-flag_occs <- function(gbif_occs, native_ranges = NULL) {
+flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
   # Create a copy of original data with flags initialized as FALSE
   flagged_occs <- gbif_occs %>%
     dplyr::mutate(
@@ -125,7 +125,7 @@ flag_occs <- function(gbif_occs, native_ranges = NULL) {
     # Join with TDWG polygons
     valid_coords_tdwg <- valid_coords_projected %>%
       sf::st_join(tdwg_level3_projected %>%
-                    sf::st_buffer(dist = 1000))
+                    sf::st_buffer(dist = buffer))
 
     # Extract the LEVEL3_COD values
     id_col <- if("gbifID" %in% colnames(flagged_occs)) "gbifID" else ".row_id"

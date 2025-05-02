@@ -4,7 +4,7 @@
 \alias{sis_assessments}
 \title{Generate the assessments.csv file}
 \usage{
-sis_assessments(unique_id, native_ranges, wcvp_ipni_id)
+sis_assessments(unique_id, native_ranges, wcvp_ipni_id, occs = NULL)
 }
 \arguments{
 \item{unique_id}{(character) Unique identifier.}
