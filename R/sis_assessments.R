@@ -25,7 +25,7 @@ sis_assessments = function(unique_id, native_ranges, wcvp_ipni_id, occs = NULL) 
   # Generate habitat text for each WCVP IPNI ID
   habitat_data <- lapply(wcvp_ipni_id, function(id) {
     # Call powo_text and extract the iucn_dist_text element
-    powo_result <- powo_text(id)
+    powo_result <- powo_text(id, occs = NULL)
     return(powo_result$iucn_habit_text)
   })
 

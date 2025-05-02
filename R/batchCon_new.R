@@ -33,7 +33,7 @@
 #'
 #'
 
-batchCon <- function(taxa,long,lat,project2gether=TRUE,cellsize=2000,
+batchCon_new <- function(taxa,long,lat,project2gether=TRUE,cellsize=2000,
                      aooMin=FALSE,it=1296, returnV='S'){
   if (returnV == "SF") {
     project2gether = TRUE

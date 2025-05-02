@@ -33,6 +33,8 @@ make_metrics <- function(occs, native_ranges = FALSE,
                               occs$decimalLatitude,
                               cellsize = 10000)
 
+  resultsdf$taxon <- as.integer(resultsdf$taxon)
+
   # Step 3: Clean up
   rownames(resultsdf) <- NULL
   resultsdf <- resultsdf %>%
