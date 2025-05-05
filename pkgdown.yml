@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   Generate-csvs: Generate-csvs.html
   SIS_connect_fungi_workflow: SIS_connect_fungi_workflow.html
-last_built: 2025-05-02T22:01Z
+last_built: 2025-05-05T15:53Z
 urls:
   reference: https://stevenpbachman.github.io/LCr/reference
   article: https://stevenpbachman.github.io/LCr/articles
