@@ -6,7 +6,7 @@
 #'
 #' @return Returns a list with POWO data
 
-powo_text <- function(wcvp_ipni_id, occs) {
+powo_text <- function(wcvp_ipni_id, occs, unique_id) {
 
   returned_data <- powo_lookup(wcvp_ipni_id)
   Sys.sleep(0.5)
@@ -20,15 +20,17 @@ powo_text <- function(wcvp_ipni_id, occs) {
   # If occs is provided, calculate and merge elevation data
   # Need a check to see if there are any or sufficient points with elevation data
   if (!is.null(occs)) {
+    occs <- occs %>% dplyr::filter(internal_taxon_id == unique_id)
     elevation_stats <- make_elevation(occs)
-    elev_text <- paste0(" The estimated elevational range for this species is from ",
-                        elevation_stats$ElevationLower.limit, " to ",
-                        elevation_stats$ElevationUpper.limit, " m asl.")
-  }
+    elev_text <- paste0(
+      " The estimated elevational range for this species is from ",
+      format(elevation_stats$ElevationLower.limit, big.mark = ",", scientific = FALSE), " to ",
+      format(elevation_stats$ElevationUpper.limit, big.mark = ",", scientific = FALSE), " m asl."
+    )}
 
   # reformat text to make IUCN compatible
   dist_text <- paste0("The native range of this species is ",dist_text," (POWO, ",year_only, ").")
-  if (!is.null(elev_text)) {
+  if (exists("elev_text") && !is.null(elev_text)) {
     dist_text <- paste0(dist_text,  elev_text)
   }
   iucn_dist_text <- replace_cardinal_directions(dist_text)

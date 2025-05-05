@@ -21,7 +21,9 @@ replace_cardinal_directions <- function(text) {
     "W\\." = "west",
     "N\\.W\\." = "northwest", # Handle N.W. first before N.
     "NW\\." = "northwest",
-    "C\\." = "central"
+    "C\\." = "central",
+    "Trop\\." = "tropical",
+    "Subtrop\\." = "subtropical"
   )
 
   # Apply replacements sequentially

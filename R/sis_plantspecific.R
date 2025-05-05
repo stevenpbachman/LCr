@@ -13,7 +13,7 @@ sis_plantspecific = function(unique_id, wcvp_ipni_id, kingdom = "plantae") {
     # Generate habit text for each WCVP IPNI ID
     habit_data <- lapply(wcvp_ipni_id, function(id) {
       # Call powo_text and extract the habit_text element
-      powo_result <- powo_text(id, occs = NULL)
+      powo_result <- powo_text(id, occs = NULL, unique_id)
       return(powo_result$habit_text)
     })
 

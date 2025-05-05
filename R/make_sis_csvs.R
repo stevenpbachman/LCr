@@ -40,25 +40,32 @@ make_sis_csvs <-
       # get most of the csvs here
       if (!is.null(native_ranges)) {
       countries <- sis_countries(native_ranges, unique_id)
+      print("countries finished")
       }
       if (!is.null(occs)) {
       allfields <- sis_allfields(unique_id, occs = occs)
+      print("allfields finished")
       } else {
         allfields <- sis_allfields(unique_id)
       }
       if (!is.null(occs)) {
         assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id, occs = occs)
+        print("assessments finished")
       } else {
         assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id)
       }
-      plantspecific <- sis_plantspecific(unique_id, kingdom)
+      plantspecific <- sis_plantspecific(unique_id, wcvp_ipni_id, kingdom)
+      print("plantspecific finished")
       habitats <- sis_habitats(unique_id)
+      print("habitats finished")
       credits <- sis_credits(unique_id, first_name, second_name, email, affiliation = institution)
+      print("credits finished")
       taxonomy <- sis_taxonomy(unique_id, family, genus, species, taxonomicAuthority)
+      print("taxonomy finished")
 
       # need to embed map into the function, but refs a bit awkward - try again later
       references <- purrr::map_dfr(unique_id, sis_references, powo_ref = powo_ref, gbif_ref = gbif_ref)
-
+      print("references finished")
       # list of default results - these should always be generated
       results <-
         list(
@@ -70,6 +77,7 @@ make_sis_csvs <-
           taxonomy = taxonomy,
           references = references
         )
+      print("results finished")
 
       # countries df depends on native ranges, so only add countries if exists
       if (exists("countries")) {

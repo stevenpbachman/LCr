@@ -4,7 +4,7 @@
 \alias{powo_text}
 \title{Lookup distribution, habit and climate text in POWO (Plants of the World Online) using WCVP ID}
 \usage{
-powo_text(wcvp_ipni_id, occs)
+powo_text(wcvp_ipni_id, occs, unique_id)
 }
 \arguments{
 \item{wcvp_ipni_id}{(character) WCVP identifier}

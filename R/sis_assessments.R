@@ -6,7 +6,7 @@
 #' @return Returns an SIS compliant data frame
 #' @export
 
-sis_assessments = function(unique_id, native_ranges, wcvp_ipni_id, occs = NULL) {
+sis_assessments = function(unique_id, native_ranges, wcvp_ipni_id, occs) {
   rationale_str = paste(
     "This species has a very wide distribution,",
     "large population,",
@@ -15,19 +15,24 @@ sis_assessments = function(unique_id, native_ranges, wcvp_ipni_id, occs = NULL) 
     "This species is therefore assessed as Least Concern."
   )
 
-  # Generate distribution text for each WCVP IPNI ID
-  distribution_data <- lapply(wcvp_ipni_id, function(id) {
-    # Call powo_text and extract the iucn_dist_text element
-    powo_result <- powo_text(id, occs)
-    return(powo_result$iucn_dist_text)
-  })
+  powo_results <- purrr::map2(wcvp_ipni_id, unique_id, ~ powo_text(.x, occs, .y))
 
-  # Generate habitat text for each WCVP IPNI ID
-  habitat_data <- lapply(wcvp_ipni_id, function(id) {
-    # Call powo_text and extract the iucn_dist_text element
-    powo_result <- powo_text(id, occs = NULL)
-    return(powo_result$iucn_habit_text)
-  })
+  distribution_data <- purrr::map(powo_results, "iucn_dist_text")
+  habitat_data <- purrr::map(powo_results, "iucn_habit_text")
+
+  # # Generate distribution text for each WCVP IPNI ID
+  # distribution_data <- lapply(wcvp_ipni_id, function(id) {
+  #   # Call powo_text and extract the iucn_dist_text element
+  #   powo_result <- powo_text(id, occs, unique_id)
+  #   return(powo_result$iucn_dist_text)
+  # })
+  #
+  # # Generate habitat text for each WCVP IPNI ID
+  # habitat_data <- lapply(wcvp_ipni_id, function(id) {
+  #   # Call powo_text and extract the iucn_dist_text element
+  #   powo_result <- powo_text(id, occs, unique_id)
+  #   return(powo_result$iucn_habit_text)
+  # })
 
   combined_table <- purrr::map2_dfr(unique_id, seq_along(unique_id), function(id, index) {
 
