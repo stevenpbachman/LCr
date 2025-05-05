@@ -29,13 +29,29 @@ sis_plantspecific = function(unique_id, wcvp_ipni_id, kingdom = "plantae") {
 
         if (nrow(matches) > 0) {
           # Create one row for each matching growth form
-          return(purrr::map_dfr(1:nrow(matches), function(match_idx) {
-            tibble::tibble(
-              internal_taxon_id = id,
-              PlantGrowthForms.PlantGrowthFormsSubfield.PlantGrowthFormsName = matches$description[match_idx],
-              PlantGrowthForms.PlantGrowthFormsSubfield.PlantGrowthFormsLookup = matches$code[match_idx]
-            )
-          }))
+
+          # Filter out rows with NA in either description or code
+          matches <- matches[!is.na(matches$description) & !is.na(matches$code), ]
+
+          if (nrow(matches) > 0) {
+            return(purrr::map_dfr(1:nrow(matches), function(match_idx) {
+              tibble::tibble(
+                internal_taxon_id = id,
+                PlantGrowthForms.PlantGrowthFormsSubfield.PlantGrowthFormsName = matches$description[match_idx],
+                PlantGrowthForms.PlantGrowthFormsSubfield.PlantGrowthFormsLookup = matches$code[match_idx]
+              )
+            }))
+          }
+
+          # return(purrr::map_dfr(1:nrow(matches), function(match_idx) {
+          #   tibble::tibble(
+          #     internal_taxon_id = id,
+          #     PlantGrowthForms.PlantGrowthFormsSubfield.PlantGrowthFormsName = matches$description[match_idx],
+          #     PlantGrowthForms.PlantGrowthFormsSubfield.PlantGrowthFormsLookup = matches$code[match_idx]
+          #   )
+          # }))
+
+
         }
       }
 
