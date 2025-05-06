@@ -20,35 +20,56 @@
 
 # add option to determine which sources you want to search e.g. WCVP for plants, or IF for fungi
 get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae") {
-  # search terms
-  search_names <- as.vector(unlist(df[, name_column]))
+  # Create a working copy of the dataframe
+  working_df <- df
 
-  # get the GBIF keys
-  gbif_names_out <-
-    purrr::map_dfr(search_names,
-                   name_search_gbif,
-                   match = match)
+  # Parse names into binomial and author components
+  search_names <- as.vector(unlist(working_df[, name_column]))
+
+  # use gbif parser
+  name_parts <- purrr::map(search_names,  rgbif::name_parse)
+  name_parts <- bind_rows(name_parts)
+
+  # resolve brackets issue output
+  working_df <- name_parts %>%
+    mutate(
+      taxonomicAuthority = case_when(
+        !is.na(bracketauthorship) ~ paste0("(", bracketauthorship, ") ", authorship),
+        !is.na(authorship) ~ authorship,
+        TRUE ~ ""
+      )
+    )
+
+  #get the GBIF keys using full name strings - canonicalnamecomplete
+  gbif_names_out <- purrr::map_dfr(
+    working_df$canonicalnamecomplete,  # extract just the column of names
+    ~name_search_gbif(name = .x, match = "single")  # use .x to refer to each value
+  )
+
+  # label as GBIF columns to distinguish from POWO
   colnames(gbif_names_out) <- paste0("GBIF", "_", colnames(gbif_names_out))
 
+  # important  add the search name back in to match later
+  gbif_names_out$GBIF_searchName <- search_names
   keys_df <- gbif_names_out
 
-  if (kingdom == "plantae"){
-
-  # get the POWO keys
+  if (kingdom == "plantae") {
+    # For POWO, use the parsed binomial and author columns
     powo_names_out <-
-      name_search_powo(df = df,
-                       name_column = name_column)
+      name_search_powo(df  = working_df,
+                       name_col  = "canonicalname",
+                       author_col = "taxonomicAuthority")
 
-  # bind them together - need to fix when WCVP returns multiple matches
-  keys_df <-
-    dplyr::inner_join(gbif_names_out,
-                      powo_names_out,
-                      by = c("GBIF_searchName" = as.character(name_column)))
+    # Join by the original search name
+    keys_df <-
+      dplyr::inner_join(gbif_names_out,
+                        powo_names_out,
+                        by = c("GBIF_searchName" = "scientificname"))
   }
 
+  # rename
   keys_df <-
     dplyr::rename(keys_df, "searchName" = "GBIF_searchName")
 
   return(keys_df)
-
 }

@@ -4,12 +4,14 @@
 \alias{name_search_powo}
 \title{Query taxon name against POWO (Plants of the World Online) backbone}
 \usage{
-name_search_powo(df, name_column)
+name_search_powo(df, name_column, author_col)
 }
 \arguments{
 \item{df}{(data frame) Taxon name(s)}
 
 \item{name_column}{(string) Column that contains the name(s)}
+
+\item{author_col}{(string) Column that contains the author name(s)}
 }
 \value{
 Returns a data frame with initial search term and matching name(s)
