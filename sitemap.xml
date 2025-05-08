@@ -11,7 +11,6 @@
 <url><loc>https://stevenpbachman.github.io/LCr/reference/batchCon_new.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/check_tax_auth.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/clean_occs.html</loc></url>
-<url><loc>https://stevenpbachman.github.io/LCr/reference/create_species_map.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/create_status_gauge.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/flag_occs.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/get_gbif_occs.html</loc></url>
@@ -44,5 +43,7 @@
 <url><loc>https://stevenpbachman.github.io/LCr/reference/sis_plantspecific.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/sis_references.html</loc></url>
 <url><loc>https://stevenpbachman.github.io/LCr/reference/sis_taxonomy.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/species_map_batch.html</loc></url>
+<url><loc>https://stevenpbachman.github.io/LCr/reference/species_map_single.html</loc></url>
 </urlset>
 
