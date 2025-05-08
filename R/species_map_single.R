@@ -7,14 +7,30 @@
 #' @return Interactive leaflet map
 #' @export
 
-# add the native range
+species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
 
-create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
+  species_name <- data$canonicalname[1]
+
+  title_html <- sprintf(
+    "<div style='
+    position: absolute;
+    top: 10px;
+    left: 50%%;
+    transform: translateX(-50%%);
+    font-size: 18px;
+    font-weight: bold;
+    background-color: white;
+    padding: 5px;
+    z-index: 1000;
+  '>
+    %s
+  </div>",
+    species_name
+  )
 
   # Remove any rows with NA coordinates
   species_data <- data %>%
     dplyr::filter(!is.na(decimalLatitude), !is.na(decimalLongitude))
-
 
   # Add switch if user wants to just see map or to see flags
   if (show_flags == TRUE) {
@@ -35,20 +51,20 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
 
     # Create valid data subset: all flags are FALSE or NA
     valid_data <- species_data %>%
-      filter(if_all(all_of(validation_flags), ~ is.na(.) | . == FALSE))
+      dplyr::filter(dplyr::if_all(dplyr::all_of(validation_flags), ~ is.na(.) | . == FALSE))
 
     # Create problem data subset: at least one flag is TRUE
     problem_data <- species_data %>%
-      filter(if_any(all_of(validation_flags), ~ . == TRUE))
+      dplyr::filter(dplyr::if_any(dplyr::all_of(validation_flags), ~ . == TRUE))
 
     # Initialize base leaflet map
     m <- leaflet() %>%
-      addProviderTiles("OpenStreetMap", group = "OpenStreetMap") %>%
-      addProviderTiles("Esri.WorldImagery", group = "Satellite")
+      leaflet::addProviderTiles("OpenStreetMap", group = "OpenStreetMap") %>%
+      leaflet::addProviderTiles("Esri.WorldImagery", group = "Satellite")
 
     # Add measuring tool
     m <- m %>%
-      addMeasure(
+      leaflet::addMeasure(
         position = "topleft",
         primaryLengthUnit = "kilometers",
         secondaryLengthUnit = "miles",
@@ -64,7 +80,7 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
 
       if (nrow(native_polygons) > 0) {
         m <- m %>%
-          addPolygons(
+          leaflet::addPolygons(
             data = native_polygons,
             fillColor = "blue",
             weight = 1,
@@ -81,7 +97,7 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
     # Add valid points (green)
     if (nrow(valid_data) > 0) {
       m <- m %>%
-        addCircleMarkers(
+        leaflet::addCircleMarkers(
           data = valid_data,
           lng = ~decimalLongitude,
           lat = ~decimalLatitude,
@@ -93,7 +109,7 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
           weight = 2,
           opacity = 1,
           fill = TRUE,
-          fillColor = "green",  # Apply colors based on category
+          fillColor = "green",
           fillOpacity = 0.8
         )
     }
@@ -105,7 +121,7 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
 
       if (nrow(flag_data) > 0) {
         m <- m %>%
-          addCircleMarkers(
+          leaflet::addCircleMarkers(
             data = flag_data,
             lng = ~decimalLongitude,
             lat = ~decimalLatitude,
@@ -115,7 +131,7 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
             weight = 2,
             opacity = 1,
             fill = TRUE,
-            fillColor = "red",  # Apply colors based on category
+            fillColor = "red",
             fillOpacity = 0.8,
             group = flag,
             popup = ~paste("Species:", species, "<br>", "Issue:", flag, "<br>", "Source:", source)
@@ -130,7 +146,7 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
     }
 
     m <- m %>%
-      addLayersControl(
+      leaflet::addLayersControl(
         baseGroups = c("Satellite", "OpenStreetMap"),
         overlayGroups = overlay_groups,
         options = layersControlOptions(collapsed = FALSE)
@@ -146,13 +162,15 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
     }
 
     m <- m %>%
-      addLegend(
+      leaflet::addLegend(
         position = "bottomright",
         title = "Data Quality",
         colors = legend_colors,
         labels = legend_labels,
         opacity = 0.8
       )
+
+    m <- htmlwidgets::prependContent(m, htmltools::HTML(title_html))
 
     return(m)
 
@@ -168,12 +186,12 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
 
     # Initialize base leaflet map
     m <- leaflet() %>%
-      addProviderTiles("OpenStreetMap", group = "OpenStreetMap") %>%
-      addProviderTiles("Esri.WorldImagery", group = "Satellite")
+      leaflet::addProviderTiles("OpenStreetMap", group = "OpenStreetMap") %>%
+      leaflet::addProviderTiles("Esri.WorldImagery", group = "Satellite")
 
     # Add measuring tool
     m <- m %>%
-      addMeasure(
+      leaflet::addMeasure(
         position = "topleft",
         primaryLengthUnit = "kilometers",
         secondaryLengthUnit = "miles",
@@ -189,7 +207,7 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
 
       if (nrow(native_polygons) > 0) {
         m <- m %>%
-          addPolygons(
+          leaflet::addPolygons(
             data = native_polygons,
             fillColor = "blue",
             weight = 1,
@@ -206,7 +224,7 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
     # Add valid points (green)
     if (nrow(species_data) > 0) {
       m <- m %>%
-        addCircleMarkers(
+        leaflet::addCircleMarkers(
           data = species_data,
           lng = ~decimalLongitude,
           lat = ~decimalLatitude,
@@ -218,23 +236,23 @@ create_species_map <- function(data, species_range = NULL, show_flags = TRUE) {
           weight = 2,
           opacity = 1,
           fill = TRUE,
-          fillColor = "green",  # Apply colors based on category
+          fillColor = "green",
           fillOpacity = 0.8
         )
     }
 
     # Update layer control to include Native Range
-    #overlay_groups <- c("Valid Points", species_data)
     if (!is.null(species_range) && nrow(species_range) > 0) {
       overlay_groups <- c("Native Range", "Valid Points")
     }
 
     m <- m %>%
-      addLayersControl(
+      leaflet::addLayersControl(
         baseGroups = c("Satellite", "OpenStreetMap"),
         overlayGroups = overlay_groups,
         options = layersControlOptions(collapsed = FALSE)
       )
+    m <- htmlwidgets::prependContent(m, htmltools::HTML(title_html))
 
   }
   return(m)
