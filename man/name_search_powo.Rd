@@ -4,7 +4,7 @@
 \alias{name_search_powo}
 \title{Query taxon name against POWO (Plants of the World Online) backbone}
 \usage{
-name_search_powo(df, name_column, author_col)
+name_search_powo(df, name_column, author_col = NULL)
 }
 \arguments{
 \item{df}{(data frame) Taxon name(s)}

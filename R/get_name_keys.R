@@ -28,17 +28,21 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
 
   # use gbif parser
   name_parts <- purrr::map(search_names,  rgbif::name_parse)
-  name_parts <- bind_rows(name_parts)
+  name_parts <- dplyr::bind_rows(name_parts)
 
-  # resolve brackets issue output
-  working_df <- name_parts %>%
-    mutate(
-      taxonomicAuthority = case_when(
-        !is.na(bracketauthorship) ~ paste0("(", bracketauthorship, ") ", authorship),
-        !is.na(authorship) ~ authorship,
-        TRUE ~ ""
+  if (all(c("bracketauthorship", "authorship") %in% names(name_parts))) {
+    working_df <- name_parts %>%
+      dplyr::mutate(
+        taxonomicAuthority = dplyr::case_when(
+          !is.na(bracketauthorship) ~ paste0("(", bracketauthorship, ") ", authorship),
+          !is.na(authorship) ~ authorship,
+          TRUE ~ ""
+        )
       )
-    )
+  } else {
+    # If either column is missing, just copy the input df
+    working_df <- name_parts
+  }
 
   #get the GBIF keys using full name strings - canonicalnamecomplete
   gbif_names_out <- purrr::map_dfr(
@@ -54,11 +58,20 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
   keys_df <- gbif_names_out
 
   if (kingdom == "plantae") {
-    # For POWO, use the parsed binomial and author columns
-    powo_names_out <-
-      name_search_powo(df  = working_df,
-                       name_col  = "canonicalname",
-                       author_col = "taxonomicAuthority")
+
+    if ("taxonomicAuthority" %in% names(working_df)) {
+      powo_names_out <- name_search_powo(
+        df = working_df,
+        name_col = "canonicalname",
+        author_col = "taxonomicAuthority"
+      )
+    } else {
+      powo_names_out <- name_search_powo(
+        df = working_df,
+        name_col = "canonicalname"
+        # omit author_col entirely
+      )
+    }
 
     # Join by the original search name
     keys_df <-
