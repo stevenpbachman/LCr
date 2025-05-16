@@ -81,14 +81,38 @@ batchCon_new <- function(taxa,long,lat,project2gether=TRUE,cellsize=2000,
 
     n_points <- lapply(split_points, nrow)
     eoo_areas <- lapply(split_points, rCAT::eoo)
-    eoo_ratings <- lapply(eoo_areas, rCAT::ratingEoo)
+    #eoo_ratings <- lapply(eoo_areas, rCAT::ratingEoo)
+    # catch when eoo area is NA
+    eoo_ratings <- lapply(eoo_areas, function(x) {
+      if (is.na(x)) {
+        "DD"
+      } else {
+        rCAT::ratingEoo(x)
+      }
+    })
+
     aoo_areas <- lapply(split_points, function(p) rCAT::aoo(p, cellsize))
 
     if (aooMin) {
       min_aoo_areas <- lapply(split_points, function(p) aooFixedRotation(p, cellsize, it))
-      aoo_ratings <- lapply(min_aoo_areas, ratingAoo)
+      #aoo_ratings <- lapply(min_aoo_areas, ratingAoo)
+      aoo_ratings <- lapply(aoo_areas, function(x) {
+        if (is.na(x)) {
+          "DD"
+        } else {
+          rCAT::ratingAoo(x)
+        }
+      })
+
     } else {
-      aoo_ratings <- lapply(aoo_areas, rCAT::ratingAoo)
+      #aoo_ratings <- lapply(aoo_areas, rCAT::ratingAoo)
+      aoo_ratings <- lapply(aoo_areas, function(x) {
+        if (is.na(x)) {
+          "DD"
+        } else {
+          rCAT::ratingAoo(x)
+        }
+      })
     }
 
     taxa_names <- names(split_points)
