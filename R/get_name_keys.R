@@ -19,7 +19,7 @@
 #' to get native ranges. To see a wider range of plausible matches adjust 'match' to 'any'.
 
 # add option to determine which sources you want to search e.g. WCVP for plants, or IF for fungi
-get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae") {
+get_name_keys2 <- function(df, name_column, match = "single", kingdom = "plantae") {
   # Create a working copy of the dataframe
   working_df <- df
 
@@ -83,6 +83,61 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
   # rename
   keys_df <-
     dplyr::rename(keys_df, "searchName" = "GBIF_searchName")
+
+  # reporting the outputs - show when there are issues that the user needs to review
+  # 1. report multi-matches
+  multi <- keys_df %>%
+    dplyr::group_by(searchName) %>%
+    dplyr::count() %>%
+    dplyr::filter(n >= 2)
+
+  # only show message if there are any multi - matches
+  if (nrow(multi) > 0) {
+    #cli::cli_alert_info("There are {nrow(multi)} records that matched more than one name. Please review:")
+    cli::cli_alert_warning(
+      "There {?is/are} {nrow(multi)} record{?s} that matched more than one name. Please review."
+    )
+    purrr::walk(
+      multi$searchName,
+      ~cli::cli_li("{.val {.x}}"))
+  }
+
+  # 2. report non-species
+  non_species <- keys_df %>%
+    dplyr::filter(!(GBIF_rank == "SPECIES" & wcvp_rank == "Species"))
+
+  if (nrow(non_species) > 0) {
+    #cli::cli_alert_warning("There are {nrow(non_species)} records where the taxonomic rank is not species level. Please review:")
+    cli::cli_alert_warning(
+      "There {?is/are} {nrow(non_species)} record{?s} where the taxonomic rank is not 'Species'. Please review."
+    )
+
+    purrr::walk(
+      non_species$searchName,
+      ~cli::cli_li("{.val {.x}}")
+    )
+  }
+
+  # 3. When GBIF and POWO name are not accepted
+  not_accepted <- keys_df %>%
+    dplyr::filter(!(GBIF_status == "ACCEPTED" & wcvp_status == "Accepted"))
+
+  if (nrow(not_accepted) > 0) {
+    #cli::cli_alert_warning("There are {nrow(not_accepted)} records where the taxonomic status is not accepted. Please review:")
+    cli::cli_alert_warning(
+      "There {?is/are} {nrow(not_accepted)} record{?s} where the taxonomic status is not accepted. Please review."
+    )
+
+    purrr::walk(
+      not_accepted$searchName,
+      ~cli::cli_li("{.val {.x}}")
+    )
+  }
+
+  cli::cli_alert_info(
+    "Check spelling of input names and, if not already included, add author to improve matching."
+  )
+
 
   return(keys_df)
 }
