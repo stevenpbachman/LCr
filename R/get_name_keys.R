@@ -19,7 +19,7 @@
 #' to get native ranges. To see a wider range of plausible matches adjust 'match' to 'any'.
 
 # add option to determine which sources you want to search e.g. WCVP for plants, or IF for fungi
-get_name_keys2 <- function(df, name_column, match = "single", kingdom = "plantae") {
+get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae") {
   # Create a working copy of the dataframe
   working_df <- df
 
