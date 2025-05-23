@@ -31,7 +31,8 @@ clean_occs <- function(flagged_occs,
                                         "flag_high_uncertainty",
                                         "flag_outside_native"),
                        remove_gbifids = NULL,
-                       gbifid_reason = NULL) {
+                       gbifid_reason = NULL,
+                       keep_gbifids = NULL) {
 
   #data <- flagged_occs$flagged_data
   data <- flagged_occs
@@ -94,6 +95,19 @@ clean_occs <- function(flagged_occs,
     data$manual_removal_reason <- NA_character_
   }
 
+  # Override problematic status for manually kept gbifIDs
+  # This should happen AFTER all other flags have been applied
+  if (!is.null(keep_gbifids)) {
+    keep_matches <- data$gbifID %in% keep_gbifids
+    # Override the problematic flag for these records
+    data$is_problematic[keep_matches] <- FALSE
+
+    # Add a flag to track which records were manually kept
+    data$flag_manual_keep <- keep_matches
+  } else {
+    data$flag_manual_keep <- FALSE
+  }
+
   # Add a problem_reason column that lists all problems - improved approach to avoid extra commas
   data <- data %>%
     dplyr::rowwise() %>%
@@ -115,6 +129,11 @@ clean_occs <- function(flagged_occs,
           reasons <- c(reasons, manual_removal_reason)
         }
 
+        # Add note if record was manually kept despite flags
+        if (flag_manual_keep && length(reasons) > 0) {
+          reasons <- c(reasons, "Manually kept despite flags")
+        }
+
         # Join with commas only if there are reasons
         if (length(reasons) > 0) {
           paste(reasons, collapse = ", ")
@@ -130,7 +149,7 @@ clean_occs <- function(flagged_occs,
   problem_occs <- dplyr::filter(data, is_problematic)
 
   # Remove flag columns from clean occurrences but keep problem reasons in problem dataset
-  clean_cols <- colnames(clean_occs)[!grepl("^flag_|is_problematic|problem_reasons|manual_removal_reason", colnames(clean_occs))]
+  clean_cols <- colnames(clean_occs)[!grepl("^flag_|is_problematic|manual_removal_reason", colnames(clean_occs))]
   clean_occs <- clean_occs[, clean_cols]
 
   problem_cols <- c(colnames(problem_occs)[!grepl("^flag_|is_problematic|manual_removal_reason", colnames(problem_occs))])
