@@ -130,6 +130,13 @@ flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
     # Extract the LEVEL3_COD values
     id_col <- if("gbifID" %in% colnames(flagged_occs)) "gbifID" else ".row_id"
 
+    # Set up progress bar
+    cli::cli_progress_bar(
+      name = "Checking native range status",
+      total = nrow(valid_coords_tdwg),
+      format = "{cli::pb_name} {cli::pb_bar} {cli::pb_percent} | ETA: {cli::pb_eta}"
+    )
+
     for (i in seq_len(nrow(valid_coords_tdwg))) {
       row_id <- which(flagged_occs[[id_col]] == valid_coords_tdwg[[id_col]][i])
 
@@ -148,7 +155,10 @@ flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
           flagged_occs$flag_outside_native[row_id] <- TRUE
         }
       }
+
+      cli::cli_progress_update()
     }
+    cli::cli_progress_done()
   }
   print(paste0("native range check complete"))
 
