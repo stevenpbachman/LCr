@@ -48,7 +48,8 @@
 <span>    <span class="st">"flag_cc_institutions"</span>, <span class="st">"flag_cc_equal"</span>, <span class="st">"flag_cc_gbif"</span>, <span class="st">"flag_cc_zeros"</span>,</span>
 <span>    <span class="st">"flag_high_uncertainty"</span>, <span class="st">"flag_outside_native"</span><span class="op">)</span>,</span>
 <span>  remove_gbifids <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  gbifid_reason <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  gbifid_reason <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  keep_gbifids <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -78,6 +79,12 @@ Example: list("identification uncertain" = c("1234", "5678"),
 <dt id="arg-gbifid-reason">gbifid_reason<a class="anchor" aria-label="anchor" href="#arg-gbifid-reason"></a></dt>
 <dd><p>Character string providing the default reason for manual gbifID removal
 when remove_gbifids is a simple vector.</p></dd>
+
+
+<dt id="arg-keep-gbifids">keep_gbifids<a class="anchor" aria-label="anchor" href="#arg-keep-gbifids"></a></dt>
+<dd><p>Vector of gbifIDs to keep in the clean dataset even if they are flagged
+as problematic by automatic flags. These records will override any flags.
+Example: c("5101884416", "1252668978")</p></dd>
 
 </dl></div>
     <div class="section level2">
