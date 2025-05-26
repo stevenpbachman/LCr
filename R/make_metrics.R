@@ -15,7 +15,7 @@
 # what about number of contemporary points? last 30 yrs?
 # restricted elevation range?
 
-make_metrics_temp <- function(occs, native_ranges = FALSE,
+make_metrics <- function(occs, native_ranges = FALSE,
                          eoo_thresh = 30000,
                          aoo_thresh = 3000,
                          points_thresh = 75,
@@ -28,16 +28,10 @@ make_metrics_temp <- function(occs, native_ranges = FALSE,
     dplyr::mutate(recent = year >= (current_year - 30))
 
   # Step 2: Get EOO, AOO, and number of points (NOP)
-  # resultsdf <-rCAT::batchCon(occs$speciesKey,
-  #                             occs$decimalLongitude,
-  #                             occs$decimalLatitude,
-  #                             cellsize = 10000)
-
-  resultsdf <- batchCon(occs$speciesKey,
-                             occs$decimalLongitude,
-                             occs$decimalLatitude,
-                             cellsize = 10000)
-
+  resultsdf <-rCAT::batchCon(occs$speciesKey,
+                               occs$decimalLongitude,
+                               occs$decimalLatitude,
+                               cellsize = 10000)
 
   resultsdf$taxon <- as.integer(resultsdf$taxon)
 

@@ -10,7 +10,8 @@ clean_occs(
     "flag_cc_institutions", "flag_cc_equal", "flag_cc_gbif", "flag_cc_zeros",
     "flag_high_uncertainty", "flag_outside_native"),
   remove_gbifids = NULL,
-  gbifid_reason = NULL
+  gbifid_reason = NULL,
+  keep_gbifids = NULL
 )
 }
 \arguments{
@@ -29,6 +30,10 @@ Example: list("identification uncertain" = c("1234", "5678"),
 
 \item{gbifid_reason}{Character string providing the default reason for manual gbifID removal
 when remove_gbifids is a simple vector.}
+
+\item{keep_gbifids}{Vector of gbifIDs to keep in the clean dataset even if they are flagged
+as problematic by automatic flags. These records will override any flags.
+Example: c("5101884416", "1252668978")}
 }
 \value{
 A list containing:
