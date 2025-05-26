@@ -14,6 +14,9 @@
 #'                                    "habitat mismatch" = c("9012"))
 #' @param gbifid_reason Character string providing the default reason for manual gbifID removal
 #'                     when remove_gbifids is a simple vector.
+#' @param keep_gbifids Vector of gbifIDs to keep in the clean dataset even if they are flagged
+#'                     as problematic by automatic flags. These records will override any flags.
+#'                     Example: c("5101884416", "1252668978")
 #'
 #' @return A list containing:
 #'   - clean_occs: Cleaned occurrences based on selected flags and/or gbifIDs
