@@ -70,7 +70,9 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
                                 "MATERIAL_ENTITY" = "",
                                 "MATERIAL_SAMPLE" = "PreservedSpecimen",
                                 "MATERIAL_CITATION" = "PreservedSpecimen"
-                              )
+                              ),
+                              latitude = dec_lat,
+                              longitude = dec_long
   )
 
   sis_points <- dplyr::select(sis_points, -speciesKey,-gbifID)

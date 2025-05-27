@@ -32,6 +32,32 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
   species_data <- data %>%
     dplyr::filter(!is.na(decimalLatitude), !is.na(decimalLongitude))
 
+  # Function to detect overlapping points and create enhanced popups
+  create_overlap_data <- function(data) {
+    # Round coordinates to identify overlaps (adjust precision as needed)
+    # Using more decimal places for finer overlap detection
+    data$coord_key <- paste(round(data$decimalLatitude, 6), round(data$decimalLongitude, 6), sep = "_")
+
+    # Count occurrences at each coordinate
+    overlap_summary <- data %>%
+      dplyr::group_by(coord_key, decimalLatitude, decimalLongitude) %>%
+      dplyr::summarise(
+        count = dplyr::n(),
+        gbif_ids = paste(gbifID, collapse = ", "),
+        species_list = paste(unique(species), collapse = ", "),
+        .groups = 'drop'
+      )
+
+    # Join back to original data
+    enhanced_data <- data %>%
+      dplyr::left_join(overlap_summary, by = c("coord_key", "decimalLatitude", "decimalLongitude"))
+
+    return(enhanced_data)
+  }
+
+  # Create enhanced popup text - this will be applied row-wise
+  species_data$popup_text <- ""
+
   # Add switch if user wants to just see map or to see flags
   if (show_flags == TRUE) {
 
@@ -56,6 +82,38 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
     # Create problem data subset: at least one flag is TRUE
     problem_data <- species_data %>%
       dplyr::filter(dplyr::if_any(dplyr::all_of(validation_flags), ~ . == TRUE))
+
+    # Process overlap data for both valid and problem data
+    if (nrow(valid_data) > 0) {
+      valid_data <- create_overlap_data(valid_data)
+      # Create popup text
+      valid_data$popup_text <- paste(
+        paste("Species:", valid_data$species_list),
+        ifelse(valid_data$count > 1,
+               paste("<b>Multiple points at this location (", valid_data$count, ")</b>"),
+               ""),
+        ifelse(valid_data$count > 1,
+               paste("GBIF IDs:", valid_data$gbif_ids),
+               paste("GBIF ID:", valid_data$gbif_ids)),
+        paste("Source:", valid_data$source),
+        sep = "<br>"
+      )
+    }
+    if (nrow(problem_data) > 0) {
+      problem_data <- create_overlap_data(problem_data)
+      # Create popup text for problem data
+      problem_data$popup_text <- paste(
+        paste("Species:", problem_data$species_list),
+        ifelse(problem_data$count > 1,
+               paste("<b>Multiple points at this location (", problem_data$count, ")</b>"),
+               ""),
+        ifelse(problem_data$count > 1,
+               paste("GBIF IDs:", problem_data$gbif_ids),
+               paste("GBIF ID:", problem_data$gbif_ids)),
+        paste("Source:", problem_data$source),
+        sep = "<br>"
+      )
+    }
 
     # Initialize base leaflet map
     m <- leaflet() %>%
@@ -89,28 +147,34 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
             dashArray = "3",
             fillOpacity = 0.3,
             group = "Native Range",
-            popup = ~paste("Region:", LEVEL3_COD)
+            popup = ~paste("Region:", LEVEL3_COD),
+            options = pathOptions(pane = "overlayPane")
           )
       }
     }
 
-    # Add valid points (green)
+    # Add valid points (green) - deduplicated by coordinate
     if (nrow(valid_data) > 0) {
+      # Get unique coordinates for display
+      valid_unique <- valid_data %>%
+        dplyr::distinct(decimalLatitude, decimalLongitude, .keep_all = TRUE)
+
       m <- m %>%
         leaflet::addCircleMarkers(
-          data = valid_data,
+          data = valid_unique,
           lng = ~decimalLongitude,
           lat = ~decimalLatitude,
           group = "Valid Points",
-          popup = ~paste("Species:", species, "<br>", "Source:", source),
-          radius = 6,
+          popup = ~popup_text,
+          radius = ~pmax(6, pmin(8, 6 + (count > 1) * 2)),  # Slightly larger for overlapping points
           stroke = TRUE,
-          color = "white",
+          color = ~ifelse(count > 1, "yellow", "white"),  # Yellow border for overlaps
           weight = 2,
           opacity = 1,
           fill = TRUE,
           fillColor = "green",
-          fillOpacity = 0.8
+          fillOpacity = 0.8,
+          options = pathOptions(pane = "markerPane")
         )
     }
 
@@ -120,21 +184,40 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
       flag_data <- problem_data %>% filter(.data[[flag]] == TRUE)
 
       if (nrow(flag_data) > 0) {
+        # Get unique coordinates for this flag and add flag info to popup
+        flag_unique <- flag_data %>%
+          dplyr::distinct(decimalLatitude, decimalLongitude, .keep_all = TRUE) %>%
+          dplyr::mutate(
+            popup_text_with_flag = paste(
+              paste("Species:", species_list),
+              ifelse(count > 1,
+                     paste("<b>Multiple points at this location (", count, ")</b>"),
+                     ""),
+              ifelse(count > 1,
+                     paste("GBIF IDs:", gbif_ids),
+                     paste("GBIF ID:", gbif_ids)),
+              paste("Issue:", flag),
+              paste("Source:", source),
+              sep = "<br>"
+            )
+          )
+
         m <- m %>%
           leaflet::addCircleMarkers(
-            data = flag_data,
+            data = flag_unique,
             lng = ~decimalLongitude,
             lat = ~decimalLatitude,
-            radius = 6,
+            radius = ~pmax(6, pmin(8, 6 + (count > 1) * 2)),
             stroke = TRUE,
-            color = "white",
+            color = ~ifelse(count > 1, "yellow", "white"),
             weight = 2,
             opacity = 1,
             fill = TRUE,
             fillColor = "red",
             fillOpacity = 0.8,
             group = flag,
-            popup = ~paste("Species:", species, "<br>", "Issue:", flag, "<br>", "Source:", source)
+            popup = ~popup_text_with_flag,
+            options = pathOptions(pane = "markerPane")
           )
       }
     }
@@ -152,9 +235,9 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
         options = layersControlOptions(collapsed = FALSE)
       )
 
-    # Update legend to include Native Range
-    legend_colors <- c("green", "red")
-    legend_labels <- c("Valid Points", "Problematic Points")
+    # Update legend to include Native Range and overlap indication
+    legend_colors <- c("green", "red", "yellow")
+    legend_labels <- c("Valid Points", "Problematic Points", "Multiple Points (border)")
 
     if (!is.null(species_range) && nrow(species_range) > 0) {
       legend_colors <- c("blue", legend_colors)
@@ -184,6 +267,22 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
       species_data$source <- "No GBIF ID available"
     }
 
+    # Process overlap data
+    species_data <- create_overlap_data(species_data)
+
+    # Create popup text
+    species_data$popup_text <- paste(
+      paste("Species:", species_data$species_list),
+      ifelse(species_data$count > 1,
+             paste("<b>Multiple points at this location (", species_data$count, ")</b>"),
+             ""),
+      ifelse(species_data$count > 1,
+             paste("GBIF IDs:", species_data$gbif_ids),
+             paste("GBIF ID:", species_data$gbif_ids)),
+      paste("Source:", species_data$source),
+      sep = "<br>"
+    )
+
     # Initialize base leaflet map
     m <- leaflet() %>%
       leaflet::addProviderTiles("OpenStreetMap", group = "OpenStreetMap") %>%
@@ -216,32 +315,39 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
             dashArray = "3",
             fillOpacity = 0.3,
             group = "Native Range",
-            popup = ~paste("Region:", LEVEL3_COD)
+            popup = ~paste("Region:", LEVEL3_COD),
+            options = pathOptions(pane = "overlayPane")
           )
       }
     }
 
-    # Add valid points (green)
+    # Add points - deduplicated by coordinate
     if (nrow(species_data) > 0) {
+      # Get unique coordinates for display
+      species_unique <- species_data %>%
+        dplyr::distinct(decimalLatitude, decimalLongitude, .keep_all = TRUE)
+
       m <- m %>%
         leaflet::addCircleMarkers(
-          data = species_data,
+          data = species_unique,
           lng = ~decimalLongitude,
           lat = ~decimalLatitude,
           group = "Valid Points",
-          popup = ~paste("Species:", species, "<br>", "Source:", source),
-          radius = 6,
+          popup = ~popup_text,
+          radius = ~pmax(6, pmin(8, 6 + (count > 1) * 2)),  # Slightly larger for overlapping points
           stroke = TRUE,
-          color = "white",
+          color = ~ifelse(count > 1, "yellow", "white"),  # Yellow border for overlaps
           weight = 2,
           opacity = 1,
           fill = TRUE,
           fillColor = "green",
-          fillOpacity = 0.8
+          fillOpacity = 0.8,
+          options = pathOptions(pane = "markerPane")
         )
     }
 
     # Update layer control to include Native Range
+    overlay_groups <- "Valid Points"
     if (!is.null(species_range) && nrow(species_range) > 0) {
       overlay_groups <- c("Native Range", "Valid Points")
     }
@@ -252,6 +358,25 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
         overlayGroups = overlay_groups,
         options = layersControlOptions(collapsed = FALSE)
       )
+
+    # Add legend
+    legend_colors <- c("green", "yellow")
+    legend_labels <- c("Single Points", "Multiple Points (border)")
+
+    if (!is.null(species_range) && nrow(species_range) > 0) {
+      legend_colors <- c("blue", legend_colors)
+      legend_labels <- c("Native Range", legend_labels)
+    }
+
+    m <- m %>%
+      leaflet::addLegend(
+        position = "bottomright",
+        title = "Data Quality",
+        colors = legend_colors,
+        labels = legend_labels,
+        opacity = 0.8
+      )
+
     m <- htmlwidgets::prependContent(m, htmltools::HTML(title_html))
 
   }
