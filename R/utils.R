@@ -33,7 +33,6 @@ check_tax_auth <- function(df) {
 #' @param gbif_meta (character) GBIF download metadata
 #'
 #' @return Returns a data frame with IUCN SIS Connect reference
-#' @export
 
 get_gbif_ref <- function(gbif_meta) {
   tibble::tibble(
@@ -52,7 +51,6 @@ get_gbif_ref <- function(gbif_meta) {
 #' @param native_ranges (dataframe) native ranges
 #'
 #' @return concatenated list of biorealms in SIS connect format
-#'
 
 make_biorealms = function(native_ranges) {
   biogeographic_realm <- native_ranges %>%
@@ -69,7 +67,6 @@ make_biorealms = function(native_ranges) {
 #' @param occs
 #'
 #' @return Returns upper and lower elevation based on elevation field in GBIF occurrence file.
-#' @export
 
 make_elevation <- function(occs) {
   elevation_stats <- occs %>%
@@ -91,8 +88,6 @@ make_elevation <- function(occs) {
 #' Use `TRUE` to return geographic range information
 #'
 #' @return Returns a list with POWO data
-#' @export
-
 
 powo_lookup <- function(wcvp_ipni_id, distribution = FALSE) {
   lookup_url <- paste(
@@ -118,7 +113,6 @@ powo_lookup <- function(wcvp_ipni_id, distribution = FALSE) {
 #' @param wcvp_ipni_id (character) WCVP identifier
 #'
 #' @return (dataframe) Native range codes according to World Geographic Scheme for Recordings Plant Distributions (WGSRPD)
-#' @export
 
 powo_range = function(wcvp_ipni_id) {
   results = tibble::tibble(
@@ -149,7 +143,6 @@ powo_range = function(wcvp_ipni_id) {
 #'
 #' This function uses queries POWO to get the native range
 #' @returns Returns a dataframe with IUCN SIS Connect reference
-#' @export
 
 powo_ref <- function() {
   tibble::tibble(

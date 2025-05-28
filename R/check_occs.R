@@ -1,16 +1,16 @@
-#' Flags GBIF occurrence data based on common coordinate issues
+#' Checks and flags GBIF occurrence data based on common coordinate issues
 #'
 #' @param gbif_occs (data frame) GBIF occurrence file in DWCA format
 #' @param native_ranges (data frame) Optional native ranges from `get_native_range()`
 #'
 #' @return A list containing:
-#'   - flagged_data: original data with error flags
+#'   - checked_data: original data with error flags
 #'   - summary: summary of error counts
 #'
 #' @export
-flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
+check_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
   # Create a copy of original data with flags initialized as FALSE
-  flagged_occs <- gbif_occs %>%
+  checked_occs <- gbif_occs %>%
     dplyr::mutate(
       flag_no_coords = FALSE,
       flag_cc_capitals = FALSE,
@@ -24,11 +24,11 @@ flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
     )
 
   # Flag records without coordinates
-  flagged_occs$flag_no_coords <- is.na(flagged_occs$decimalLongitude) |
-    is.na(flagged_occs$decimalLatitude)
+  checked_occs$flag_no_coords <- is.na(checked_occs$decimalLongitude) |
+    is.na(checked_occs$decimalLatitude)
 
   # Only process records with coordinates for other flags
-  occs_with_coords <- dplyr::filter(flagged_occs, !flag_no_coords)
+  occs_with_coords <- dplyr::filter(checked_occs, !flag_no_coords)
 
   # Run CoordinateCleaner tests - IMPORTANT: Invert values since
   # cc_ functions return TRUE for VALID records and FALSE for PROBLEMATIC ones
@@ -77,29 +77,29 @@ flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
   # Update flags in the original dataset
   for (i in seq_len(nrow(occs_with_coords))) {
     # Use a unique ID column for matching, defaulting to row number if necessary
-    id_col <- if("gbifID" %in% colnames(flagged_occs)) "gbifID" else ".row_id"
+    id_col <- if("gbifID" %in% colnames(checked_occs)) "gbifID" else ".row_id"
 
-    if(id_col == ".row_id" && !".row_id" %in% colnames(flagged_occs)) {
-      flagged_occs$.row_id <- 1:nrow(flagged_occs)
-      occs_with_coords$.row_id <- which(!flagged_occs$flag_no_coords)
+    if(id_col == ".row_id" && !".row_id" %in% colnames(checked_occs)) {
+      checked_occs$.row_id <- 1:nrow(checked_occs)
+      occs_with_coords$.row_id <- which(!checked_occs$flag_no_coords)
     }
 
-    row_id <- which(flagged_occs[[id_col]] == occs_with_coords[[id_col]][i])
+    row_id <- which(checked_occs[[id_col]] == occs_with_coords[[id_col]][i])
 
     if (length(row_id) > 0) {
-      flagged_occs$flag_cc_capitals[row_id] <- cc_test_capitals[i]
-      flagged_occs$flag_cc_centroids[row_id] <- cc_test_centroids[i]
-      flagged_occs$flag_cc_institutions[row_id] <- cc_test_institutions[i]
-      flagged_occs$flag_cc_equal[row_id] <- cc_test_equal[i]
-      flagged_occs$flag_cc_gbif[row_id] <- cc_test_gbif[i]
-      flagged_occs$flag_cc_zeros[row_id] <- cc_test_zeros[i]
+      checked_occs$flag_cc_capitals[row_id] <- cc_test_capitals[i]
+      checked_occs$flag_cc_centroids[row_id] <- cc_test_centroids[i]
+      checked_occs$flag_cc_institutions[row_id] <- cc_test_institutions[i]
+      checked_occs$flag_cc_equal[row_id] <- cc_test_equal[i]
+      checked_occs$flag_cc_gbif[row_id] <- cc_test_gbif[i]
+      checked_occs$flag_cc_zeros[row_id] <- cc_test_zeros[i]
     }
   }
 
   # Flag high uncertainty coordinates
-  flagged_occs$flag_high_uncertainty <-
-    !is.na(flagged_occs$coordinateUncertaintyInMeters) &
-    flagged_occs$coordinateUncertaintyInMeters > 100000
+  checked_occs$flag_high_uncertainty <-
+    !is.na(checked_occs$coordinateUncertaintyInMeters) &
+    checked_occs$coordinateUncertaintyInMeters > 100000
 
   # Check against native ranges if provided
   if (!is.null(native_ranges)) {
@@ -107,7 +107,7 @@ flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
     sf::sf_use_s2(FALSE)
 
     # Only process records with valid coordinates
-    valid_coords <- flagged_occs %>%
+    valid_coords <- checked_occs %>%
       dplyr::filter(!flag_no_coords) %>%
       sf::st_as_sf(
         coords = c("decimalLongitude", "decimalLatitude"),
@@ -128,7 +128,7 @@ flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
                     sf::st_buffer(dist = buffer))
 
     # Extract the LEVEL3_COD values
-    id_col <- if("gbifID" %in% colnames(flagged_occs)) "gbifID" else ".row_id"
+    id_col <- if("gbifID" %in% colnames(checked_occs)) "gbifID" else ".row_id"
 
     # Set up progress bar
     cli::cli_progress_bar(
@@ -138,7 +138,7 @@ flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
     )
 
     for (i in seq_len(nrow(valid_coords_tdwg))) {
-      row_id <- which(flagged_occs[[id_col]] == valid_coords_tdwg[[id_col]][i])
+      row_id <- which(checked_occs[[id_col]] == valid_coords_tdwg[[id_col]][i])
 
       if (length(row_id) > 0) {
         # Check if species occurs in this region
@@ -149,10 +149,10 @@ flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
           is_native <- any(native_ranges$wcvp_ipni_id == species_id &
                              native_ranges$LEVEL3_COD == region_code)
 
-          flagged_occs$flag_outside_native[row_id] <- !is_native
+          checked_occs$flag_outside_native[row_id] <- !is_native
         } else {
           # Region code or species ID is NA, so we can't determine if it's native
-          flagged_occs$flag_outside_native[row_id] <- TRUE
+          checked_occs$flag_outside_native[row_id] <- TRUE
         }
       }
 
@@ -174,36 +174,36 @@ flag_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
              "High coordinate uncertainty",
              "Outside native range"),
     count = c(
-      sum(flagged_occs$flag_no_coords),
-      sum(flagged_occs$flag_cc_capitals),
-      sum(flagged_occs$flag_cc_centroids),
-      sum(flagged_occs$flag_cc_institutions),
-      sum(flagged_occs$flag_cc_equal),
-      sum(flagged_occs$flag_cc_gbif),
-      sum(flagged_occs$flag_cc_zeros),
-      sum(flagged_occs$flag_high_uncertainty),
-      sum(flagged_occs$flag_outside_native)
+      sum(checked_occs$flag_no_coords),
+      sum(checked_occs$flag_cc_capitals),
+      sum(checked_occs$flag_cc_centroids),
+      sum(checked_occs$flag_cc_institutions),
+      sum(checked_occs$flag_cc_equal),
+      sum(checked_occs$flag_cc_gbif),
+      sum(checked_occs$flag_cc_zeros),
+      sum(checked_occs$flag_high_uncertainty),
+      sum(checked_occs$flag_outside_native)
     ),
     percentage = c(
-      round(100 * sum(flagged_occs$flag_no_coords) / nrow(flagged_occs), 2),
-      round(100 * sum(flagged_occs$flag_cc_capitals) / nrow(flagged_occs), 2),
-      round(100 * sum(flagged_occs$flag_cc_centroids) / nrow(flagged_occs), 2),
-      round(100 * sum(flagged_occs$flag_cc_institutions) / nrow(flagged_occs), 2),
-      round(100 * sum(flagged_occs$flag_cc_equal) / nrow(flagged_occs), 2),
-      round(100 * sum(flagged_occs$flag_cc_gbif) / nrow(flagged_occs), 2),
-      round(100 * sum(flagged_occs$flag_cc_zeros) / nrow(flagged_occs), 2),
-      round(100 * sum(flagged_occs$flag_high_uncertainty) / nrow(flagged_occs), 2),
-      round(100 * sum(flagged_occs$flag_outside_native) / nrow(flagged_occs), 2)
+      round(100 * sum(checked_occs$flag_no_coords) / nrow(checked_occs), 2),
+      round(100 * sum(checked_occs$flag_cc_capitals) / nrow(checked_occs), 2),
+      round(100 * sum(checked_occs$flag_cc_centroids) / nrow(checked_occs), 2),
+      round(100 * sum(checked_occs$flag_cc_institutions) / nrow(checked_occs), 2),
+      round(100 * sum(checked_occs$flag_cc_equal) / nrow(checked_occs), 2),
+      round(100 * sum(checked_occs$flag_cc_gbif) / nrow(checked_occs), 2),
+      round(100 * sum(checked_occs$flag_cc_zeros) / nrow(checked_occs), 2),
+      round(100 * sum(checked_occs$flag_high_uncertainty) / nrow(checked_occs), 2),
+      round(100 * sum(checked_occs$flag_outside_native) / nrow(checked_occs), 2)
     )
   )
 
   # Clean up temporary row ID if created
-  if(".row_id" %in% colnames(flagged_occs)) {
-    flagged_occs$.row_id <- NULL
+  if(".row_id" %in% colnames(checked_occs)) {
+    checked_occs$.row_id <- NULL
   }
 
   return(list(
-    flagged_data = flagged_occs,
+    checked_data = checked_occs,
     summary = flag_summary
   ))
 }

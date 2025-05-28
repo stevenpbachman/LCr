@@ -12,7 +12,7 @@
 #' @details Designed for batch processing using keys derived from [`get_name_keys()`]
 
 
-make_LC_points <-
+make_lc_points <-
   function(keys_df, first_name = "", second_name = "", institution = "", range_check = FALSE, kingdom = "plantae") {
 
     # get the raw gbif occs

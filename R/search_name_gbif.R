@@ -15,9 +15,9 @@
 #' @export
 #'
 #' @examples
-#' name_search_gbif("Poa annua L.")
+#' search_name_gbif("Poa annua L.")
 
-name_search_gbif = function(name,
+search_name_gbif = function(name,
                             #species_rank = TRUE,
                             match = "single") {
                             #gbif_tax_stat = "any") { #removed as was not working well

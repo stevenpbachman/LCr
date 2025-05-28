@@ -15,10 +15,6 @@ sis_allfields <- function(unique_id, occs = NULL) {
       CurrentTrendDataDerivation.value = "Suspected",
       AreaRestricted.isRestricted = "No",
       AreaRestricted.justification = "This species does not have a restricted AOO or number of locations, based on occurrence data from GBIF (see references for DOI).",
-      AOO.range = "",
-      AOO.justification = "",
-      EOO.range = "",
-      EOO.justification = "",
       SevereFragmentation.isFragmented = "No",
       #NotUtilized.isNotUtilized = "TRUE",
       NoThreats.noThreats = "TRUE",
@@ -37,10 +33,16 @@ sis_allfields <- function(unique_id, occs = NULL) {
 
   # If occs is provided, calculate EOO and AOO
   if (!is.null(occs)) {
-    eoo_aoo_stats <- make_elevation(occs)
+    eoo_aoo_stats <- make_eoo_aoo(occs)
 
     combined_table <- combined_table %>%
       left_join(eoo_aoo_stats, by = "internal_taxon_id")
+  } else{
+
+    combined_table$AOO.range = ""
+    combined_table$AOO.justification = ""
+    combined_table$EOO.range = ""
+    combined_table$EOO.justification = ""
   }
 
   return(combined_table)

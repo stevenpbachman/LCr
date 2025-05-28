@@ -11,7 +11,7 @@
 #' @return Returns a data frame with initial search term and matching name(s)
 #' @export
 
-name_search_powo <- function(df, name_column, author_col = NULL) {
+search_name_powo <- function(df, name_column, author_col = NULL) {
   if (is.null(author_col)) {
     results <- rWCVP::wcvp_match_names(names_df = df, name_col = name_column)
   }

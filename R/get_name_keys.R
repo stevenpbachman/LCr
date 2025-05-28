@@ -47,7 +47,7 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
   #get the GBIF keys using full name strings - canonicalnamecomplete
   gbif_names_out <- purrr::map_dfr(
     working_df$canonicalnamecomplete,  # extract just the column of names
-    ~name_search_gbif(name = .x, match = "single")  # use .x to refer to each value
+    ~search_name_gbif(name = .x, match = "single")  # use .x to refer to each value
   )
 
   # label as GBIF columns to distinguish from POWO
@@ -60,13 +60,13 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
   if (kingdom == "plantae") {
 
     if ("taxonomicAuthority" %in% names(working_df)) {
-      powo_names_out <- name_search_powo(
+      powo_names_out <- search_name_powo(
         df = working_df,
         name_col = "canonicalname",
         author_col = "taxonomicAuthority"
       )
     } else {
-      powo_names_out <- name_search_powo(
+      powo_names_out <- search_name_powo(
         df = working_df,
         name_col = "canonicalname"
         # omit author_col entirely

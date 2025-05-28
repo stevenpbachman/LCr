@@ -1,7 +1,7 @@
 
 #' Clean GBIF occurrences based on user-selected flags and/or specific gbifIDs
 #'
-#' @param flagged_occs Result from flag_occs() function
+#' @param checked_occs Result from check_occs() function
 #' @param remove_flags Vector of flag names to use for cleaning.
 #'                     Set to NULL to ignore all automatic flags. Flag names must be: "flag_no_coords" Missing coordinates;
 #'                     "flag_cc_capitals" Near country capitals; "flag_cc_centroids" Near country centroids;
@@ -23,7 +23,7 @@
 #'   - problem_occs: Occurrences that were filtered out with their flags/reasons
 #'
 #' @export
-clean_occs <- function(flagged_occs,
+clean_occs <- function(checked_occs,
                        remove_flags = c("flag_no_coords",
                                         "flag_cc_capitals",
                                         "flag_cc_centroids",
@@ -37,8 +37,8 @@ clean_occs <- function(flagged_occs,
                        gbifid_reason = NULL,
                        keep_gbifids = NULL) {
 
-  #data <- flagged_occs$flagged_data
-  data <- flagged_occs
+  #data <- checked_occs$flagged_data
+  data <- checked_occs
 
   # Initialize the problematic flag
   data$is_problematic <- FALSE
