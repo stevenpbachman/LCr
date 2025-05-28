@@ -67,4 +67,3 @@ replace_cardinal_directions <- function(text) {
 
   return(text)
 }
-

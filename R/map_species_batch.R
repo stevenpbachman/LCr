@@ -24,7 +24,7 @@ map_species_batch <- function(data, species_range = NULL, show_flags = TRUE, sav
     species_name <- unique(sp_filtered$canonicalname)
 
     # Create map
-    map <- species_map_single(sp_filtered, species_range = sp_range_filtered, show_flags = show_flags)
+    map <- map_species_single(sp_filtered, species_range = sp_range_filtered, show_flags = show_flags)
 
     # Optionally save
     if (save_map && length(species_name) == 1 && !is.na(species_name)) {

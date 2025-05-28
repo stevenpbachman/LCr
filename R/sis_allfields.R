@@ -7,6 +7,7 @@
 #' @export
 
 sis_allfields <- function(unique_id, occs = NULL) {
+
   # Create base tibble
   combined_table <- purrr::map_dfr(unique_id, function(id) {
     tibble(
@@ -32,6 +33,14 @@ sis_allfields <- function(unique_id, occs = NULL) {
 
     combined_table <- combined_table %>%
       left_join(elevation_stats, by = "internal_taxon_id")
+  }
+
+  # If occs is provided, calculate EOO and AOO
+  if (!is.null(occs)) {
+    eoo_aoo_stats <- make_elevation(occs)
+
+    combined_table <- combined_table %>%
+      left_join(eoo_aoo_stats, by = "internal_taxon_id")
   }
 
   return(combined_table)

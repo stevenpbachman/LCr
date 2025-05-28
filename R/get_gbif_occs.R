@@ -30,7 +30,7 @@ get_gbif_occs <- function(keys_df) {
 
 
   meta <- rgbif::occ_download_meta(gbif_download) # get meta data to get the citation data
-  cite <- occs_gbif_ref(meta) # custom script to convert reference into SIS format
+  cite <- get_gbif_ref(meta) # custom script to convert reference into SIS format
 
   res_list <- list("citation" = cite, "points" = the_points)
 
