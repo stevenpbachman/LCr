@@ -40,7 +40,7 @@ lc_species <-
 print(lc_species)
 ```
 
-Run the get_name_keys function. This will check the names against the GBIF names backbone. Make sure to list `kingdon = "fungi"`. The `name_column` is the column that contains the species to be assessed. To ensure good name matching, this should be a field that contains a string with the binomial author(s) combined. To enforce a single matching name for every name in our list set the `match` parameter to 'single', or set to 'multiple' if you wish to allow multiple matches. 
+Run the `get_name_keys` function. This will check the names against the GBIF names backbone. Make sure to list `kingdon = "fungi"`. The `name_column` is the column that contains the species to be assessed. To ensure good name matching, this should be a field that contains a string with the binomial and author(s) combined. To enforce a single matching name for every name in our list set the `match` parameter to 'single', or set to 'multiple' if you wish to allow multiple matches. 
 
 ```{r}
 #| eval: false
@@ -89,13 +89,13 @@ You may want to save the occurrence file at this stage.
 write.csv(lc_sis_occs$points, file = "my_LC_occs.csv")
 ```
 
-As we don't have an equivalent to World Checklist of Vascular Plantsnative ranges for fungi, we will use our clean occurrence data to calculate the WGSRPD regions for each species. 
+As we don't have an equivalent to World Checklist of Vascular Plants native ranges for fungi, we will use our clean occurrence data to calculate regions for each species using the World Geographic Scheme for Recording Plant Distributions. 
 
 ```{r}
 #| eval: false
 #| echo: true
 
-# for fungi - get the native ranges
+# for fungi - get the regions that overlap the occurrence points
 native_ranges <- get_occs_range(lc_sis_occs$points)
 ```
 

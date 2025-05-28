@@ -8,6 +8,8 @@
 #' @param df dataframe with gbif name search output
 #'
 #' @return returns GBIF taxonomic information with reformatted taxonomicAuthor
+#' @keywords internal
+#' @noRd
 
 check_tax_auth <- function(df) {
   # Check if 'bracketauthorship' and 'authorship' columns exist
@@ -33,6 +35,8 @@ check_tax_auth <- function(df) {
 #' @param gbif_meta (character) GBIF download metadata
 #'
 #' @return Returns a data frame with IUCN SIS Connect reference
+#' @keywords internal
+#' @noRd
 
 get_gbif_ref <- function(gbif_meta) {
   tibble::tibble(
@@ -51,6 +55,8 @@ get_gbif_ref <- function(gbif_meta) {
 #' @param native_ranges (dataframe) native ranges
 #'
 #' @return concatenated list of biorealms in SIS connect format
+#' @keywords internal
+#' @noRd
 
 make_biorealms = function(native_ranges) {
   biogeographic_realm <- native_ranges %>%
@@ -67,6 +73,8 @@ make_biorealms = function(native_ranges) {
 #' @param occs
 #'
 #' @return Returns upper and lower elevation based on elevation field in GBIF occurrence file.
+#' @keywords internal
+#' @noRd
 
 make_elevation <- function(occs) {
   elevation_stats <- occs %>%
@@ -88,6 +96,8 @@ make_elevation <- function(occs) {
 #' Use `TRUE` to return geographic range information
 #'
 #' @return Returns a list with POWO data
+#' @keywords internal
+#' @noRd
 
 powo_lookup <- function(wcvp_ipni_id, distribution = FALSE) {
   lookup_url <- paste(
@@ -113,6 +123,8 @@ powo_lookup <- function(wcvp_ipni_id, distribution = FALSE) {
 #' @param wcvp_ipni_id (character) WCVP identifier
 #'
 #' @return (dataframe) Native range codes according to World Geographic Scheme for Recordings Plant Distributions (WGSRPD)
+#' @keywords internal
+#' @noRd
 
 powo_range = function(wcvp_ipni_id) {
   results = tibble::tibble(
@@ -143,6 +155,8 @@ powo_range = function(wcvp_ipni_id) {
 #'
 #' This function uses queries POWO to get the native range
 #' @returns Returns a dataframe with IUCN SIS Connect reference
+#' @keywords internal
+#' @noRd
 
 powo_ref <- function() {
   tibble::tibble(
@@ -162,6 +176,8 @@ powo_ref <- function() {
 #' @param occs (df) Occurrence data with elevation information
 #'
 #' @return Returns a list with POWO data
+#' @keywords internal
+#' @noRd
 
 powo_text <- function(wcvp_ipni_id, occs, unique_id) {
   returned_data <- powo_lookup(wcvp_ipni_id)
@@ -232,6 +248,8 @@ powo_text <- function(wcvp_ipni_id, occs, unique_id) {
 #' @param text (character) POWO distribution string
 #'
 #' @return IUCN standardised POWO range string
+#' @keywords internal
+#' @noRd
 
 replace_cardinal_directions <- function(text) {
 
@@ -302,6 +320,8 @@ replace_cardinal_directions <- function(text) {
 #' @param df (character) data frame with names
 #'
 #' @return Returns a data frame with taxonomic status sorted
+#' @keywords internal
+#' @noRd
 
 reorder_status <- function(df) {
 
@@ -312,4 +332,30 @@ reorder_status <- function(df) {
     dplyr::arrange(status)
 
   return(df)
+}
+
+
+#' Generate the eoo and aoo values for the allfields.csv file
+#'
+#' @param occs
+#'
+#' @return Returns upper and lower elevation based on elevation field in GBIF occurrence file.
+#' @keywords internal
+#' @noRd
+
+make_eoo_aoo <- function(occs) {
+
+  # use rCAT to get the main results
+  resultsdf <-rCAT::batchCon(taxa = occs$internal_taxon_id,
+                             long = occs$dec_long,
+                             lat = occs$dec_lat)
+
+  resultsdf$taxon <- as.integer(resultsdf$taxon)
+  resultsdf$internal_taxon_id <- resultsdf$taxon
+  resultsdf <- resultsdf %>% dplyr::select(internal_taxon_id, EOOkm2,AOOkm) %>%
+    dplyr::rename(AOO.range = AOOkm, EOO.range = EOOkm2)
+  resultsdf$AOO.justification = paste0("The AOO is a minimum estimate and is not used in the assessment.")
+  resultsdf$EOO.justification = paste0("The EOO was calculated from a convex hull around cleaned and georeferenced occurrence data using the rCAT package (Moat 2020).")
+
+  return(resultsdf)
 }

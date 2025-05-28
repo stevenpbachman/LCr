@@ -11,6 +11,7 @@
 #' @export
 #' @details Designed for batch processing using keys derived from [`get_name_keys()`]
 
+# update this!!!
 
 make_lc_points <-
   function(keys_df, first_name = "", second_name = "", institution = "", range_check = FALSE, kingdom = "plantae") {
