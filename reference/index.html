@@ -47,10 +47,16 @@
 
       <dl><dt>
 
+          <code><a href="check_occs.html">check_occs()</a></code>
+
+        </dt>
+        <dd>Checks and flags GBIF occurrence data based on common coordinate issues</dd>
+      </dl><dl><dt>
+
           <code><a href="check_tax_auth.html">check_tax_auth()</a></code>
 
         </dt>
-        <dd>resolves taxonomicAuthor field when there are varying taxonimic fields returned from GBIF query</dd>
+        <dd>Resolves taxonomicAuthor field when there are varying taxonomic fields returned from GBIF query</dd>
       </dl><dl><dt>
 
           <code><a href="clean_keys.html">clean_keys()</a></code>
@@ -65,22 +71,16 @@
         <dd>Clean GBIF occurrences based on user-selected flags and/or specific gbifIDs</dd>
       </dl><dl><dt>
 
-          <code><a href="create_status_gauge.html">create_status_gauge()</a></code>
-
-        </dt>
-        <dd>Generate metrics from a clean point occurrence file</dd>
-      </dl><dl><dt>
-
-          <code><a href="flag_occs.html">flag_occs()</a></code>
-
-        </dt>
-        <dd>Flags GBIF occurrence data based on common coordinate issues</dd>
-      </dl><dl><dt>
-
           <code><a href="get_gbif_occs.html">get_gbif_occs()</a></code>
 
         </dt>
         <dd>Download georeferenced occurrence data using GBIF name identifier</dd>
+      </dl><dl><dt>
+
+          <code><a href="get_gbif_ref.html">get_gbif_ref()</a></code>
+
+        </dt>
+        <dd>Generate GBIF download citation according to IUCN format</dd>
       </dl><dl><dt>
 
           <code><a href="get_name_keys.html">get_name_keys()</a></code>
@@ -101,7 +101,7 @@
         <dd>Get ISO two-digit code from occurrence lat longs</dd>
       </dl><dl><dt>
 
-          <code><a href="make_LC_points.html">make_LC_points()</a></code>
+          <code><a href="make_LC_points.html">make_lc_points()</a></code>
 
         </dt>
         <dd>Combined function to get clean SIS points file using name identifiers</dd>
@@ -117,6 +117,12 @@
 
         </dt>
         <dd>Generate the elevation upper and lower bounds for the allfields.csv file</dd>
+      </dl><dl><dt>
+
+          <code><a href="make_eoo_aoo.html">make_eoo_aoo()</a></code>
+
+        </dt>
+        <dd>Generate the eoo and aoo values for the allfields.csv file</dd>
       </dl><dl><dt>
 
           <code><a href="make_metrics.html">make_metrics()</a></code>
@@ -143,22 +149,16 @@
         <dd>Generate the SIS connect zip file</dd>
       </dl><dl><dt>
 
-          <code><a href="name_search_gbif.html">name_search_gbif()</a></code>
+          <code><a href="map_species_batch.html">map_species_batch()</a></code>
 
         </dt>
-        <dd>Query taxon name against GBIF backbone</dd>
+        <dd>Display a leaflet map to show the distribution of occurrence data for each species Batch version that iterates through species</dd>
       </dl><dl><dt>
 
-          <code><a href="name_search_powo.html">name_search_powo()</a></code>
+          <code><a href="map_species_single.html">map_species_single()</a></code>
 
         </dt>
-        <dd>Query taxon name against POWO (Plants of the World Online) backbone</dd>
-      </dl><dl><dt>
-
-          <code><a href="occs_gbif_ref.html">occs_gbif_ref()</a></code>
-
-        </dt>
-        <dd>Generate GBIF download citation according to IUCN format</dd>
+        <dd>Display a leaflet map to show the distribution of occurrence data for each species</dd>
       </dl><dl><dt>
 
           <code><a href="powo_lookup.html">powo_lookup()</a></code>
@@ -195,6 +195,18 @@
 
         </dt>
         <dd>Replace text from POWO so that it matches IUCN standards</dd>
+      </dl><dl><dt>
+
+          <code><a href="search_name_gbif.html">search_name_gbif()</a></code>
+
+        </dt>
+        <dd>Query taxon name against GBIF backbone</dd>
+      </dl><dl><dt>
+
+          <code><a href="search_name_powo.html">search_name_powo()</a></code>
+
+        </dt>
+        <dd>Query taxon name against POWO (Plants of the World Online) backbone</dd>
       </dl><dl><dt>
 
           <code><a href="sis_allfields.html">sis_allfields()</a></code>
@@ -243,18 +255,6 @@
 
         </dt>
         <dd>Generate the taxonomy.csv file</dd>
-      </dl><dl><dt>
-
-          <code><a href="species_map_batch.html">species_map_batch()</a></code>
-
-        </dt>
-        <dd>Display a leaflet map to show the distribution of occurrence data for each species Batch version that iterates through species</dd>
-      </dl><dl><dt>
-
-          <code><a href="species_map_single.html">species_map_single()</a></code>
-
-        </dt>
-        <dd>Display a leaflet map to show the distribution of occurrence data for each species</dd>
       </dl></div>
   </main></div>
 

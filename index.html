@@ -110,7 +110,7 @@
 <span><span class="va">sp_keys</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_name_keys.html">get_name_keys</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">sp</span>, name_column <span class="op">=</span> <span class="st">"sp_col"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># generate a point file according to IUCN standards</span></span>
-<span><span class="va">sp_occs</span> <span class="op">&lt;-</span>  <span class="fu"><a href="reference/make_LC_points.html">make_LC_points</a></span><span class="op">(</span>keys_df <span class="op">=</span> <span class="va">sp_keys</span>, range_check <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">sp_occs</span> <span class="op">&lt;-</span>  <span class="fu">make_LC_points</span><span class="op">(</span>keys_df <span class="op">=</span> <span class="va">sp_keys</span>, range_check <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># generate the csv files</span></span>
 <span><span class="va">sp_csvs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_sis_csvs.html">make_sis_csvs</a></span><span class="op">(</span>unique_id <span class="op">=</span> <span class="va">sp_keys</span><span class="op">$</span><span class="va">wcvp_ipni_id</span>,</span>
