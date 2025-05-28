@@ -9,7 +9,7 @@
 #' @return Interactive leaflet map
 #' @export
 
-species_map_batch <- function(data, species_range = NULL, show_flags = TRUE, save_map = TRUE) {
+map_species_batch <- function(data, species_range = NULL, show_flags = TRUE, save_map = TRUE) {
 
   # Get unique species keys
   species_keys <- unique(data$speciesKey)

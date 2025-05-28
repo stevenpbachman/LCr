@@ -7,7 +7,7 @@
 #' @return Interactive leaflet map
 #' @export
 
-species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
+map_species_single <- function(data, species_range = NULL, show_flags = TRUE) {
 
   species_name <- data$canonicalname[1]
 
@@ -22,8 +22,18 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
     background-color: white;
     padding: 5px;
     z-index: 1000;
+    text-align: center;
   '>
     %s
+    <div style='
+      font-size: 12px;
+      font-weight: normal;
+      color: #666;
+      margin-top: 5px;
+      #font-style: italic;
+    '>
+      ⚠️ Polygon/rectangle selections will include all points, whether the layer is ticked on or off.
+    </div>
   </div>",
     species_name
   )
@@ -130,6 +140,60 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
         secondaryAreaUnit = "acres"
       )
 
+    # Add drawing tools for polygon selection
+    m <- m %>%
+      leaflet.extras::addDrawToolbar(
+        targetGroup = "drawn",
+        polylineOptions = FALSE,
+        markerOptions = FALSE,
+        circleOptions = FALSE,
+        circleMarkerOptions = FALSE,
+        rectangleOptions = drawRectangleOptions(
+          shapeOptions = drawShapeOptions(
+            fillOpacity = 0.2,
+            color = "purple",
+            weight = 2
+          )
+        ),
+        polygonOptions = drawPolygonOptions(
+          shapeOptions = drawShapeOptions(
+            fillOpacity = 0.2,
+            color = "purple",
+            weight = 2
+          )
+        ),
+        editOptions = editToolbarOptions(
+          selectedPathOptions = selectedPathOptions()
+        )
+      )
+
+    # Add drawing tools for polygon selection
+    m <- m %>%
+      leaflet.extras::addDrawToolbar(
+        targetGroup = "drawn",
+        polylineOptions = FALSE,
+        markerOptions = FALSE,
+        circleOptions = FALSE,
+        circleMarkerOptions = FALSE,
+        rectangleOptions = drawRectangleOptions(
+          shapeOptions = drawShapeOptions(
+            fillOpacity = 0.2,
+            color = "purple",
+            weight = 2
+          )
+        ),
+        polygonOptions = drawPolygonOptions(
+          shapeOptions = drawShapeOptions(
+            fillOpacity = 0.2,
+            color = "purple",
+            weight = 2
+          )
+        ),
+        editOptions = editToolbarOptions(
+          selectedPathOptions = selectedPathOptions()
+        )
+      )
+
     # Add native range polygon if provided
     if (!is.null(species_range) && nrow(species_range) > 0) {
       # Filter the tdwg_level3 polygons by the LEVEL3_COD values in species_range
@@ -222,8 +286,8 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
       }
     }
 
-    # Update layer control to include Native Range
-    overlay_groups <- c("Valid Points", validation_flags)
+    # Update layer control to include Native Range and drawn layers
+    overlay_groups <- c("Valid Points", validation_flags, "drawn")
     if (!is.null(species_range) && nrow(species_range) > 0) {
       overlay_groups <- c("Native Range", overlay_groups)
     }
@@ -254,6 +318,131 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
       )
 
     m <- htmlwidgets::prependContent(m, htmltools::HTML(title_html))
+
+    # Add JavaScript for polygon selection functionality
+    selection_js <- sprintf("
+    function(el, x) {
+      var map = this;
+      var pointData = %s;
+
+      // Create results display
+      var resultsDiv = L.control({position: 'bottomleft'});
+      resultsDiv.onAdd = function(map) {
+        var div = L.DomUtil.create('div', 'selection-results');
+        div.innerHTML = '<div style=\"background: white; padding: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3); max-height: 200px; overflow-y: auto; min-width: 300px;\"><strong>Selected Points:</strong><br><div id=\"results-content\">Draw a polygon to select points.</div></div>';
+        return div;
+      };
+      resultsDiv.addTo(map);
+
+      // Function to check if point is inside polygon
+      function pointInPolygon(point, polygon) {
+        var x = point[1], y = point[0];
+        var inside = false;
+        for (var i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+          var xi = polygon[i][1], yi = polygon[i][0];
+          var xj = polygon[j][1], yj = polygon[j][0];
+          if (((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) {
+            inside = !inside;
+          }
+        }
+        return inside;
+      }
+
+      // Fallback function for older browsers
+      function fallbackCopyTextToClipboard(text) {
+        var textArea = document.createElement(\"textarea\");
+        textArea.value = text;
+        textArea.style.top = \"0\";
+        textArea.style.left = \"0\";
+        textArea.style.position = \"fixed\";
+        textArea.style.opacity = \"0\";
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          var successful = document.execCommand('copy');
+          if (successful) {
+            alert('GBIF IDs copied to clipboard!');
+          } else {
+            alert('Copy failed. Please select and copy manually.');
+          }
+        } catch (err) {
+          alert('Copy failed. Please select and copy manually.');
+        }
+
+        document.body.removeChild(textArea);
+      }
+
+      // Handle drawing events
+      map.on(L.Draw.Event.CREATED, function(event) {
+        var layer = event.layer;
+        var type = event.layerType;
+
+        if (type === 'polygon' || type === 'rectangle') {
+          var coords = layer.getLatLngs()[0];
+          var polygonCoords = coords.map(function(latlng) {
+            return [latlng.lat, latlng.lng];
+          });
+
+          // Find points within polygon
+          var selectedPoints = pointData.filter(function(point) {
+            return pointInPolygon([point.decimalLatitude, point.decimalLongitude], polygonCoords);
+          });
+
+          // Update results display
+          var resultsContent = document.getElementById('results-content');
+          if (selectedPoints.length === 0) {
+            resultsContent.innerHTML = 'No points selected';
+          } else {
+            var resultText = '<strong>' + selectedPoints.length + ' points selected:</strong><br>';
+            var gbifIds = selectedPoints.map(function(p) { return p.gbifID; }).filter(function(id) { return id; });
+            var uniqueGbifIds = [...new Set(gbifIds)];
+
+            resultText += '<strong>GBIF IDs:</strong><br>';
+            resultText += uniqueGbifIds.slice(0, 20).join(', ');
+            if (uniqueGbifIds.length > 20) {
+              resultText += '<br>... and ' + (uniqueGbifIds.length - 20) + ' more';
+            }
+
+            // Add copy button with unique ID
+            resultText += '<br><button id=\"copy-btn-' + Date.now() + '\" style=\"margin-top: 5px; padding: 2px 8px; font-size: 12px;\">Copy IDs</button>';
+
+            resultsContent.innerHTML = resultText;
+
+            // Add event listener after setting innerHTML
+            var copyBtn = resultsContent.querySelector('button[id^=\"copy-btn-\"]');
+            if (copyBtn) {
+              copyBtn.addEventListener('click', function() {
+                var textToCopy = uniqueGbifIds.join(', ');
+
+                // Try modern clipboard API first
+                if (navigator.clipboard && window.isSecureContext) {
+                  navigator.clipboard.writeText(textToCopy).then(function() {
+                    alert('GBIF IDs copied to clipboard!');
+                  }).catch(function(err) {
+                    console.error('Clipboard write failed:', err);
+                    fallbackCopyTextToClipboard(textToCopy);
+                  });
+                } else {
+                  fallbackCopyTextToClipboard(textToCopy);
+                }
+              });
+            }
+          }
+        }
+      });
+
+      // Clear results when drawing is deleted
+      map.on(L.Draw.Event.DELETED, function(event) {
+        document.getElementById('results-content').innerHTML = 'Draw a polygon to select points.';
+      });
+    }
+    ", jsonlite::toJSON(species_data, auto_unbox = TRUE))
+
+    m <- m %>%
+      htmlwidgets::onRender(selection_js)
 
     return(m)
 
@@ -346,10 +535,10 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
         )
     }
 
-    # Update layer control to include Native Range
-    overlay_groups <- "Valid Points"
+    # Update layer control to include Native Range and drawn layers
+    overlay_groups <- c("Valid Points", "drawn")
     if (!is.null(species_range) && nrow(species_range) > 0) {
-      overlay_groups <- c("Native Range", "Valid Points")
+      overlay_groups <- c("Native Range", overlay_groups)
     }
 
     m <- m %>%
@@ -378,6 +567,131 @@ species_map_single <- function(data, species_range = NULL, show_flags = TRUE) {
       )
 
     m <- htmlwidgets::prependContent(m, htmltools::HTML(title_html))
+
+    # Add JavaScript for polygon selection functionality (simple map version)
+    selection_js_simple <- sprintf("
+    function(el, x) {
+      var map = this;
+      var pointData = %s;
+
+      // Create results display
+      var resultsDiv = L.control({position: 'bottomleft'});
+      resultsDiv.onAdd = function(map) {
+        var div = L.DomUtil.create('div', 'selection-results');
+        div.innerHTML = '<div style=\"background: white; padding: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3); max-height: 200px; overflow-y: auto; min-width: 300px;\"><strong>Selected Points:</strong><br><div id=\"results-content\">Draw a polygon to select points. Selections will include all points, whether the layer is ticked on or not.</div></div>';
+        return div;
+      };
+      resultsDiv.addTo(map);
+
+      // Function to check if point is inside polygon
+      function pointInPolygon(point, polygon) {
+        var x = point[1], y = point[0];
+        var inside = false;
+        for (var i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+          var xi = polygon[i][1], yi = polygon[i][0];
+          var xj = polygon[j][1], yj = polygon[j][0];
+          if (((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) {
+            inside = !inside;
+          }
+        }
+        return inside;
+      }
+
+      // Fallback function for older browsers
+      function fallbackCopyTextToClipboard(text) {
+        var textArea = document.createElement(\"textarea\");
+        textArea.value = text;
+        textArea.style.top = \"0\";
+        textArea.style.left = \"0\";
+        textArea.style.position = \"fixed\";
+        textArea.style.opacity = \"0\";
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          var successful = document.execCommand('copy');
+          if (successful) {
+            alert('GBIF IDs copied to clipboard!');
+          } else {
+            alert('Copy failed. Please select and copy manually.');
+          }
+        } catch (err) {
+          alert('Copy failed. Please select and copy manually.');
+        }
+
+        document.body.removeChild(textArea);
+      }
+
+      // Handle drawing events
+      map.on(L.Draw.Event.CREATED, function(event) {
+        var layer = event.layer;
+        var type = event.layerType;
+
+        if (type === 'polygon' || type === 'rectangle') {
+          var coords = layer.getLatLngs()[0];
+          var polygonCoords = coords.map(function(latlng) {
+            return [latlng.lat, latlng.lng];
+          });
+
+          // Find points within polygon
+          var selectedPoints = pointData.filter(function(point) {
+            return pointInPolygon([point.decimalLatitude, point.decimalLongitude], polygonCoords);
+          });
+
+          // Update results display
+          var resultsContent = document.getElementById('results-content');
+          if (selectedPoints.length === 0) {
+            resultsContent.innerHTML = 'No points selected';
+          } else {
+            var resultText = '<strong>' + selectedPoints.length + ' points selected:</strong><br>';
+            var gbifIds = selectedPoints.map(function(p) { return p.gbifID; }).filter(function(id) { return id; });
+            var uniqueGbifIds = [...new Set(gbifIds)];
+
+            resultText += '<strong>GBIF IDs:</strong><br>';
+            resultText += uniqueGbifIds.slice(0, 20).join(', ');
+            if (uniqueGbifIds.length > 20) {
+              resultText += '<br>... and ' + (uniqueGbifIds.length - 20) + ' more';
+            }
+
+            // Add copy button with unique ID
+            resultText += '<br><button id=\"copy-btn-' + Date.now() + '\" style=\"margin-top: 5px; padding: 2px 8px; font-size: 12px;\">Copy IDs</button>';
+
+            resultsContent.innerHTML = resultText;
+
+            // Add event listener after setting innerHTML
+            var copyBtn = resultsContent.querySelector('button[id^=\"copy-btn-\"]');
+            if (copyBtn) {
+              copyBtn.addEventListener('click', function() {
+                var textToCopy = uniqueGbifIds.join(', ');
+
+                // Try modern clipboard API first
+                if (navigator.clipboard && window.isSecureContext) {
+                  navigator.clipboard.writeText(textToCopy).then(function() {
+                    alert('GBIF IDs copied to clipboard!');
+                  }).catch(function(err) {
+                    console.error('Clipboard write failed:', err);
+                    fallbackCopyTextToClipboard(textToCopy);
+                  });
+                } else {
+                  fallbackCopyTextToClipboard(textToCopy);
+                }
+              });
+            }
+          }
+        }
+      });
+
+      // Clear results when drawing is deleted
+      map.on(L.Draw.Event.DELETED, function(event) {
+        document.getElementById('results-content').innerHTML = 'Draw a polygon to select points.';
+      });
+    }
+    ", jsonlite::toJSON(species_data, auto_unbox = TRUE))
+
+    m <- m %>%
+      htmlwidgets::onRender(selection_js_simple)
 
   }
   return(m)
