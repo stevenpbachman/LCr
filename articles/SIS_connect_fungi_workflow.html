@@ -92,14 +92,14 @@ Least Concern e.g. </p>
 <span><span class="co">#&gt; 1                   Morchella brunnea M.Kuo</span></span>
 <span><span class="co">#&gt; 2 Trichoderma sinuosum P.Chaverri &amp; Samuels</span></span>
 <span><span class="co">#&gt; 3              Amanita rhacopus Y.Lamoureux</span></span></code></pre></div>
-<p>Run the get_name_keys function. This will check the names against the
-GBIF names backbone. Make sure to list <code>kingdon = "fungi"</code>.
-The <code>name_column</code> is the column that contains the species to
-be assessed. To ensure good name matching, this should be a field that
-contains a string with the binomial author(s) combined. To enforce a
-single matching name for every name in our list set the
-<code>match</code> parameter to ‘single’, or set to ‘multiple’ if you
-wish to allow multiple matches.</p>
+<p>Run the <code>get_name_keys</code> function. This will check the
+names against the GBIF names backbone. Make sure to list
+<code>kingdon = "fungi"</code>. The <code>name_column</code> is the
+column that contains the species to be assessed. To ensure good name
+matching, this should be a field that contains a string with the
+binomial and author(s) combined. To enforce a single matching name for
+every name in our list set the <code>match</code> parameter to ‘single’,
+or set to ‘multiple’ if you wish to allow multiple matches.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get keys</span></span>
 <span><span class="va">lc_keys</span> <span class="op">&lt;-</span></span>
@@ -137,11 +137,12 @@ generate the native ranges for fungi using another method.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># save the occurrence file</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">lc_sis_occs</span><span class="op">$</span><span class="va">points</span>, file <span class="op">=</span> <span class="st">"my_LC_occs.csv"</span><span class="op">)</span></span></code></pre></div>
-<p>As we don’t have an equivalent to World Checklist of Vascular
-Plantsnative ranges for fungi, we will use our clean occurrence data to
-calculate the WGSRPD regions for each species.</p>
+<p>As we don’t have an equivalent to World Checklist of Vascular Plants
+native ranges for fungi, we will use our clean occurrence data to
+calculate regions for each species using the World Geographic Scheme for
+Recording Plant Distributions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># for fungi - get the native ranges</span></span>
+<code class="sourceCode R"><span><span class="co"># for fungi - get the regions that overlap the occurrence points</span></span>
 <span><span class="va">native_ranges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_occs_range.html">get_occs_range</a></span><span class="op">(</span><span class="va">lc_sis_occs</span><span class="op">$</span><span class="va">points</span><span class="op">)</span></span></code></pre></div>
 <p>We can now generate the SIS Connect csv files</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
