@@ -101,8 +101,12 @@ check_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
     !is.na(checked_occs$coordinateUncertaintyInMeters) &
     checked_occs$coordinateUncertaintyInMeters > 100000
 
+
   # Check against native ranges if provided
   if (!is.null(native_ranges)) {
+    # Initialize all records as TRUE (outside native range) first
+    checked_occs$flag_outside_native <- TRUE
+
     # Temporary turn off s2 processing to avoid geometry errors
     sf::sf_use_s2(FALSE)
 
@@ -121,13 +125,12 @@ check_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
       sf::st_transform(crs = "+proj=eqearth +datum=WGS84") %>%
       dplyr::select(LEVEL3_COD)
 
-
     # Join with TDWG polygons
     valid_coords_tdwg <- valid_coords_projected %>%
       sf::st_join(tdwg_level3_projected %>%
                     sf::st_buffer(dist = buffer))
 
-    # Extract the LEVEL3_COD values
+    # Extract the ID column for matching
     id_col <- if("gbifID" %in% colnames(checked_occs)) "gbifID" else ".row_id"
 
     # Set up progress bar
@@ -145,21 +148,25 @@ check_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
         species_id <- valid_coords_tdwg$wcvp_ipni_id[i]
         region_code <- valid_coords_tdwg$LEVEL3_COD[i]
 
+        # Only check native status if both species_id and region_code are available
         if (!is.na(region_code) && !is.na(species_id)) {
           is_native <- any(native_ranges$wcvp_ipni_id == species_id &
                              native_ranges$LEVEL3_COD == region_code)
 
+          # Set flag to FALSE if native, TRUE if not native
           checked_occs$flag_outside_native[row_id] <- !is_native
-        } else {
-          # Region code or species ID is NA, so we can't determine if it's native
-          checked_occs$flag_outside_native[row_id] <- TRUE
         }
+        # If region_code or species_id is NA, flag remains TRUE (outside native range)
+        # This handles cases where:
+        # - Point doesn't intersect any TDWG polygon
+        # - Species ID is missing from occurrence data
       }
 
       cli::cli_progress_update()
     }
     cli::cli_progress_done()
   }
+
   print(paste0("native range check complete"))
 
   # Generate a summary of flags
