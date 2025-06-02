@@ -24,6 +24,8 @@ get_gbif_occs <- function(keys_df) {
   downloaded <- rgbif::occ_download_get(gbif_download, path = temporary_folder) # download
   the_points <- rgbif::occ_download_import(downloaded, path = temporary_folder) # and import
 
+  the_points$gbifID <- as.character(bit64::as.integer64(the_points$gbifID))
+
   the_points <- dplyr::left_join(the_points,
                        keys_df,
                        by = c("speciesKey" = "GBIF_usageKey"))
