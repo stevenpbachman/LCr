@@ -8,7 +8,11 @@
 #'   - summary: summary of error counts
 #'
 #' @export
-check_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
+check_occs <- function(gbif_occs,
+                       native_ranges = NULL,
+                       buffer = 1000) {
+  cli::cli_alert_info("Starting coordinate quality checks for {nrow(gbif_occs)} records")
+
   # Create a copy of original data with flags initialized as FALSE
   checked_occs <- gbif_occs %>%
     dplyr::mutate(
@@ -32,54 +36,69 @@ check_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
 
   # Run CoordinateCleaner tests - IMPORTANT: Invert values since
   # cc_ functions return TRUE for VALID records and FALSE for PROBLEMATIC ones
+
   cc_test_capitals <- !CoordinateCleaner::cc_cap(
     occs_with_coords,
     lat = "decimalLatitude",
     lon = "decimalLongitude",
-    value = "flagged"
+    value = "flagged",
+    verbose = "false"
   )
 
   cc_test_centroids <- !CoordinateCleaner::cc_cen(
     occs_with_coords,
     lat = "decimalLatitude",
     lon = "decimalLongitude",
-    value = "flagged"
+    value = "flagged",
+    verbose = "false"
   )
 
   cc_test_institutions <- !CoordinateCleaner::cc_inst(
     occs_with_coords,
     lat = "decimalLatitude",
     lon = "decimalLongitude",
-    value = "flagged"
+    value = "flagged",
+    verbose = "false"
   )
 
   cc_test_equal <- !CoordinateCleaner::cc_equ(
     occs_with_coords,
     lat = "decimalLatitude",
     lon = "decimalLongitude",
-    value = "flagged"
+    value = "flagged",
+    verbose = "false"
   )
 
   cc_test_gbif <- !CoordinateCleaner::cc_gbif(
     occs_with_coords,
     lat = "decimalLatitude",
     lon = "decimalLongitude",
-    value = "flagged"
+    value = "flagged",
+    verbose = "false"
   )
 
   cc_test_zeros <- !CoordinateCleaner::cc_zero(
     occs_with_coords,
     lat = "decimalLatitude",
     lon = "decimalLongitude",
-    value = "flagged"
+    value = "flagged",
+    verbose = "false"
   )
+
+  cli::cli_progress_done()
+  cli::cli_alert_success("CoordinateCleaner tests complete")
+
 
   # Update flags in the original dataset
   for (i in seq_len(nrow(occs_with_coords))) {
     # Use a unique ID column for matching, defaulting to row number if necessary
-    id_col <- if("gbifID" %in% colnames(checked_occs)) "gbifID" else ".row_id"
+    id_col <- if ("gbifID" %in% colnames(checked_occs))
+      "gbifID"
+    else
+      ".row_id"
 
-    if(id_col == ".row_id" && !".row_id" %in% colnames(checked_occs)) {
+    if (id_col == ".row_id" &&
+        !".row_id" %in% colnames(checked_occs)) {
       checked_occs$.row_id <- 1:nrow(checked_occs)
       occs_with_coords$.row_id <- which(!checked_occs$flag_no_coords)
     }
@@ -104,6 +123,8 @@ check_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
 
   # Check against native ranges if provided
   if (!is.null(native_ranges)) {
+    cli::cli_alert("Checking records against native range data...")
+
     # Initialize all records as TRUE (outside native range) first
     checked_occs$flag_outside_native <- TRUE
 
@@ -131,7 +152,10 @@ check_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
                     sf::st_buffer(dist = buffer))
 
     # Extract the ID column for matching
-    id_col <- if("gbifID" %in% colnames(checked_occs)) "gbifID" else ".row_id"
+    id_col <- if ("gbifID" %in% colnames(checked_occs))
+      "gbifID"
+    else
+      ".row_id"
 
     # Set up progress bar
     cli::cli_progress_bar(
@@ -150,8 +174,10 @@ check_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
 
         # Only check native status if both species_id and region_code are available
         if (!is.na(region_code) && !is.na(species_id)) {
-          is_native <- any(native_ranges$wcvp_ipni_id == species_id &
-                             native_ranges$LEVEL3_COD == region_code)
+          is_native <- any(
+            native_ranges$wcvp_ipni_id == species_id &
+              native_ranges$LEVEL3_COD == region_code
+          )
 
           # Set flag to FALSE if native, TRUE if not native
           checked_occs$flag_outside_native[row_id] <- !is_native
@@ -165,52 +191,70 @@ check_occs <- function(gbif_occs, native_ranges = NULL, buffer = 1000) {
       cli::cli_progress_update()
     }
     cli::cli_progress_done()
-  }
+    cli::cli_alert_success("Native range check complete")
+  } else {
+  cli::cli_alert_info("No native range data provided - skipping native range checks")
+}
 
-  print(paste0("native range check complete"))
-
-  # Generate a summary of flags
-  flag_summary <- data.frame(
-    flag = c("Missing coordinates",
-             "Near country capitals",
-             "Near country centroids",
-             "Near biodiversity institutions",
-             "Equal coordinates",
-             "GBIF headquarters",
-             "Zero coordinates",
-             "High coordinate uncertainty",
-             "Outside native range"),
-    count = c(
-      sum(checked_occs$flag_no_coords),
-      sum(checked_occs$flag_cc_capitals),
-      sum(checked_occs$flag_cc_centroids),
-      sum(checked_occs$flag_cc_institutions),
-      sum(checked_occs$flag_cc_equal),
-      sum(checked_occs$flag_cc_gbif),
-      sum(checked_occs$flag_cc_zeros),
-      sum(checked_occs$flag_high_uncertainty),
-      sum(checked_occs$flag_outside_native)
+# Generate a summary of flags
+flag_summary <- data.frame(
+  flag = c(
+    "Missing coordinates",
+    "Near country capitals",
+    "Near country centroids",
+    "Near biodiversity institutions",
+    "Equal coordinates",
+    "GBIF headquarters",
+    "Zero coordinates",
+    "High coordinate uncertainty",
+    "Outside native range"
+  ),
+  count = c(
+    sum(checked_occs$flag_no_coords),
+    sum(checked_occs$flag_cc_capitals),
+    sum(checked_occs$flag_cc_centroids),
+    sum(checked_occs$flag_cc_institutions),
+    sum(checked_occs$flag_cc_equal),
+    sum(checked_occs$flag_cc_gbif),
+    sum(checked_occs$flag_cc_zeros),
+    sum(checked_occs$flag_high_uncertainty),
+    sum(checked_occs$flag_outside_native)
+  ),
+  percentage = c(
+    round(100 * sum(checked_occs$flag_no_coords) / nrow(checked_occs), 2),
+    round(
+      100 * sum(checked_occs$flag_cc_capitals) / nrow(checked_occs),
+      2
     ),
-    percentage = c(
-      round(100 * sum(checked_occs$flag_no_coords) / nrow(checked_occs), 2),
-      round(100 * sum(checked_occs$flag_cc_capitals) / nrow(checked_occs), 2),
-      round(100 * sum(checked_occs$flag_cc_centroids) / nrow(checked_occs), 2),
-      round(100 * sum(checked_occs$flag_cc_institutions) / nrow(checked_occs), 2),
-      round(100 * sum(checked_occs$flag_cc_equal) / nrow(checked_occs), 2),
-      round(100 * sum(checked_occs$flag_cc_gbif) / nrow(checked_occs), 2),
-      round(100 * sum(checked_occs$flag_cc_zeros) / nrow(checked_occs), 2),
-      round(100 * sum(checked_occs$flag_high_uncertainty) / nrow(checked_occs), 2),
-      round(100 * sum(checked_occs$flag_outside_native) / nrow(checked_occs), 2)
+    round(
+      100 * sum(checked_occs$flag_cc_centroids) / nrow(checked_occs),
+      2
+    ),
+    round(
+      100 * sum(checked_occs$flag_cc_institutions) / nrow(checked_occs),
+      2
+    ),
+    round(100 * sum(checked_occs$flag_cc_equal) / nrow(checked_occs), 2),
+    round(100 * sum(checked_occs$flag_cc_gbif) / nrow(checked_occs), 2),
+    round(100 * sum(checked_occs$flag_cc_zeros) / nrow(checked_occs), 2),
+    round(
+      100 * sum(checked_occs$flag_high_uncertainty) / nrow(checked_occs),
+      2
+    ),
+    round(
+      100 * sum(checked_occs$flag_outside_native) / nrow(checked_occs),
+      2
     )
   )
+)
 
-  # Clean up temporary row ID if created
-  if(".row_id" %in% colnames(checked_occs)) {
-    checked_occs$.row_id <- NULL
-  }
+# Clean up temporary row ID if created
+if (".row_id" %in% colnames(checked_occs)) {
+  checked_occs$.row_id <- NULL
+}
 
-  return(list(
-    checked_data = checked_occs,
-    summary = flag_summary
-  ))
+print(as_tibble(flag_summary))
+
+return(list(checked_data = checked_occs, summary = flag_summary))
+
 }
