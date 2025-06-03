@@ -129,7 +129,7 @@ check_occs <- function(gbif_occs,
     checked_occs$flag_outside_native <- TRUE
 
     # Temporary turn off s2 processing to avoid geometry errors
-    sf::sf_use_s2(FALSE)
+    suppressMessages(sf::sf_use_s2(FALSE))
 
     # Only process records with valid coordinates
     valid_coords <- checked_occs %>%
