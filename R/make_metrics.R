@@ -44,7 +44,7 @@ make_metrics <- function(occs, native_ranges = FALSE,
   if (!is.null(native_ranges) && !identical(native_ranges, FALSE)) {
     range_count <- native_ranges %>%
       dplyr::group_by(internal_taxon_id) %>%
-      dplyr::summarize(WGSRPD_count = n(), .groups = "drop")
+      dplyr::summarize(WGSRPD_count = dplyr::n(), .groups = "drop")
 
     resultsdf <- resultsdf %>%
       dplyr::left_join(range_count, by = c("taxon" = "internal_taxon_id"))
