@@ -11,33 +11,6 @@ map_species_single <- function(data, species_range = NULL, show_flags = TRUE) {
 
   species_name <- data$canonicalname[1]
 
-  title_html <- sprintf(
-    "<div style='
-    position: absolute;
-    top: 10px;
-    left: 50%%;
-    transform: translateX(-50%%);
-    font-size: 18px;
-    font-weight: bold;
-    background-color: white;
-    padding: 5px;
-    z-index: 1000;
-    text-align: center;
-  '>
-    %s
-    <div style='
-      font-size: 12px;
-      font-weight: normal;
-      color: #666;
-      margin-top: 5px;
-      #font-style: italic;
-    '>
-      ⚠️ Polygon/rectangle selections will include all points, whether the layer is ticked on or off.
-    </div>
-  </div>",
-    species_name
-  )
-
   # Remove any rows with NA coordinates
   species_data <- data %>%
     dplyr::filter(!is.na(decimalLatitude), !is.na(decimalLongitude))
@@ -317,7 +290,44 @@ map_species_single <- function(data, species_range = NULL, show_flags = TRUE) {
         opacity = 0.8
       )
 
-    m <- htmlwidgets::prependContent(m, htmltools::HTML(title_html))
+    #m <- htmlwidgets::prependContent(m, htmltools::HTML(title_html))
+
+    m <- htmlwidgets::onRender(
+      m,
+      sprintf(
+        "
+    function(el, x) {
+      var container = document.getElementById(el.id);
+      var title = document.createElement('div');
+      title.innerHTML = `<div style='
+        position: absolute;
+        top: 10px;
+        left: 50%%;
+        transform: translateX(-50%%);
+        font-size: 18px;
+        font-weight: bold;
+        background-color: white;
+        padding: 5px;
+        z-index: 1000;
+        text-align: center;
+      '>
+        %s
+        <div style='
+          font-size: 12px;
+          font-weight: normal;
+          color: #666;
+          margin-top: 5px;
+        '>
+          ⚠️ Polygon/rectangle selections will include all points, whether the layer is ticked on or off.
+        </div>
+      </div>`;
+      container.appendChild(title);
+    }
+    ",
+        species_name
+      )
+    )
+
 
     # Add JavaScript for polygon selection functionality
     selection_js <- sprintf("
@@ -566,7 +576,43 @@ map_species_single <- function(data, species_range = NULL, show_flags = TRUE) {
         opacity = 0.8
       )
 
-    m <- htmlwidgets::prependContent(m, htmltools::HTML(title_html))
+    #m <- htmlwidgets::prependContent(m, htmltools::HTML(title_html))
+
+    m <- htmlwidgets::onRender(
+      m,
+      sprintf(
+        "
+    function(el, x) {
+      var container = document.getElementById(el.id);
+      var title = document.createElement('div');
+      title.innerHTML = `<div style='
+        position: absolute;
+        top: 10px;
+        left: 50%%;
+        transform: translateX(-50%%);
+        font-size: 18px;
+        font-weight: bold;
+        background-color: white;
+        padding: 5px;
+        z-index: 1000;
+        text-align: center;
+      '>
+        %s
+        <div style='
+          font-size: 12px;
+          font-weight: normal;
+          color: #666;
+          margin-top: 5px;
+        '>
+          ⚠️ Polygon/rectangle selections will include all points, whether the layer is ticked on or off.
+        </div>
+      </div>`;
+      container.appendChild(title);
+    }
+    ",
+        species_name
+      )
+    )
 
     # Add JavaScript for polygon selection functionality (simple map version)
     selection_js_simple <- sprintf("
