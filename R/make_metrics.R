@@ -71,6 +71,8 @@ make_metrics <- function(occs, native_ranges = FALSE,
                     WGSRPD_count >= regions_thresh &
                     recent_records >= recent_thresh)
 
+  print(tibble::as_tibble(resultsdf))
+
   return(resultsdf)
 
 }
