@@ -126,7 +126,7 @@ map_species_single <- function(data, species_range = NULL, show_flags = TRUE) {
     }
 
     # Initialize base leaflet map
-    m <- leaflet() %>%
+    m <- leaflet::leaflet() %>%
       leaflet::addProviderTiles("OpenStreetMap", group = "OpenStreetMap") %>%
       leaflet::addProviderTiles("Esri.WorldImagery", group = "Satellite")
 
@@ -473,7 +473,7 @@ map_species_single <- function(data, species_range = NULL, show_flags = TRUE) {
     )
 
     # Initialize base leaflet map
-    m <- leaflet() %>%
+    m <- leaflet::leaflet() %>%
       leaflet::addProviderTiles("OpenStreetMap", group = "OpenStreetMap") %>%
       leaflet::addProviderTiles("Esri.WorldImagery", group = "Satellite")
 
