@@ -21,7 +21,7 @@
 # add option to determine which sources you want to search e.g. WCVP for plants, or IF for fungi
 get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae") {
   # Create a working copy of the dataframe
-  working_df <- df
+  working_df <- tibble::as_tibble(df)
 
   # Parse names into binomial and author components
   search_names <- as.vector(unlist(working_df[, name_column]))

@@ -253,7 +253,7 @@ if (".row_id" %in% colnames(checked_occs)) {
   checked_occs$.row_id <- NULL
 }
 
-print(as_tibble(flag_summary))
+print(tibble::as_tibble(flag_summary))
 
 return(list(checked_data = checked_occs, summary = flag_summary))
 
