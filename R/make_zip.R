@@ -7,31 +7,32 @@
 #' @return Returns an SIS compliant zip file
 #' @export
 
-# make_zip <- function(csv_list = list(allfields = allfields,
-#                                     assessments = assessments,
-#                                     plantspecific = plantspecific,
-#                                     countries = countries,
-#                                     habitats = habitats,
-#                                     taxonomy = taxonomy,
-#                                     references = references,
-#                                     credits = credits),
-#                     zip_filename = "singlezip.zip") {
-
 make_zip <- function(csv_list = list(sis_files),
-                     zip_filename = "SIS_files.zip") {
+                     zip_filename = "SIS_files.zip")
+{
+  temp_dir <- tempdir()
+  written_files <- character()
 
-  # Create a temporary directory
-  temp_dir <- here::here()
-
-  # temporarily save the csvs to the temp dir
   for (name in names(csv_list)) {
-    write.csv(csv_list[[name]], file.path(temp_dir, paste0(name, ".csv")), row.names = FALSE)
+    file_path <- file.path(temp_dir, paste0(name, ".csv"))
+    write.csv(csv_list[[name]], file_path, row.names = FALSE)
+    written_files <- c(written_files, file_path)
   }
 
-  # zip them
-  zip(zip_filename, files = list.files(temp_dir, pattern = ".*\\.csv"))
+  # Save the zip in the current project directory, but only include the CSVs from temp_dir
+  zip_path <- file.path(here::here(), zip_filename)
+  #zip(zip_path, files = written_files, flags = "-j")  # -j strips directory paths inside the zip
+  #file.remove(written_files)
 
-  # Remove individual CSV files after zipping
-  file.remove(list.files(temp_dir, pattern = ".*\\.csv"))
+  # Create zip silently using system2
+  system2("zip",
+          args = c("-j", shQuote(zip_path), shQuote(written_files)),
+          stdout = NULL, stderr = NULL)
+
+  file.remove(written_files)
+  zip_path
+
+  # little message to signal success and shop path to zip
+  cli::cli_alert_success(paste0("ZIP file saved here: ", zip_path))
 
 }
