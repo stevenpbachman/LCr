@@ -37,6 +37,8 @@ clean_occs <- function(checked_occs,
                        gbifid_reason = NULL,
                        keep_gbifids = NULL) {
 
+  cli::cli_alert_info("Cleaning {nrow(checked_occs)} records")
+
   #data <- checked_occs$flagged_data
   data <- checked_occs
 
@@ -157,6 +159,8 @@ clean_occs <- function(checked_occs,
 
   problem_cols <- c(colnames(problem_occs)[!grepl("^flag_|is_problematic|manual_removal_reason", colnames(problem_occs))])
   problem_occs <- problem_occs[, problem_cols]
+
+  cli::cli_alert_success("Cleaning complete.")
 
   return(list(
     clean_occs = clean_occs,

@@ -22,6 +22,8 @@ make_metrics <- function(occs, native_ranges = FALSE,
                          regions_thresh = 5,
                          recent_thresh = 50) {
 
+  cli::cli_alert_info("Calculating LC metrics.")
+
   # Step 1: Add 'recent' flag to occs for last 30 years
   current_year <- as.integer(format(Sys.Date(), "%Y"))
   occs <- occs %>%
@@ -70,6 +72,8 @@ make_metrics <- function(occs, native_ranges = FALSE,
                     NOP >= points_thresh &
                     WGSRPD_count >= regions_thresh &
                     recent_records >= recent_thresh)
+
+  cli::cli_alert_success("Metrics complete")
 
   print(tibble::as_tibble(resultsdf))
 

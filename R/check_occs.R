@@ -11,7 +11,7 @@
 check_occs <- function(gbif_occs,
                        native_ranges = NULL,
                        buffer = 1000) {
-  cli::cli_alert_info("Starting coordinate quality checks for {nrow(gbif_occs)} records")
+
 
   # Create a copy of original data with flags initialized as FALSE
   checked_occs <- gbif_occs %>%
@@ -222,29 +222,14 @@ flag_summary <- data.frame(
   ),
   percentage = c(
     round(100 * sum(checked_occs$flag_no_coords) / nrow(checked_occs), 2),
-    round(
-      100 * sum(checked_occs$flag_cc_capitals) / nrow(checked_occs),
-      2
-    ),
-    round(
-      100 * sum(checked_occs$flag_cc_centroids) / nrow(checked_occs),
-      2
-    ),
-    round(
-      100 * sum(checked_occs$flag_cc_institutions) / nrow(checked_occs),
-      2
-    ),
+    round(100 * sum(checked_occs$flag_cc_capitals) / nrow(checked_occs), 2),
+    round(100 * sum(checked_occs$flag_cc_centroids) / nrow(checked_occs), 2),
+    round(100 * sum(checked_occs$flag_cc_institutions) / nrow(checked_occs),2),
     round(100 * sum(checked_occs$flag_cc_equal) / nrow(checked_occs), 2),
     round(100 * sum(checked_occs$flag_cc_gbif) / nrow(checked_occs), 2),
     round(100 * sum(checked_occs$flag_cc_zeros) / nrow(checked_occs), 2),
-    round(
-      100 * sum(checked_occs$flag_high_uncertainty) / nrow(checked_occs),
-      2
-    ),
-    round(
-      100 * sum(checked_occs$flag_outside_native) / nrow(checked_occs),
-      2
-    )
+    round(100 * sum(checked_occs$flag_high_uncertainty) / nrow(checked_occs),2),
+    round(100 * sum(checked_occs$flag_outside_native) / nrow(checked_occs),2)
   )
 )
 

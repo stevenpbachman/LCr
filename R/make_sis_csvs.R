@@ -34,38 +34,45 @@ make_sis_csvs <-
            genus,
            species,
            taxonomicAuthority,
-           kingdom = "plantae")
-  {
+           kingdom = "plantae") {
     if (kingdom == "plantae") {
       # get most of the csvs here
       if (!is.null(native_ranges)) {
       countries <- sis_countries(native_ranges, unique_id)
-      print("countries finished")
+      #print("countries finished")
+      cli::cli_alert_success("countries complete")
       }
       if (!is.null(occs)) {
       allfields <- sis_allfields(unique_id, occs = occs)
-      print("allfields finished")
+      #print("allfields finished")
+      cli::cli_alert_success("allfields complete")
       } else {
         allfields <- sis_allfields(unique_id)
       }
       if (!is.null(occs)) {
         assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id, occs = occs)
-        print("assessments finished")
+        #print("assessments finished")
+        cli::cli_alert_success("assessments complete")
       } else {
         assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id)
       }
       plantspecific <- sis_plantspecific(unique_id, wcvp_ipni_id, kingdom)
-      print("plantspecific finished")
+      #print("plantspecific finished")
+      cli::cli_alert_success("plantspecific complete")
       habitats <- sis_habitats(unique_id)
-      print("habitats finished")
+      #print("habitats finished")
+      cli::cli_alert_success("habitats complete")
       credits <- sis_credits(unique_id, first_name, second_name, email, affiliation = institution)
-      print("credits finished")
+      #print("credits finished")
+      cli::cli_alert_success("credits complete")
       taxonomy <- sis_taxonomy(unique_id, family, genus, species, taxonomicAuthority)
-      print("taxonomy finished")
+      #print("taxonomy finished")
+      cli::cli_alert_success("taxonomy complete")
 
       # need to embed map into the function, but refs a bit awkward - try again later
       references <- purrr::map_dfr(unique_id, sis_references, powo_ref = powo_ref, gbif_ref = gbif_ref)
-      print("references finished")
+      #print("references finished")
+      cli::cli_alert_success("references complete")
       # list of default results - these should always be generated
       results <-
         list(
@@ -77,7 +84,8 @@ make_sis_csvs <-
           taxonomy = taxonomy,
           references = references
         )
-      print("results finished")
+      #print("results finished")
+      cli::cli_alert_success("results complete")
 
       # countries df depends on native ranges, so only add countries if exists
       if (exists("countries")) {

@@ -138,6 +138,5 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
     "Check spelling of input names and, if not already included, add author to improve matching."
   )
 
-
   return(keys_df)
 }
