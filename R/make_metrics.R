@@ -75,8 +75,8 @@ make_metrics <- function(occs, native_ranges = FALSE, keys,
 
   # Step 8: join keys to get full output
   resultsdf <- resultsdf %>%
-    rename(GBIF_usageKey = taxon) %>%
-    inner_join(keys, by = "GBIF_usageKey")
+    dplyr::rename(GBIF_usageKey = taxon) %>%
+    dplyr::inner_join(keys, by = "GBIF_usageKey")
 
   cli::cli_alert_success("Metrics complete")
 
