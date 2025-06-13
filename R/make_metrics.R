@@ -15,7 +15,7 @@
 # what about number of contemporary points? last 30 yrs?
 # restricted elevation range?
 
-make_metrics <- function(occs, native_ranges = FALSE,
+make_metrics <- function(occs, native_ranges = FALSE, keys,
                          eoo_thresh = 30000,
                          aoo_thresh = 3000,
                          points_thresh = 75,
@@ -72,6 +72,10 @@ make_metrics <- function(occs, native_ranges = FALSE,
                     NOP >= points_thresh &
                     WGSRPD_count >= regions_thresh &
                     recent_records >= recent_thresh)
+
+  # Step 8: join keys to get full output
+  resultsdf <- resultsdf %>%
+    inner_join(keys, by = c("taxon" = "GBIF_usageKey"))
 
   cli::cli_alert_success("Metrics complete")
 
