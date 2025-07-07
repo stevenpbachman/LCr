@@ -7,6 +7,7 @@
 make_metrics(
   occs,
   native_ranges = FALSE,
+  keys,
   eoo_thresh = 30000,
   aoo_thresh = 3000,
   points_thresh = 75,

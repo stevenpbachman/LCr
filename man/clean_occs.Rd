@@ -8,7 +8,7 @@ clean_occs(
   checked_occs,
   remove_flags = c("flag_no_coords", "flag_cc_capitals", "flag_cc_centroids",
     "flag_cc_institutions", "flag_cc_equal", "flag_cc_gbif", "flag_cc_zeros",
-    "flag_high_uncertainty", "flag_outside_native"),
+    "flag_cc_urb", "flag_high_uncertainty", "flag_outside_native"),
   remove_gbifids = NULL,
   gbifid_reason = NULL,
   keep_gbifids = NULL

@@ -31,6 +31,7 @@ clean_occs <- function(checked_occs,
                                         "flag_cc_equal",
                                         "flag_cc_gbif",
                                         "flag_cc_zeros",
+                                        "flag_cc_urb",
                                         "flag_high_uncertainty",
                                         "flag_outside_native"),
                        remove_gbifids = NULL,
@@ -126,6 +127,7 @@ clean_occs <- function(checked_occs,
         if (flag_cc_equal & "flag_cc_equal" %in% remove_flags) reasons <- c(reasons, "Equal coordinates")
         if (flag_cc_gbif & "flag_cc_gbif" %in% remove_flags) reasons <- c(reasons, "GBIF headquarters")
         if (flag_cc_zeros & "flag_cc_zeros" %in% remove_flags) reasons <- c(reasons, "Zero coordinates")
+        if (flag_cc_urb & "flag_cc_urb" %in% remove_flags) reasons <- c(reasons, "In urban area")
         if (flag_high_uncertainty & "flag_high_uncertainty" %in% remove_flags) reasons <- c(reasons, "High coordinate uncertainty")
         if (flag_outside_native & "flag_outside_native" %in% remove_flags) reasons <- c(reasons, "Outside native range")
 

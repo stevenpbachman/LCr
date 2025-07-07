@@ -23,6 +23,7 @@ check_occs <- function(gbif_occs,
       flag_cc_equal = FALSE,
       flag_cc_gbif = FALSE,
       flag_cc_zeros = FALSE,
+      flag_cc_urb = FALSE,
       flag_high_uncertainty = FALSE,
       flag_outside_native = FALSE
     )
@@ -85,6 +86,14 @@ check_occs <- function(gbif_occs,
     verbose = "false"
   )
 
+  cc_test_urb <- !CoordinateCleaner::cc_urb(
+    occs_with_coords,
+    lat = "decimalLatitude",
+    lon = "decimalLongitude",
+    value = "flagged",
+    verbose = "false"
+  )
+
   cli::cli_progress_done()
   cli::cli_alert_success("CoordinateCleaner tests complete")
 
@@ -112,6 +121,7 @@ check_occs <- function(gbif_occs,
       checked_occs$flag_cc_equal[row_id] <- cc_test_equal[i]
       checked_occs$flag_cc_gbif[row_id] <- cc_test_gbif[i]
       checked_occs$flag_cc_zeros[row_id] <- cc_test_zeros[i]
+      checked_occs$flag_cc_urb[row_id] <- cc_test_urb[i]
     }
   }
 
@@ -206,6 +216,7 @@ flag_summary <- data.frame(
     "Equal coordinates",
     "GBIF headquarters",
     "Zero coordinates",
+    "In urban area",
     "High coordinate uncertainty",
     "Outside native range"
   ),
@@ -217,6 +228,7 @@ flag_summary <- data.frame(
     sum(checked_occs$flag_cc_equal),
     sum(checked_occs$flag_cc_gbif),
     sum(checked_occs$flag_cc_zeros),
+    sum(checked_occs$flag_cc_urb),
     sum(checked_occs$flag_high_uncertainty),
     sum(checked_occs$flag_outside_native)
   ),
@@ -228,6 +240,7 @@ flag_summary <- data.frame(
     round(100 * sum(checked_occs$flag_cc_equal) / nrow(checked_occs), 2),
     round(100 * sum(checked_occs$flag_cc_gbif) / nrow(checked_occs), 2),
     round(100 * sum(checked_occs$flag_cc_zeros) / nrow(checked_occs), 2),
+    round(100 * sum(checked_occs$flag_cc_urb) / nrow(checked_occs), 2),
     round(100 * sum(checked_occs$flag_high_uncertainty) / nrow(checked_occs),2),
     round(100 * sum(checked_occs$flag_outside_native) / nrow(checked_occs),2)
   )
