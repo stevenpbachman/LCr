@@ -36,7 +36,7 @@ map_species_batch <- function(data, species_range = NULL, show_flags = TRUE, sav
   }
 
   # Batch apply to all species keys
-  maps <- map(species_keys, make_map)
+  maps <- purrr::map(species_keys, make_map)
 
   return(maps)
 }
