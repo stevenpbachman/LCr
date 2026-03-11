@@ -8,7 +8,7 @@
 #' @param aoo_thresh (integer) threshold for AOO to determine Least Concern
 #' @param points_thresh (integer) threshold for number of points to determine Least Concern
 #' @param regions_thresh (integer) threshold for number of regions to determine Least Concern
-#' #' @param recent_thresh (integer) threshold for number of recent occurrences (<30 yrs) to determine Least Concern
+#' @param recent_thresh (integer) threshold for number of recent occurrences (<30 yrs) to determine Least Concern
 #'
 #' @return Returns a dataframe with species level metrics
 #' @export
@@ -32,10 +32,12 @@ make_metrics <- function(occs,
     dplyr::mutate(recent = year >= (current_year - 30))
 
   # Step 2: Get EOO, AOO, and number of points (NOP)
-  resultsdf <-rCAT::batchCon(occs$speciesKey,
-                               occs$decimalLongitude,
-                               occs$decimalLatitude,
-                               cellsize = 10000)
+  suppressMessages(invisible(capture.output({
+    resultsdf <- rCAT::batchCon(occs$speciesKey,
+                                occs$decimalLongitude,
+                                occs$decimalLatitude,
+                                cellsize = 10000)
+  })))
 
   resultsdf$taxon <- as.integer(resultsdf$taxon)
 
@@ -73,11 +75,17 @@ make_metrics <- function(occs,
   # core parameters must pass + 2 of 3 supporting parameters
   resultsdf <- resultsdf %>%
     dplyr::mutate(
-      core_lc = EOOkm2 >= eoo_thresh & AOOkm >= aoo_thresh,
-      supporting_score = (NOP >= points_thresh) +
-        (WGSRPD_count >= regions_thresh) +
-        (recent_records >= recent_thresh),
-      leastconcern = core_lc & supporting_score >= 2
+      lc_eoo     = EOOkm2 < eoo_thresh,
+      lc_aoo     = AOOkm < aoo_thresh,
+      lc_nop     = NOP < points_thresh,
+      lc_regions = if (!identical(native_ranges, FALSE)) {
+        WGSRPD_count < regions_thresh
+      } else { NA },  # NA = "not assessed" rather than pass/fail
+      lc_recent  = recent_records < recent_thresh,
+      lc_total  = lc_eoo + lc_aoo + lc_nop +
+        tidyr::replace_na(as.integer(lc_regions), 0) + # NA contributes 0
+        lc_recent,
+      leastconcern = lc_total == 0
     )
 
   # Step 8: join keys to get full output

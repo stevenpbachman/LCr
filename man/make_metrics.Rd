@@ -24,8 +24,9 @@ make_metrics(
 
 \item{points_thresh}{(integer) threshold for number of points to determine Least Concern}
 
-\item{regions_thresh}{(integer) threshold for number of regions to determine Least Concern
-#' @param recent_thresh (integer) threshold for number of recent occurrences (<30 yrs) to determine Least Concern}
+\item{regions_thresh}{(integer) threshold for number of regions to determine Least Concern}
+
+\item{recent_thresh}{(integer) threshold for number of recent occurrences (<30 yrs) to determine Least Concern}
 
 \item{occs_clean}{(character) Cleaned GBIF occurrence file in DWCA format. See
 occs_clean() function.}
