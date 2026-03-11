@@ -43,5 +43,5 @@ Depends:
     R (>= 3.5)
 VignetteBuilder: knitr
 Remotes:
-    matildabrown/rWCVP
+    matildabrown/rWCVP,
     trafficonese/leaflet.extras
