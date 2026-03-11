@@ -8,14 +8,16 @@
 #' @param aoo_thresh (integer) threshold for AOO to determine Least Concern
 #' @param points_thresh (integer) threshold for number of points to determine Least Concern
 #' @param regions_thresh (integer) threshold for number of regions to determine Least Concern
+#' #' @param recent_thresh (integer) threshold for number of recent occurrences (<30 yrs) to determine Least Concern
 #'
 #' @return Returns a dataframe with species level metrics
 #' @export
 
-# what about number of contemporary points? last 30 yrs?
 # restricted elevation range?
 
-make_metrics <- function(occs, native_ranges = FALSE, keys,
+make_metrics <- function(occs,
+                         native_ranges = FALSE,
+                         keys,
                          eoo_thresh = 30000,
                          aoo_thresh = 3000,
                          points_thresh = 75,
@@ -50,6 +52,8 @@ make_metrics <- function(occs, native_ranges = FALSE, keys,
 
     resultsdf <- resultsdf %>%
       dplyr::left_join(range_count, by = c("taxon" = "internal_taxon_id"))
+  } else {
+    resultsdf$WGSRPD_count <- NA_integer_
   }
 
   # Step 5: Add recent records count
@@ -66,12 +70,15 @@ make_metrics <- function(occs, native_ranges = FALSE, keys,
                   recent_records = tidyr::replace_na(recent_records, 0))
 
   # Step 7: Apply Least Concern logic
+  # core parameters must pass + 2 of 3 supporting parameters
   resultsdf <- resultsdf %>%
-    dplyr::mutate(leastconcern = EOOkm2 >= eoo_thresh &
-                    AOOkm >= aoo_thresh &
-                    NOP >= points_thresh &
-                    WGSRPD_count >= regions_thresh &
-                    recent_records >= recent_thresh)
+    dplyr::mutate(
+      core_lc = EOOkm2 >= eoo_thresh & AOOkm >= aoo_thresh,
+      supporting_score = (NOP >= points_thresh) +
+        (WGSRPD_count >= regions_thresh) +
+        (recent_records >= recent_thresh),
+      leastconcern = core_lc & supporting_score >= 2
+    )
 
   # Step 8: join keys to get full output
   resultsdf <- resultsdf %>%
