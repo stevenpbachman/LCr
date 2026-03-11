@@ -1,0 +1,58 @@
+# LCr: An R package to generate minimal Least Concern Red List assessments
+
+## Overview
+
+Generate minimal documentation for species expected to be Least Concern
+(see [IUCN Red List](https://www.iucnredlist.org/)). Submit to the IUCN
+Red List via [SIS Connect](https://connect.iucnredlist.org/)
+(registration needed)
+
+## Installation
+
+Not yet on [CRAN](https://CRAN.R-project.org), but you can install the
+development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("stevenpbachman/LCr")
+```
+
+## Usage
+
+Basic workflow:
+
+1.  `get_name_keys` check name status against taxonomic name backbones
+2.  `make_LC_points` gather occurrence records from GBIF and convert to
+    an IUCN standard point file
+3.  `make_sis_csvs` generate SIS connect csv files
+4.  `make_zip` make a zip file for SIS Connect imports
+
+### Example
+
+``` r
+library(LCr)
+
+# some parameters needed for the point and csv files
+first_name = "your first name"
+second_name = "your second name"
+email = "your email"
+institution = "your institution"
+
+# create a species list
+sp <- data.frame(sp_col = c("Crabbea acaulis", "Crabbea cirsioides"))
+
+# check names against GBIF and WCVP name backbones 
+sp_keys <- get_name_keys(df = sp, name_column = "sp_col")
+
+# generate a point file according to IUCN standards
+sp_occs <-  make_LC_points(keys_df = sp_keys, range_check = TRUE)
+
+# generate the csv files
+sp_csvs <- make_sis_csvs(unique_id = sp_keys$wcvp_ipni_id,
+                              wcvp_ipni_id = sp_keys$wcvp_ipni_id,
+                              gbif_ref = sp_occs$citation,
+                              native_ranges = sp_occs$native_ranges)
+
+# make the ZIP file to send to IUCN SIS Connect
+make_zip(sp_csvs)
+```

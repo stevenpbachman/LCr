@@ -1,0 +1,124 @@
+# LCr: An R package to generate minimal Least Concern Red List assessments
+
+## Overview
+
+Generate minimal documentation for species expected to be Least Concern
+(see [IUCN Red List](https://www.iucnredlist.org/)). Submit to the IUCN
+Red List via [SIS Connect](https://connect.iucnredlist.org/)
+(registration needed)
+
+## Installation
+
+Not yet on [CRAN](https://CRAN.R-project.org), but you can install the
+development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("stevenpbachman/LCr")
+```
+
+## Usage
+
+Basic workflow:
+
+1.  `get_name_keys` check name status against taxonomic name backbones
+2.  `make_LC_points` gather occurrence records from GBIF and convert to
+    an IUCN standard point file
+3.  `make_sis_csvs` generate SIS connect csv files
+4.  `make_zip` make a zip file for SIS Connect imports
+
+### Example
+
+``` r
+library(LCr)
+
+# some parameters needed for the point and csv files
+first_name = "your first name"
+second_name = "your second name"
+email = "your email"
+institution = "your institution"
+
+# create a species list
+sp <- data.frame(sp_col = c("Crabbea acaulis", "Crabbea cirsioides"))
+
+# check names against GBIF and WCVP name backbones 
+sp_keys <- get_name_keys(df = sp, name_column = "sp_col")
+
+# generate a point file according to IUCN standards
+sp_occs <-  make_LC_points(keys_df = sp_keys, range_check = TRUE)
+
+# generate the csv files
+sp_csvs <- make_sis_csvs(unique_id = sp_keys$wcvp_ipni_id,
+                              wcvp_ipni_id = sp_keys$wcvp_ipni_id,
+                              gbif_ref = sp_occs$citation,
+                              native_ranges = sp_occs$native_ranges)
+
+# make the ZIP file to send to IUCN SIS Connect
+make_zip(sp_csvs)
+```
+
+# Package index
+
+## All functions
+
+- [`check_occs()`](https://stevenpbachman.github.io/LCr/reference/check_occs.md)
+  : Checks and flags GBIF occurrence data based on common coordinate
+  issues
+- [`clean_keys()`](https://stevenpbachman.github.io/LCr/reference/clean_keys.md)
+  : Clean a keys output to ensure only accepted species from GBIF and
+  WCVP are being analysed
+- [`clean_occs()`](https://stevenpbachman.github.io/LCr/reference/clean_occs.md)
+  : Clean GBIF occurrences based on user-selected flags and/or specific
+  gbifIDs
+- [`get_gbif_occs()`](https://stevenpbachman.github.io/LCr/reference/get_gbif_occs.md)
+  : Download georeferenced occurrence data using GBIF name identifier
+- [`get_name_keys()`](https://stevenpbachman.github.io/LCr/reference/get_name_keys.md)
+  : Get accepted GBIF and POWO identifiers (keys) for taxon names to
+  support data downloads
+- [`get_native_range()`](https://stevenpbachman.github.io/LCr/reference/get_native_range.md)
+  : Get native ranges for taxa
+- [`get_occs_range()`](https://stevenpbachman.github.io/LCr/reference/get_occs_range.md)
+  : Get ISO two-digit code from occurrence lat longs
+- [`make_metrics()`](https://stevenpbachman.github.io/LCr/reference/make_metrics.md)
+  : Generate metrics from a clean point occurrence file
+- [`make_sis_csvs()`](https://stevenpbachman.github.io/LCr/reference/make_sis_csvs.md)
+  : Generate all SIS connect csv files
+- [`make_sis_occs()`](https://stevenpbachman.github.io/LCr/reference/make_sis_occs.md)
+  : Convert cleaned gbif DWCA structure to IUCN SIS format
+- [`make_zip()`](https://stevenpbachman.github.io/LCr/reference/make_zip.md)
+  : Generate the SIS connect zip file
+- [`map_species_batch()`](https://stevenpbachman.github.io/LCr/reference/map_species_batch.md)
+  : Display a leaflet map to show the distribution of occurrence data
+  for each species Batch version that iterates through species
+- [`map_species_single()`](https://stevenpbachman.github.io/LCr/reference/map_species_single.md)
+  : Display a leaflet map to show the distribution of occurrence data
+  for each species
+- [`search_name_gbif()`](https://stevenpbachman.github.io/LCr/reference/search_name_gbif.md)
+  : Query taxon name against GBIF backbone
+- [`search_name_powo()`](https://stevenpbachman.github.io/LCr/reference/search_name_powo.md)
+  : Query taxon name against POWO (Plants of the World Online) backbone
+- [`sis_allfields()`](https://stevenpbachman.github.io/LCr/reference/sis_allfields.md)
+  : Generate the allfields.csv file
+- [`sis_assessments()`](https://stevenpbachman.github.io/LCr/reference/sis_assessments.md)
+  : Generate the assessments.csv file
+- [`sis_countries()`](https://stevenpbachman.github.io/LCr/reference/sis_countries.md)
+  : Generate the countries.csv file
+- [`sis_credits()`](https://stevenpbachman.github.io/LCr/reference/sis_credits.md)
+  : Generate the credits.csv file
+- [`sis_habitats()`](https://stevenpbachman.github.io/LCr/reference/sis_habitats.md)
+  : Generate the habitats.csv file
+- [`sis_plantspecific()`](https://stevenpbachman.github.io/LCr/reference/sis_plantspecific.md)
+  : Generate the plantspecific.csv file
+- [`sis_references()`](https://stevenpbachman.github.io/LCr/reference/sis_references.md)
+  : Generate the references.csv file
+- [`sis_taxonomy()`](https://stevenpbachman.github.io/LCr/reference/sis_taxonomy.md)
+  : Generate the taxonomy.csv file
+
+# Articles
+
+### All vignettes
+
+- [Generate SIS Connect files for multiple plant
+  species](https://stevenpbachman.github.io/LCr/articles/Generate-csvs.md):
+- [SIS connect files - fungi
+  workflow](https://stevenpbachman.github.io/LCr/articles/SIS_connect_fungi_workflow.md):
