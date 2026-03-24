@@ -6,8 +6,8 @@
 #' @param match (character) Controls the output of the search. Use `single` to
 #' force a single match result that has the highest confidence or `any` to return
 #' all possible matches sorted in order of confidence
-#' @param kingdom (character) Defaults to `plantae` and carries out match to POWO. If set as `fungi`
-#' will only carry out GBIF search
+#' @param kingdom (character) Defaults to `"plantae"`, which also searches POWO.
+#'   Any other value (e.g. `"fungi"`, `"animalia"`) will only search GBIF.
 #'
 #' @return Returns a data frame with accepted GBIF and POWO identifiers
 #' @export
@@ -20,6 +20,13 @@
 
 # add option to determine which sources you want to search e.g. WCVP for plants, or IF for fungi
 get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae") {
+
+  kingdom <- tolower(kingdom)
+  valid_kingdoms <- c("plantae", "fungi", "animalia")
+  if (!kingdom %in% valid_kingdoms) {
+    cli::cli_abort("{.arg kingdom} must be one of {.val {valid_kingdoms}}, not {.val {kingdom}}.")
+  }
+
   # Create a working copy of the dataframe
   working_df <- tibble::as_tibble(df)
 
@@ -103,8 +110,13 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
   }
 
   # 2. report non-species
-  non_species <- keys_df %>%
-    dplyr::filter(!(GBIF_rank == "SPECIES" & wcvp_rank == "Species"))
+  non_species <- if (kingdom == "plantae") {
+    keys_df %>%
+      dplyr::filter(!(GBIF_rank == "SPECIES" & wcvp_rank == "Species"))
+  } else {
+    keys_df %>%
+      dplyr::filter(GBIF_rank != "SPECIES")
+  }
 
   if (nrow(non_species) > 0) {
     #cli::cli_alert_warning("There are {nrow(non_species)} records where the taxonomic rank is not species level. Please review:")
@@ -119,8 +131,13 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
   }
 
   # 3. When GBIF and POWO name are not accepted
-  not_accepted <- keys_df %>%
-    dplyr::filter(!(GBIF_status == "ACCEPTED" & wcvp_status == "Accepted"))
+  not_accepted <- if (kingdom == "plantae") {
+    keys_df %>%
+      dplyr::filter(!(GBIF_status == "ACCEPTED" & wcvp_status == "Accepted"))
+  } else {
+    keys_df %>%
+      dplyr::filter(GBIF_status != "ACCEPTED")
+  }
 
   if (nrow(not_accepted) > 0) {
     #cli::cli_alert_warning("There are {nrow(not_accepted)} records where the taxonomic status is not accepted. Please review:")
@@ -134,9 +151,17 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
     )
   }
 
-  cli::cli_alert_info(
-    "Check spelling of input names and, if not already included, add author to improve matching."
-  )
+  has_issues <- nrow(multi) > 0 || nrow(non_species) > 0 || nrow(not_accepted) > 0
+
+  if (has_issues) {
+    if (kingdom == "plantae") {
+      cli::cli_alert_info("Check spelling and add taxonomic authority to improve GBIF and POWO matching.")
+    } else {
+      cli::cli_alert_info("Check spelling and add taxonomic authority to improve GBIF matching.")
+    }
+  } else {
+    cli::cli_alert_success("All names matched and accepted.")
+  }
 
   return(keys_df)
 }

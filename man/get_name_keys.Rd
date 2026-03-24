@@ -13,8 +13,8 @@ get_name_keys(df, name_column, match = "single", kingdom = "plantae")
 force a single match result that has the highest confidence or `any` to return
 all possible matches sorted in order of confidence}
 
-\item{kingdom}{(character) Defaults to `plantae` and carries out match to POWO. If set as `fungi`
-will only carry out GBIF search}
+\item{kingdom}{(character) Defaults to `"plantae"`, which also searches POWO.
+Any other value (e.g. `"fungi"`, `"animalia"`) will only search GBIF.}
 
 \item{name_col}{(character) Column for taxon names. Include taxonomic authority for better matching}
 }
