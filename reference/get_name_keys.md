@@ -23,8 +23,8 @@ get_name_keys(df, name_column, match = "single", kingdom = "plantae")
 
 - kingdom:
 
-  (character) Defaults to \`plantae\` and carries out match to POWO. If
-  set as \`fungi\` will only carry out GBIF search
+  (character) Defaults to \`"plantae"\`, which also searches POWO. Any
+  other value (e.g. \`"fungi"\`, \`"animalia"\`) will only search GBIF.
 
 - name_col:
 
