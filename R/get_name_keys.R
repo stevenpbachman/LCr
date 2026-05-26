@@ -27,6 +27,8 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
     cli::cli_abort("{.arg kingdom} must be one of {.val {valid_kingdoms}}, not {.val {kingdom}}.")
   }
 
+  sources <- if (kingdom == "plantae") c("GBIF", "WCVP") else "GBIF"
+
   # Create a working copy of the dataframe
   working_df <- tibble::as_tibble(df)
 
@@ -163,5 +165,6 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
     cli::cli_alert_success("All names matched and accepted.")
   }
 
+  attr(keys_df, "sources") <- sources
   return(keys_df)
 }

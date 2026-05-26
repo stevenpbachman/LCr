@@ -2,7 +2,7 @@
 #'
 #' @param keys (data frame) Contain identifier for the taxon e.g. derived from [`get_name_keys()`]
 #'
-#' @return (data frame) A list of 'botanical countries' (World Geogrpahic Scheme for Recording Plant
+#' @return (data frame) A list of 'botanical countries' (World Geographic Scheme for Recording Plant
 #' Distributions) where a taxon occurs.
 #' @export
 #'
