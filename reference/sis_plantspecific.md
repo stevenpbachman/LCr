@@ -5,23 +5,26 @@ Generate the plantspecific.csv file
 ## Usage
 
 ``` r
-sis_plantspecific(unique_id, wcvp_ipni_id, kingdom = "plantae")
+sis_plantspecific(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae")
 ```
 
 ## Arguments
 
 - unique_id:
 
-  (character) Unique identifier
+  (character) Unique identifier.
 
 - wcvp_ipni_id:
 
-  (character) Vector of WCVP IPNI IDs
+  (character or NULL) Vector of WCVP IPNI IDs used to retrieve growth
+  form data via POWO. Only required when `kingdom = "plantae"`; pass
+  `NULL` (the default) for fungi.
 
 - kingdom:
 
-  (character) Defaults to \`plantae\`, but can be \`fungi\`
+  (character) Kingdom of the taxa being assessed. One of `"plantae"`
+  (default) or `"fungi"`. Controls which growth form logic is applied.
 
 ## Value
 
-An SIS compliant csv file
+An SIS compliant data frame

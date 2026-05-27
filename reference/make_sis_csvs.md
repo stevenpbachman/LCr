@@ -56,7 +56,8 @@ make_sis_csvs(
 
 - native_ranges:
 
-  (data frame) Native ranges derived from \[\`get_native_range()\`\]
+  (data frame) Native ranges derived from \[\`get_native_range()\`\] or
+  \[\`get_occs_range()\`\]
 
 - family:
 
@@ -80,4 +81,4 @@ make_sis_csvs(
 
 ## Value
 
-Returns an SIS compliant zip file
+Returns an SIS connect compliant zip file

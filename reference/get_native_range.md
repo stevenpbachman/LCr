@@ -17,7 +17,7 @@ get_native_range(keys)
 
 ## Value
 
-(data frame) A list of 'botanical countries' (World Geogrpahic Scheme
+(data frame) A list of 'botanical countries' (World Geographic Scheme
 for Recording Plant Distributions) where a taxon occurs.
 
 ## Details

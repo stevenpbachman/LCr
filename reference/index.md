@@ -6,7 +6,7 @@
   : Checks and flags GBIF occurrence data based on common coordinate
   issues
 - [`clean_keys()`](https://stevenpbachman.github.io/LCr/reference/clean_keys.md)
-  : Clean a keys output to ensure only accepted species from GBIF and
+  : Clean a keys output to ensure only accepted species from GBIF and/or
   WCVP are being analysed
 - [`clean_occs()`](https://stevenpbachman.github.io/LCr/reference/clean_occs.md)
   : Clean GBIF occurrences based on user-selected flags and/or specific
