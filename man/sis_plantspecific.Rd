@@ -4,17 +4,21 @@
 \alias{sis_plantspecific}
 \title{Generate the plantspecific.csv file}
 \usage{
-sis_plantspecific(unique_id, wcvp_ipni_id, kingdom = "plantae")
+sis_plantspecific(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae")
 }
 \arguments{
-\item{unique_id}{(character) Unique identifier}
+\item{unique_id}{(character) Unique identifier.}
 
-\item{wcvp_ipni_id}{(character) Vector of WCVP IPNI IDs}
+\item{wcvp_ipni_id}{(character or NULL) Vector of WCVP IPNI IDs used to
+retrieve growth form data via POWO. Only required when
+\code{kingdom = "plantae"}; pass \code{NULL} (the default) for fungi.}
 
-\item{kingdom}{(character) Defaults to `plantae`, but can be `fungi`}
+\item{kingdom}{(character) Kingdom of the taxa being assessed. One of
+\code{"plantae"} (default) or \code{"fungi"}. Controls which growth form
+logic is applied.}
 }
 \value{
-An SIS compliant csv file
+An SIS compliant data frame
 }
 \description{
 Generate the plantspecific.csv file

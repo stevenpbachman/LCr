@@ -4,10 +4,21 @@
 \alias{sis_assessments}
 \title{Generate the assessments.csv file}
 \usage{
-sis_assessments(unique_id, native_ranges, wcvp_ipni_id, occs)
+sis_assessments(unique_id, native_ranges, wcvp_ipni_id = NULL, occs)
 }
 \arguments{
 \item{unique_id}{(character) Unique identifier.}
+
+\item{native_ranges}{Data frame of native ranges used to calculate
+biogeographic realms. Pass \code{NULL} to skip realm calculation.}
+
+\item{wcvp_ipni_id}{(character or NULL) WCVP IPNI identifiers used to
+generate distribution and habitat narrative text via POWO. Pass
+\code{NULL} for taxa without WCVP coverage (e.g. fungi), in which case
+\code{RangeDocumentation.narrative} and
+\code{HabitatDocumentation.narrative} will be left blank.}
+
+\item{occs}{Occurrence data passed to \code{powo_text()}.}
 }
 \value{
 Returns an SIS compliant data frame

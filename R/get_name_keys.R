@@ -165,6 +165,10 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
     cli::cli_alert_success("All names matched and accepted.")
   }
 
+  # format GBIF usageKey to be used for next step
+  keys_df$GBIF_usageKey <- as.integer(keys_df$GBIF_usageKey)
+
+  # add the attributes
   attr(keys_df, "sources") <- sources
   return(keys_df)
 }

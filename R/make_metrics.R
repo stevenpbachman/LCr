@@ -72,20 +72,22 @@ make_metrics <- function(occs,
                   recent_records = tidyr::replace_na(recent_records, 0))
 
   # Step 7: Apply Least Concern logic
-  # core parameters must pass + 2 of 3 supporting parameters
+  # Core parameters (EOO and AOO) must both pass.
+  # At least 2 of 3 supporting parameters (NOP, regions, recent) must also pass.
   resultsdf <- resultsdf %>%
     dplyr::mutate(
-      lc_eoo     = EOOkm2 < eoo_thresh,
-      lc_aoo     = AOOkm < aoo_thresh,
-      lc_nop     = NOP < points_thresh,
+      lc_eoo     = EOOkm2 > eoo_thresh,
+      lc_aoo     = AOOkm > aoo_thresh,
+      lc_nop     = NOP > points_thresh,
       lc_regions = if (!identical(native_ranges, FALSE)) {
-        WGSRPD_count < regions_thresh
-      } else { NA },  # NA = "not assessed" rather than pass/fail
-      lc_recent  = recent_records < recent_thresh,
-      lc_total  = lc_eoo + lc_aoo + lc_nop +
-        tidyr::replace_na(as.integer(lc_regions), 0) + # NA contributes 0
+        WGSRPD_count > regions_thresh
+      } else { NA },
+      lc_recent  = recent_records > recent_thresh,
+      lc_core       = lc_eoo & lc_aoo,
+      lc_supporting = lc_nop +
+        tidyr::replace_na(as.integer(lc_regions), 0) +
         lc_recent,
-      leastconcern = lc_total == 0
+      leastconcern  = lc_core & (lc_supporting >= 2)
     )
 
   # Step 8: join keys to get full output

@@ -60,9 +60,9 @@ get_gbif_ref <- function(gbif_meta) {
 
 make_biorealms = function(native_ranges) {
   biogeographic_realm <- native_ranges %>%
-    left_join(TDWG_realms, by = c("LEVEL3_COD" = "LEVEL3_COD")) %>%  # Match regions to realms
-    group_by(internal_taxon_id) %>%
-    summarise(BiogeographicRealm.realm = gsub(", ", " | ", paste(unique(REALM), collapse = ", ")),
+    dplyr::left_join(TDWG_realms, by = c("LEVEL3_COD" = "LEVEL3_COD"), relationship = "many-to-many") %>%  # Match regions to realms
+    dplyr::group_by(internal_taxon_id) %>%
+    dplyr::summarise(BiogeographicRealm.realm = gsub(", ", " | ", paste(unique(REALM), collapse = ", ")),
               .groups = "drop")
 
   return(biogeographic_realm)

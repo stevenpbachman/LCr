@@ -1,5 +1,3 @@
-
-
 #' Generate all SIS connect csv files
 #'
 #' @param unique_id (character) Unique identifier - default is the GBIF usage key
@@ -9,14 +7,14 @@
 #' @param institution (character) Name of institution or affiliation
 #' @param gbif_ref (data frame) A GBIF download citation according to IUCN format.
 #' @param powo_ref (data frame) A citation for use of POWO according to IUCN format.
-#' @param native_ranges (data frame) Native ranges derived from [`get_native_range()`]
+#' @param native_ranges (data frame) Native ranges derived from [`get_native_range()`] or [`get_occs_range()`]
 #' @param family (character) Field containing the family
 #' @param genus (character) Field containing the genus
 #' @param species (character) Field containing the specific epithet
 #' @param taxonomicAuthority (character) Field containing the taxonomic authority
 #' @param kingdom (character) Default is 'plantae', but can also be 'fungi'
 #'
-#' @return Returns an SIS compliant zip file
+#' @return Returns an SIS connect compliant zip file
 #' @export
 
 make_sis_csvs <-
@@ -38,41 +36,37 @@ make_sis_csvs <-
     if (kingdom == "plantae") {
       # get most of the csvs here
       if (!is.null(native_ranges)) {
-      countries <- sis_countries(native_ranges, unique_id)
-      #print("countries finished")
-      cli::cli_alert_success("countries complete")
+        countries <- sis_countries(native_ranges, unique_id)
+        cli::cli_alert_success("countries complete")
       }
       if (!is.null(occs)) {
-      allfields <- sis_allfields(unique_id, occs = occs)
-      #print("allfields finished")
-      cli::cli_alert_success("allfields complete")
+        allfields <- sis_allfields(unique_id, occs = occs)
+        cli::cli_alert_success("allfields complete")
       } else {
         allfields <- sis_allfields(unique_id)
       }
       if (!is.null(occs)) {
         assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id, occs = occs)
-        #print("assessments finished")
         cli::cli_alert_success("assessments complete")
       } else {
         assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id)
       }
-      plantspecific <- sis_plantspecific(unique_id, wcvp_ipni_id, kingdom)
-      #print("plantspecific finished")
+      plantspecific <- sis_plantspecific(unique_id, wcvp_ipni_id, kingdom = kingdom)
       cli::cli_alert_success("plantspecific complete")
+
       habitats <- sis_habitats(unique_id)
-      #print("habitats finished")
       cli::cli_alert_success("habitats complete")
+
       credits <- sis_credits(unique_id, first_name, second_name, email, affiliation = institution)
-      #print("credits finished")
       cli::cli_alert_success("credits complete")
+
       taxonomy <- sis_taxonomy(unique_id, family, genus, species, taxonomicAuthority)
-      #print("taxonomy finished")
       cli::cli_alert_success("taxonomy complete")
 
       # need to embed map into the function, but refs a bit awkward - try again later
       references <- purrr::map_dfr(unique_id, sis_references, powo_ref = powo_ref, gbif_ref = gbif_ref)
-      #print("references finished")
       cli::cli_alert_success("references complete")
+
       # list of default results - these should always be generated
       results <-
         list(
@@ -99,20 +93,32 @@ make_sis_csvs <-
       # get most of the csvs here
       if (!is.null(native_ranges)) {
         countries <- sis_countries(native_ranges, unique_id)
+        cli::cli_alert_success("countries complete")
       }
       if (!is.null(occs)) {
         allfields <- sis_allfields(unique_id, occs = occs)
+        cli::cli_alert_success("allfields complete")
       } else {
         allfields <- sis_allfields(unique_id)
       }
       assessments <- sis_assessments(unique_id, native_ranges)
-      plantspecific <- sis_plantspecific(unique_id, kingdom)
+      cli::cli_alert_success("assessments complete")
+
+      plantspecific <- sis_plantspecific(unique_id, kingdom = kingdom)
+      cli::cli_alert_success("plantspecific complete")
+
       habitats <- sis_habitats(unique_id)
+      cli::cli_alert_success("habitats complete")
+
       credits <- sis_credits(unique_id, first_name, second_name, email, affiliation = institution)
+      cli::cli_alert_success("credits complete")
+
       taxonomy <- sis_taxonomy(unique_id, family, genus, species, taxonomicAuthority)
+      cli::cli_alert_success("taxonomy complete")
 
       # need to embed map into the function, but refs a bit awkward - try again later
-      references <- purrr::map_dfr(unique_id, sis_references, gbif_ref, powo_ref)
+      references <- purrr::map_dfr(unique_id, sis_references, powo_ref, gbif_ref)
+      cli::cli_alert_success("references complete")
 
       # list of default results - these should always be generated
       results <-

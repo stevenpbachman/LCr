@@ -37,7 +37,7 @@ make_sis_csvs(
 
 \item{powo_ref}{(data frame) A citation for use of POWO according to IUCN format.}
 
-\item{native_ranges}{(data frame) Native ranges derived from [`get_native_range()`]}
+\item{native_ranges}{(data frame) Native ranges derived from [`get_native_range()`] or [`get_occs_range()`]}
 
 \item{family}{(character) Field containing the family}
 
@@ -50,7 +50,7 @@ make_sis_csvs(
 \item{kingdom}{(character) Default is 'plantae', but can also be 'fungi'}
 }
 \value{
-Returns an SIS compliant zip file
+Returns an SIS connect compliant zip file
 }
 \description{
 Generate all SIS connect csv files
