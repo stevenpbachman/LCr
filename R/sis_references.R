@@ -26,7 +26,7 @@ sis_references = function(unique_id,
 
   sis_refs <- LCr_ref
 
-  if (powo_ref == TRUE) {
+  if (isTRUE(powo_ref)) {
     powo_ref <- powo_ref()
     sis_refs <- dplyr::bind_rows(sis_refs, powo_ref)
   }

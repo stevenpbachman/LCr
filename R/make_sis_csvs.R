@@ -25,7 +25,7 @@ make_sis_csvs <-
            email,
            institution,
            gbif_ref = NULL,
-           powo_ref = FALSE,
+           powo_ref = NULL,
            native_ranges = NULL,
            occs = NULL,
            family,
@@ -117,7 +117,7 @@ make_sis_csvs <-
       cli::cli_alert_success("taxonomy complete")
 
       # need to embed map into the function, but refs a bit awkward - try again later
-      references <- purrr::map_dfr(unique_id, sis_references, powo_ref, gbif_ref)
+      references <- purrr::map_dfr(unique_id, sis_references, powo_ref = powo_ref, gbif_ref = gbif_ref)
       cli::cli_alert_success("references complete")
 
       # list of default results - these should always be generated

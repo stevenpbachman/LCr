@@ -12,7 +12,7 @@ make_sis_csvs(
   email,
   institution,
   gbif_ref = NULL,
-  powo_ref = FALSE,
+  powo_ref = NULL,
   native_ranges = NULL,
   occs = NULL,
   family,
