@@ -24,15 +24,6 @@ library(LCr)
 library(dplyr)
 library(rWCVP)
 remotes::install_github('matildabrown/rWCVPdata')
-#> selectr (NA -> 0.5-1) [CRAN]
-#> rvest   (NA -> 1.0.5) [CRAN]
-#> ── R CMD build ─────────────────────────────────────────────────────────────────
-#> * checking for file ‘/tmp/RtmpuClwIB/remotes221e2efae5a3/matildabrown-rWCVPdata-4680604/DESCRIPTION’ ... OK
-#> * preparing ‘rWCVPdata’:
-#> * checking DESCRIPTION meta-information ... OK
-#> * checking for LF line-endings in source and make files and shell scripts
-#> * checking for empty or unneeded directories
-#> * building ‘rWCVPdata_0.7.0.tar.gz’
 ```
 
 ### Get name keys from a species list
