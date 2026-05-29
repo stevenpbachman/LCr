@@ -45,10 +45,7 @@ library(htmlwidgets)
 
 Start by providing a dataframe with your taxon list.
 
-```{r}
-#| eval: true
-#| echo: true
-
+```{r eval=FALSE, include=TRUE}
 # dataframe of species you want to run through LC test
 lc_species <-
   data.frame(sp = c(
@@ -64,13 +61,7 @@ Run the `get_name_keys` function using your dataframe of names as input. This wi
 
 By default the GBIF matching will select the match with highest confidence, but you can also set this to fuzzy match using `match = "any", which may provide multiple matches`.
 
-```{r}
-#| eval: true
-#| echo: true
-#| results: "hide"
-#| message: false
-#| warning: false
-
+```{r eval=FALSE, include=TRUE}
 # get the GBIF identification key
 lc_keys <-
   LCr::get_name_keys(
@@ -85,18 +76,15 @@ lc_keys <-
 
 Let's take a look at the output:
 
-```{r}
-print(lc_keys)
+```{r eval=FALSE, include=TRUE}
+glimpse(lc_keys)
 ```
 
 ### Clean keys
 
 LCr is designed to work at species level and where taxonomic status is accepted. In this case, all names matched the GBIF backbone and were accepted, but we can run `clean_keys` anyway.
 
-```{r}
-#| eval: true
-#| echo: true
-
+```{r eval=FALSE, include=TRUE}
 # remove any problematic records
 lc_keys_clean <- LCr::clean_keys(lc_keys)
 ```
@@ -107,10 +95,7 @@ Now with a clean set of names and identification keys we can query GBIF to obtai
 
 Note that we will use the `rGBIF` package to obtain the occurrence data. You will need to set up your GBIF credentials to obtain the downloads. After you have set up an account at [GBIF](https://www.gbif.org/) you need to register your credentials in the R environment - see this [post](https://docs.ropensci.org/rgbif/articles/gbif_credentials.html) for an explanation.
 
-```{r}
-#| eval: true
-#| echo: true
-
+```{r eval=FALSE, include=TRUE}
 # get the raw GBIF occs - with timer
 start_time <- Sys.time()
 gbif_occs <- LCr::get_gbif_occs(lc_keys_clean)
@@ -123,10 +108,7 @@ print(check)
 
 We can now run some tests, mostly based on the geospatial information, and flag records that are potentially problematic and should be removed. The output will be two objects, the flagged data and a summary of the flagged records.
 
-```{r}
-#| eval: true
-#| echo: true
-
+```{r eval=FALSE, include=TRUE}
 # As we don't currently have a dataset for native ranges for fungi we ignore the native_ranges and buffer parameters.
 checked_occs <- LCr::check_occs(gbif_occs$points)
 
@@ -139,10 +121,7 @@ At this stage we could use the `species_map_single` function to plot the occurre
 
 For now, we can just clean the data using the `clean_occs` function with the default settings, meaning all flagged occurrences are removed. We then create objects containing valid data (cleaned) and problem data (flagged as problematic). You can save these data for your records.
 
-```{r}
-#| eval: true
-#| echo: true
-
+```{r eval=FALSE, include=TRUE}
 # Clean using all available flags
 cleaned_result <- LCr::clean_occs(flagged_occs)
 
@@ -171,17 +150,14 @@ Now we have a clean dataset that is ready for the Least Concern test. Depending 
 
 The core parameters (EOO and AOO) must both pass and at least 2 of 3 remaining parameters (number of cleaned points, regions, recent records) must also pass.
 
-```{r,results = 'hide'}
-#| eval: true
-#| echo: true
-
+```{r eval=FALSE, include=TRUE}
 # check EOO, AOO, number of records and number of recent records
 lc_test <- LCr::make_metrics(valid_data, keys = lc_keys_clean)
 ```
 
 Now we can see which species are estimated to be LC using the `leastconcern` column and can filter on all those estimated to be LC. However, it should be noted that the user has full control of which species they want to designate as Least Concern and can use other predictive methods to estimate LC [add examples] and can override the results of this test.
 
-```{r}
+```{r eval=FALSE, include=TRUE}
 # filter on LC species
 lc_final <- lc_test %>% dplyr::filter(leastconcern == "TRUE")
 ```
@@ -194,7 +170,7 @@ Now we have the final set of species and can proceed with generating the IUCN st
 
 You will also need to define some parameters for the point file and CSV files:
 
-```{r}
+```{r eval=FALSE, include=TRUE}
 # define parameters - the person who is assessing the species
 first_name <- "Steven"
 second_name <- "Bachman"
@@ -225,7 +201,7 @@ We can now run the `make_sis_csvs` function to automatically generate the CSV fi
 
 One final step is to generate 'native ranges'. Tecnically we don't have native ranges for fungi in the same we have for plants using the World Geographic Scheme for Recording Plant Distributions (WGSRPD). However, we can generate the same regions based on where our cleaned occurrence records are found. We can then use this as the basis for making the list of IUCN land regions as used in the countries.csv file.
 
-```{r}
+```{r eval=FALSE, include=TRUE}
 # get WGSRPD regions based on points
 native_ranges <- get_occs_range(sis_point_file)
 
@@ -248,7 +224,7 @@ lc_sis_files <- LCr::make_sis_csvs(unique_id = lc_final$GBIF_usageKey,
 
 And finally, we zip them up ready to be sent to SIS Connect
 
-```{r, include = FALSE}
+```{r eval=FALSE, include=TRUE}
 # final step - make the zip file
 make_zip(lc_sis_files)
 ```
