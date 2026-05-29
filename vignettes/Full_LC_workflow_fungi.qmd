@@ -1,25 +1,19 @@
 ---
-title: "SIS connect files - fungi workflow"
-output: 
-  rmarkdown::html_vignette:
+title: "Full LC workflow -Fungi"
+author: "Steven Bachman"
+editor: visual
+format:
+  html:
     toc: true
-    toc_depth: 3
-vignette: >
-  %\VignetteIndexEntry{SIS_connect_fungi_workflow}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    toc-location: left
+    theme: cosmo
+    title-block-banner: true
+    embed-resources: true
 ---
 
-The following workflow demonstrates how to search and clean open data on fungi species in order to test whether they are likely to be evaluated as Least Concern. With selected LC species, you can then generate CSV files with the minimal required information to support a Least Concern assessment.
+The following workflow demonstrates how to search and clean open data on fungi species in order to test whether they are likely to be evaluated as Least Concern.
 
 The `LCr` and `rCAT` packages are not on CRAN, but can be installed via the github repository:
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 ```{r}
 #| eval: true
@@ -159,19 +153,19 @@ write.csv(problem_data, file = "problem_occs.csv", row.names = FALSE)
 
 Now we have a clean dataset that is ready for the Least Concern test. Depending on the data available, either 4 or 5 metrics (Number of WGSRPD regions for plants only) are generated and checked against the following default thresholds:
 
--   Extent of occurrence (EOO) \> 30000
+-   \[Core\] Extent of occurrence (EOO) \> 30000
 
--   Area of occupancy \> 3000
+-   \[Core\] Area of occupancy \> 3000
 
--   Number of cleaned records\>75
+-   \[Supporting\] Number of cleaned records\>75
 
--   Number of WGSRPD regions \>5
+-   \[Supporting\] Number of WGSRPD regions \>5
 
--   Number of recent (\<30 years) occurrence records \>50
+-   \[Supporting\] Number of recent (\<30 years) occurrence records \>50
 
-The core parameters (EOO and AOO) must both pass and at least 2 of 3 remaining parameters (number of cleaned points, regions, recent records) must also pass.
+The core parameters (EOO and AOO) must both pass and at least 2 of 3 supporting parameters (number of cleaned points, regions, recent records) must also pass.
 
-```{r,results = 'hide'}
+```{r}
 #| eval: true
 #| echo: true
 
@@ -179,7 +173,7 @@ The core parameters (EOO and AOO) must both pass and at least 2 of 3 remaining p
 lc_test <- LCr::make_metrics(valid_data, keys = lc_keys_clean)
 ```
 
-Now we can see which species are estimated to be LC using the `leastconcern` column and can filter on all those estimated to be LC. However, it should be noted that the user has full control of which species they want to designate as Least Concern and can use other predictive methods to estimate LC [add examples] and can override the results of this test.
+Now we can see which species are estimated to be LC using the `leastconcern` column and can filter on all those estimated to be LC. However, it should be noted that the user has full control of which species they want to designate as Least Concern and can use other predictive methods to estimate LC \[cite examples\] and can override the results of this test.
 
 ```{r}
 # filter on LC species
@@ -248,7 +242,7 @@ lc_sis_files <- LCr::make_sis_csvs(unique_id = lc_final$GBIF_usageKey,
 
 And finally, we zip them up ready to be sent to SIS Connect
 
-```{r, include = FALSE}
+```{r}
 # final step - make the zip file
 make_zip(lc_sis_files)
 ```
