@@ -29,8 +29,8 @@ knitr::opts_chunk$set(
 #| warning: false
 
 # install LCr and rCAT2 from github
-devtools::install_github("stevenpbachman/LCr")
-devtools::install_github("gistin/rCAT2")
+remotes::install_github("stevenpbachman/LCr")
+remotes::install_github("gistin/rCAT2")
 
 # load relevant libraries 
 library(LCr)
