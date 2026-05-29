@@ -10,9 +10,9 @@ Generate minimal documentation for species expected to be Least Concern
 Red List via [SIS Connect](https://connect.iucnredlist.org/)
 (registration needed)
 
-[!WARNING]
-LCr is currently in development so functions and vignettes
-may change. Please come back soon for the next version.
+>[!WARNING]
+>LCr is currently in development so functions and vignettes
+>may change. Please come back soon for the next version.
 
 ## Installation
 

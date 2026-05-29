@@ -2,7 +2,7 @@
 title: "Generate SIS Connect files for multiple plant species"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Generate-csvs}
+  %\VignetteIndexEntry{Generate SIS Connect files for multiple plant species}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
