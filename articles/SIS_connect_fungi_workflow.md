@@ -1,130 +1,277 @@
 # SIS connect files - fungi workflow
 
-The following workflow is specific to fungi and demonstrates how to
-generate CSV files with the minimal required information to support a
-Least Concern assessment. There are slight differences to the plant
-workflow due to there being no fungi equivalent of the native range
-dataset from the World Checklist of Vascular Plants.
+The following workflow demonstrates how to search and clean open data on
+fungi species in order to test whether they are likely to be evaluated
+as Least Concern. With selected LC species, you can then generate CSV
+files with the minimal required information to support a Least Concern
+assessment.
+
+The `LCr` and `rCAT` packages are not on CRAN, but can be installed via
+the github repository:
 
 ``` r
-# install LCr and load libraries
-devtools::install_github("stevenpbachman/LCr")
+# install LCr and rCAT2 from github
+remotes::install_github("stevenpbachman/LCr")
+remotes::install_github("gistin/rCAT2")
+
+# load relevant libraries 
 library(LCr)
 library(dplyr)
+library(rCAT)
+library(leaflet)
+library(leaflet.extras)
+library(htmlwidgets)
 ```
 
-Provide a dataframe with species you believe should be classified as
-Least Concern e.g. 
+### Load in a list of names
+
+Start by providing a dataframe with your taxon list.
 
 ``` r
-# dataframe of LC fungi species
+# dataframe of species you want to run through LC test
 lc_species <-
   data.frame(sp = c(
-    "Morchella brunnea M.Kuo", "Trichoderma sinuosum P.Chaverri & Samuels", "Amanita rhacopus Y.Lamoureux"
+    "Morchella americana Clowez & Matherly", 
+    "Hericium americanum Ginns", 
+    "Lactarius badiosanguineus Kühner & Romagn"
   ))
-print(lc_species)
-#>                                          sp
-#> 1                   Morchella brunnea M.Kuo
-#> 2 Trichoderma sinuosum P.Chaverri & Samuels
-#> 3              Amanita rhacopus Y.Lamoureux
 ```
 
-Run the `get_name_keys` function. This will check the names against the
-GBIF names backbone. Make sure to list `kingdon = "fungi"`. The
-`name_column` is the column that contains the species to be assessed. To
-ensure good name matching, this should be a field that contains a string
-with the binomial and author(s) combined. To enforce a single matching
-name for every name in our list set the `match` parameter to ‘single’,
-or set to ‘multiple’ if you wish to allow multiple matches.
+### Match names against GBIF to get identifiers
+
+Run the `get_name_keys` function using your dataframe of names as input.
+This will check the names against the GBIF names backbone. The
+`name_column` is the column that contains the taxa to be assessed. This
+can either contain a binomial or a binomial and author combined.
+Including the author with the binomial will help achieve a better name
+match.
+
+By default the GBIF matching will select the match with highest
+confidence, but you can also set this to fuzzy match using
+`match = "any", which may provide multiple matches`.
 
 ``` r
-# get keys
+# get the GBIF identification key
 lc_keys <-
   LCr::get_name_keys(
     df = lc_species,
     name_column = "sp",
-    match = "single",
+    match = "single", 
+    # match type is for GBIF only. It will default to the best single match 
+    # or use 'any' to return multiple 'fuzzy' matches
     kingdom = "fungi"
   )
 ```
 
-Run the `make_LC_points` function. This will generate a list of two
-objects: a dataframe with cleaned occurrence data associated with each
-species in the supplied list and a citation dataframe that can be added
-to the references csv later.
+Let’s take a look at the output:
 
-Note that this can take some time as you may be requesting a large
-download from GBIF. This step will also generate a GBIF DOI for the
-download.
+``` r
+glimpse(lc_keys)
+```
+
+### Clean keys
+
+LCr is designed to work at species level and where taxonomic status is
+accepted. In this case, all names matched the GBIF backbone and were
+accepted, but we can run `clean_keys` anyway.
+
+``` r
+# remove any problematic records
+lc_keys_clean <- LCr::clean_keys(lc_keys)
+```
+
+### Get GBIF occurrence data
+
+Now with a clean set of names and identification keys we can query GBIF
+to obtain occurrence data.
 
 Note that we will use the `rGBIF` package to obtain the occurrence data.
 You will need to set up your GBIF credentials to obtain the downloads.
 After you have set up an account at [GBIF](https://www.gbif.org/) you
-need to register your credentials in the r environment - see this
+need to register your credentials in the R environment - see this
 [post](https://docs.ropensci.org/rgbif/articles/gbif_credentials.html)
 for an explanation.
 
-For fungi, make sure that `range_check = FALSE` - we will generate the
-native ranges for fungi using another method.
-
 ``` r
-# get occs
-lc_sis_occs <-
-  make_LC_points(
-    keys_df = lc_keys,
-    first_name = "Steven",
-    second_name = "Bachman",
-    institution = "Royal Botanic Gardens, Kew",
-    range_check = FALSE # FALSE for fungi, so that you don't try and check POWO ranges
-  )
+# get the raw GBIF occs - with timer
+start_time <- Sys.time()
+gbif_occs <- LCr::get_gbif_occs(lc_keys_clean)
+end_time <- Sys.time()
+check <-  end_time - start_time
+print(check)
 ```
 
-You may want to save the occurrence file at this stage.
+### Data quality checks
+
+We can now run some tests, mostly based on the geospatial information,
+and flag records that are potentially problematic and should be removed.
+The output will be two objects, the flagged data and a summary of the
+flagged records.
 
 ``` r
-# save the occurrence file
-write.csv(lc_sis_occs$points, file = "my_LC_occs.csv")
+# As we don't currently have a dataset for native ranges for fungi we ignore the native_ranges and buffer parameters.
+checked_occs <- LCr::check_occs(gbif_occs$points)
+
+# flagged occurrences and summary table
+flagged_occs <- checked_occs$checked_data
+flagged_sum <- checked_occs$summary
 ```
 
-As we don’t have an equivalent to World Checklist of Vascular Plants
-native ranges for fungi, we will use our clean occurrence data to
-calculate regions for each species using the World Geographic Scheme for
-Recording Plant Distributions.
+At this stage we could use the `species_map_single` function to plot the
+occurrence data of each species showing which records have passed the
+geospatial checks or not. See the ‘*Use Case 2 - Curated occurrence data
+with mapping tool*’ workflow for more information.
+
+For now, we can just clean the data using the `clean_occs` function with
+the default settings, meaning all flagged occurrences are removed. We
+then create objects containing valid data (cleaned) and problem data
+(flagged as problematic). You can save these data for your records.
 
 ``` r
-# for fungi - get the regions that overlap the occurrence points
-native_ranges <- get_occs_range(lc_sis_occs$points)
+# Clean using all available flags
+cleaned_result <- LCr::clean_occs(flagged_occs)
+
+# Create objects for clean and problem records
+valid_data <- cleaned_result$clean_occs
+problem_data <- cleaned_result$problem_occs
+
+# For reference you may want to save these down as csv files
+write.csv(valid_data, file = "valid_occs.csv", row.names = FALSE)
+write.csv(problem_data, file = "problem_occs.csv", row.names = FALSE)
 ```
 
-We can now generate the SIS Connect csv files
+### Run the Least Concern tests
+
+Now we have a clean dataset that is ready for the Least Concern test.
+Depending on the data available, either 4 or 5 metrics (Number of WGSRPD
+regions for plants only) are generated and checked against the following
+default thresholds:
+
+- Extent of occurrence (EOO) \> 30000
+
+- Area of occupancy \> 3000
+
+- Number of cleaned records\>75
+
+- Number of WGSRPD regions \>5
+
+- Number of recent (\<30 years) occurrence records \>50
+
+The core parameters (EOO and AOO) must both pass and at least 2 of 3
+remaining parameters (number of cleaned points, regions, recent records)
+must also pass.
 
 ``` r
+# check EOO, AOO, number of records and number of recent records
+lc_test <- LCr::make_metrics(valid_data, keys = lc_keys_clean)
+```
+
+Now we can see which species are estimated to be LC using the
+`leastconcern` column and can filter on all those estimated to be LC.
+However, it should be noted that the user has full control of which
+species they want to designate as Least Concern and can use other
+predictive methods to estimate LC \[add examples\] and can override the
+results of this test.
+
+``` r
+# filter on LC species
+lc_final <- lc_test %>% dplyr::filter(leastconcern == "TRUE")
+```
+
+### Generate the SIS CSV files
+
+Now we have the final set of species and can proceed with generating the
+IUCN standard point file and the SIS Connect CSV files.
+
+**Note:** Remember that the valid occurrence data was generated and
+cleaned based on the full species list, but we have now reduced that
+list to only the species we think are LC. When we generate the IUCN
+standard point file we need to make sure that we filter the occurrence
+data by the chosen LC species.
+
+You will also need to define some parameters for the point file and CSV
+files:
+
+``` r
+# define parameters - the person who is assessing the species
+first_name <- "Steven"
+second_name <- "Bachman"
+email = "s.bachman@kew.org"
+institution = "Royal Botanic Gardens, Kew"
+
+# filter the valid occurrence data on the LC species
+valid_data_LC <- valid_data %>%
+  filter(speciesKey %in% lc_final$GBIF_usageKey)
+
+# generate the point file
+sis_point_file <- LCr::make_sis_occs(valid_data_LC,
+                                     first_name = first_name,
+                                     second_name = second_name,
+                                     institution = institution)
+
+# write down the SIS point file
+write.csv(sis_point_file, 
+          file = "SIS_points.csv", 
+          row.names = FALSE, 
+          fileEncoding = "UTF-8",
+          na = "")
+```
+
+The `make_sis_occs` function includes some validation checks so may
+reports issues with the file that will need to be resolved. In this
+case, write down the file, fix errors, import the file and rerun the
+`make_sis_occs`function. Note that when writing the final sis point file
+we specify UTF-8 encoding and convert NA values to blanks (`na = ""`) in
+order to ensure the point file is compliant with IUCN standards.
+
+We can now run the `make_sis_csvs` function to automatically generate
+the CSV files
+
+One final step is to generate ‘native ranges’. Tecnically we don’t have
+native ranges for fungi in the same we have for plants using the World
+Geographic Scheme for Recording Plant Distributions (WGSRPD). However,
+we can generate the same regions based on where our cleaned occurrence
+records are found. We can then use this as the basis for making the list
+of IUCN land regions as used in the countries.csv file.
+
+``` r
+# get WGSRPD regions based on points
+native_ranges <- get_occs_range(sis_point_file)
+
 # get SIS files
-lc_sis_files <- LCr::make_sis_csvs(
-  unique_id = lc_keys$GBIF_usageKey,
-  first_name = "Steven",
-  second_name = "Bachman",
-  email = "s.bachman@kew.org",
-  institution = "Royal Botanic Gardens, Kew",
-  family = lc_keys$GBIF_family,
-  genus = lc_keys$GBIF_genus,
-  species = lc_keys$GBIF_species,
-  gbif_ref = lc_sis_occs$citation,
-  taxonomicAuthority = lc_keys$GBIF_authorship,
-  kingdom = "fungi",
-  native_ranges = native_ranges
-
+lc_sis_files <- LCr::make_sis_csvs(unique_id = lc_final$GBIF_usageKey,
+                                   first_name = "Steven",
+                                   second_name = "Bachman",
+                                   email = "s.bachman@kew.org",
+                                   institution = "Royal Botanic Gardens, Kew",
+                                   family = lc_final$GBIF_family,
+                                   genus = lc_final$GBIF_genus,
+                                   species = lc_final$GBIF_species,
+                                   gbif_ref = gbif_occs$citation,
+                                   taxonomicAuthority = lc_final$GBIF_authorship,
+                                   occs = sis_point_file,
+                                   native_ranges = native_ranges,
+                                   kingdom = "fungi"
 )
 ```
 
-And finally, one more step to combine those files into a ZIP. This will
-save the ZIP in your working directory. Just note the ZIP might hoover
-up other files e.g. your point occurrence file. You’ll need to send the
-point occurrence file to IUCN Red List Unit separately.
-
-You can now upload this ZIP file into SIS Connect
-<https://connect.iucnredlist.org/>
+And finally, we zip them up ready to be sent to SIS Connect
 
 ``` r
+# final step - make the zip file
 make_zip(lc_sis_files)
 ```
+
+Register for SIS Connect and then log in:
+<https://connect.iucnredlist.org/>
+
+Upload the ZIP file and wait for the automated validation to complete.
+This will take a few minutes depending on the number of species in your
+file. You should receive an email from noreply@iucnredlist.org alerting
+you when the validation is complete.
+
+Open the working set in SIS and check for any issues. You can manually
+fix issues by opening up the CSV files and editing them directly and
+saving them as a zip file again. When you are happy that the files are
+ready you can select the option to submit to the Red List unit. This
+should be followed up with an email to Craig Hilton-Taylor.

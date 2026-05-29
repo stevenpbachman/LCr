@@ -69,107 +69,249 @@
 
     
     
-<p>The following workflow is specific to fungi and demonstrates how to
+<p>The following workflow demonstrates how to search and clean open data
+on fungi species in order to test whether they are likely to be
+evaluated as Least Concern. With selected LC species, you can then
 generate CSV files with the minimal required information to support a
-Least Concern assessment. There are slight differences to the plant
-workflow due to there being no fungi equivalent of the native range
-dataset from the World Checklist of Vascular Plants.</p>
+Least Concern assessment.</p>
+<p>The <code>LCr</code> and <code>rCAT</code> packages are not on CRAN,
+but can be installed via the github repository:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install LCr and load libraries</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"stevenpbachman/LCr"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># install LCr and rCAT2 from github</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"stevenpbachman/LCr"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gistin/rCAT2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># load relevant libraries </span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stevenpbachman/LCr" class="external-link">LCr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
-<p>Provide a dataframe with species you believe should be classified as
-Least Concern e.g. </p>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCAT</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/trafficonese/leaflet.extras" class="external-link">leaflet.extras</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ramnathv/htmlwidgets" class="external-link">htmlwidgets</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="load-in-a-list-of-names">Load in a list of names<a class="anchor" aria-label="anchor" href="#load-in-a-list-of-names"></a>
+</h3>
+<p>Start by providing a dataframe with your taxon list.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># dataframe of LC fungi species</span></span>
+<code class="sourceCode R"><span><span class="co"># dataframe of species you want to run through LC test</span></span>
 <span><span class="va">lc_species</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>sp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Morchella brunnea M.Kuo"</span>, <span class="st">"Trichoderma sinuosum P.Chaverri &amp; Samuels"</span>, <span class="st">"Amanita rhacopus Y.Lamoureux"</span></span>
-<span>  <span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">lc_species</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                          sp</span></span>
-<span><span class="co">#&gt; 1                   Morchella brunnea M.Kuo</span></span>
-<span><span class="co">#&gt; 2 Trichoderma sinuosum P.Chaverri &amp; Samuels</span></span>
-<span><span class="co">#&gt; 3              Amanita rhacopus Y.Lamoureux</span></span></code></pre></div>
-<p>Run the <code>get_name_keys</code> function. This will check the
-names against the GBIF names backbone. Make sure to list
-<code>kingdon = "fungi"</code>. The <code>name_column</code> is the
-column that contains the species to be assessed. To ensure good name
-matching, this should be a field that contains a string with the
-binomial and author(s) combined. To enforce a single matching name for
-every name in our list set the <code>match</code> parameter to ‘single’,
-or set to ‘multiple’ if you wish to allow multiple matches.</p>
+<span>    <span class="st">"Morchella americana Clowez &amp; Matherly"</span>, </span>
+<span>    <span class="st">"Hericium americanum Ginns"</span>, </span>
+<span>    <span class="st">"Lactarius badiosanguineus Kühner &amp; Romagn"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="match-names-against-gbif-to-get-identifiers">Match names against GBIF to get identifiers<a class="anchor" aria-label="anchor" href="#match-names-against-gbif-to-get-identifiers"></a>
+</h3>
+<p>Run the <code>get_name_keys</code> function using your dataframe of
+names as input. This will check the names against the GBIF names
+backbone. The <code>name_column</code> is the column that contains the
+taxa to be assessed. This can either contain a binomial or a binomial
+and author combined. Including the author with the binomial will help
+achieve a better name match.</p>
+<p>By default the GBIF matching will select the match with highest
+confidence, but you can also set this to fuzzy match using
+<code>match = "any", which may provide multiple matches</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># get keys</span></span>
+<code class="sourceCode R"><span><span class="co"># get the GBIF identification key</span></span>
 <span><span class="va">lc_keys</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/get_name_keys.html">get_name_keys</a></span><span class="op">(</span></span>
 <span>    df <span class="op">=</span> <span class="va">lc_species</span>,</span>
 <span>    name_column <span class="op">=</span> <span class="st">"sp"</span>,</span>
-<span>    match <span class="op">=</span> <span class="st">"single"</span>,</span>
+<span>    match <span class="op">=</span> <span class="st">"single"</span>, </span>
+<span>    <span class="co"># match type is for GBIF only. It will default to the best single match </span></span>
+<span>    <span class="co"># or use 'any' to return multiple 'fuzzy' matches</span></span>
 <span>    kingdom <span class="op">=</span> <span class="st">"fungi"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>Run the <code>make_LC_points</code> function. This will generate a
-list of two objects: a dataframe with cleaned occurrence data associated
-with each species in the supplied list and a citation dataframe that can
-be added to the references csv later.</p>
-<p>Note that this can take some time as you may be requesting a large
-download from GBIF. This step will also generate a GBIF DOI for the
-download.</p>
+<p>Let’s take a look at the output:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">lc_keys</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="clean-keys">Clean keys<a class="anchor" aria-label="anchor" href="#clean-keys"></a>
+</h3>
+<p>LCr is designed to work at species level and where taxonomic status
+is accepted. In this case, all names matched the GBIF backbone and were
+accepted, but we can run <code>clean_keys</code> anyway.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># remove any problematic records</span></span>
+<span><span class="va">lc_keys_clean</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/clean_keys.html">clean_keys</a></span><span class="op">(</span><span class="va">lc_keys</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="get-gbif-occurrence-data">Get GBIF occurrence data<a class="anchor" aria-label="anchor" href="#get-gbif-occurrence-data"></a>
+</h3>
+<p>Now with a clean set of names and identification keys we can query
+GBIF to obtain occurrence data.</p>
 <p>Note that we will use the <code>rGBIF</code> package to obtain the
 occurrence data. You will need to set up your GBIF credentials to obtain
 the downloads. After you have set up an account at <a href="https://www.gbif.org/" class="external-link">GBIF</a> you need to register your
-credentials in the r environment - see this <a href="https://docs.ropensci.org/rgbif/articles/gbif_credentials.html" class="external-link">post</a>
+credentials in the R environment - see this <a href="https://docs.ropensci.org/rgbif/articles/gbif_credentials.html" class="external-link">post</a>
 for an explanation.</p>
-<p>For fungi, make sure that <code>range_check = FALSE</code> - we will
-generate the native ranges for fungi using another method.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># get occs</span></span>
-<span><span class="va">lc_sis_occs</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">make_LC_points</span><span class="op">(</span></span>
-<span>    keys_df <span class="op">=</span> <span class="va">lc_keys</span>,</span>
-<span>    first_name <span class="op">=</span> <span class="st">"Steven"</span>,</span>
-<span>    second_name <span class="op">=</span> <span class="st">"Bachman"</span>,</span>
-<span>    institution <span class="op">=</span> <span class="st">"Royal Botanic Gardens, Kew"</span>,</span>
-<span>    range_check <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># FALSE for fungi, so that you don't try and check POWO ranges</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p>You may want to save the occurrence file at this stage.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># save the occurrence file</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">lc_sis_occs</span><span class="op">$</span><span class="va">points</span>, file <span class="op">=</span> <span class="st">"my_LC_occs.csv"</span><span class="op">)</span></span></code></pre></div>
-<p>As we don’t have an equivalent to World Checklist of Vascular Plants
-native ranges for fungi, we will use our clean occurrence data to
-calculate regions for each species using the World Geographic Scheme for
-Recording Plant Distributions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># for fungi - get the regions that overlap the occurrence points</span></span>
-<span><span class="va">native_ranges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_occs_range.html">get_occs_range</a></span><span class="op">(</span><span class="va">lc_sis_occs</span><span class="op">$</span><span class="va">points</span><span class="op">)</span></span></code></pre></div>
-<p>We can now generate the SIS Connect csv files</p>
+<code class="sourceCode R"><span><span class="co"># get the raw GBIF occs - with timer</span></span>
+<span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">gbif_occs</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/get_gbif_occs.html">get_gbif_occs</a></span><span class="op">(</span><span class="va">lc_keys_clean</span><span class="op">)</span></span>
+<span><span class="va">end_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">check</span> <span class="op">&lt;-</span>  <span class="va">end_time</span> <span class="op">-</span> <span class="va">start_time</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">check</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="data-quality-checks">Data quality checks<a class="anchor" aria-label="anchor" href="#data-quality-checks"></a>
+</h3>
+<p>We can now run some tests, mostly based on the geospatial
+information, and flag records that are potentially problematic and
+should be removed. The output will be two objects, the flagged data and
+a summary of the flagged records.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># get SIS files</span></span>
-<span><span class="va">lc_sis_files</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/make_sis_csvs.html">make_sis_csvs</a></span><span class="op">(</span></span>
-<span>  unique_id <span class="op">=</span> <span class="va">lc_keys</span><span class="op">$</span><span class="va">GBIF_usageKey</span>,</span>
-<span>  first_name <span class="op">=</span> <span class="st">"Steven"</span>,</span>
-<span>  second_name <span class="op">=</span> <span class="st">"Bachman"</span>,</span>
-<span>  email <span class="op">=</span> <span class="st">"s.bachman@kew.org"</span>,</span>
-<span>  institution <span class="op">=</span> <span class="st">"Royal Botanic Gardens, Kew"</span>,</span>
-<span>  family <span class="op">=</span> <span class="va">lc_keys</span><span class="op">$</span><span class="va">GBIF_family</span>,</span>
-<span>  genus <span class="op">=</span> <span class="va">lc_keys</span><span class="op">$</span><span class="va">GBIF_genus</span>,</span>
-<span>  species <span class="op">=</span> <span class="va">lc_keys</span><span class="op">$</span><span class="va">GBIF_species</span>,</span>
-<span>  gbif_ref <span class="op">=</span> <span class="va">lc_sis_occs</span><span class="op">$</span><span class="va">citation</span>,</span>
-<span>  taxonomicAuthority <span class="op">=</span> <span class="va">lc_keys</span><span class="op">$</span><span class="va">GBIF_authorship</span>,</span>
-<span>  kingdom <span class="op">=</span> <span class="st">"fungi"</span>,</span>
-<span>  native_ranges <span class="op">=</span> <span class="va">native_ranges</span></span>
+<code class="sourceCode R"><span><span class="co"># As we don't currently have a dataset for native ranges for fungi we ignore the native_ranges and buffer parameters.</span></span>
+<span><span class="va">checked_occs</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/check_occs.html">check_occs</a></span><span class="op">(</span><span class="va">gbif_occs</span><span class="op">$</span><span class="va">points</span><span class="op">)</span></span>
 <span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>And finally, one more step to combine those files into a ZIP. This
-will save the ZIP in your working directory. Just note the ZIP might
-hoover up other files e.g. your point occurrence file. You’ll need to
-send the point occurrence file to IUCN Red List Unit separately.</p>
-<p>You can now upload this ZIP file into SIS Connect <a href="https://connect.iucnredlist.org/" class="external-link uri">https://connect.iucnredlist.org/</a></p>
+<span><span class="co"># flagged occurrences and summary table</span></span>
+<span><span class="va">flagged_occs</span> <span class="op">&lt;-</span> <span class="va">checked_occs</span><span class="op">$</span><span class="va">checked_data</span></span>
+<span><span class="va">flagged_sum</span> <span class="op">&lt;-</span> <span class="va">checked_occs</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
+<p>At this stage we could use the <code>species_map_single</code>
+function to plot the occurrence data of each species showing which
+records have passed the geospatial checks or not. See the ‘<em>Use Case
+2 - Curated occurrence data with mapping tool</em>’ workflow for more
+information.</p>
+<p>For now, we can just clean the data using the <code>clean_occs</code>
+function with the default settings, meaning all flagged occurrences are
+removed. We then create objects containing valid data (cleaned) and
+problem data (flagged as problematic). You can save these data for your
+records.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/make_zip.html">make_zip</a></span><span class="op">(</span><span class="va">lc_sis_files</span><span class="op">)</span></span></code></pre></div>
-  </main>
+<code class="sourceCode R"><span><span class="co"># Clean using all available flags</span></span>
+<span><span class="va">cleaned_result</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/clean_occs.html">clean_occs</a></span><span class="op">(</span><span class="va">flagged_occs</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create objects for clean and problem records</span></span>
+<span><span class="va">valid_data</span> <span class="op">&lt;-</span> <span class="va">cleaned_result</span><span class="op">$</span><span class="va">clean_occs</span></span>
+<span><span class="va">problem_data</span> <span class="op">&lt;-</span> <span class="va">cleaned_result</span><span class="op">$</span><span class="va">problem_occs</span></span>
+<span></span>
+<span><span class="co"># For reference you may want to save these down as csv files</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">valid_data</span>, file <span class="op">=</span> <span class="st">"valid_occs.csv"</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">problem_data</span>, file <span class="op">=</span> <span class="st">"problem_occs.csv"</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="run-the-least-concern-tests">Run the Least Concern tests<a class="anchor" aria-label="anchor" href="#run-the-least-concern-tests"></a>
+</h3>
+<p>Now we have a clean dataset that is ready for the Least Concern test.
+Depending on the data available, either 4 or 5 metrics (Number of WGSRPD
+regions for plants only) are generated and checked against the following
+default thresholds:</p>
+<ul>
+<li><p>Extent of occurrence (EOO) &gt; 30000</p></li>
+<li><p>Area of occupancy &gt; 3000</p></li>
+<li><p>Number of cleaned records&gt;75</p></li>
+<li><p>Number of WGSRPD regions &gt;5</p></li>
+<li><p>Number of recent (&lt;30 years) occurrence records
+&gt;50</p></li>
+</ul>
+<p>The core parameters (EOO and AOO) must both pass and at least 2 of 3
+remaining parameters (number of cleaned points, regions, recent records)
+must also pass.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># check EOO, AOO, number of records and number of recent records</span></span>
+<span><span class="va">lc_test</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/make_metrics.html">make_metrics</a></span><span class="op">(</span><span class="va">valid_data</span>, keys <span class="op">=</span> <span class="va">lc_keys_clean</span><span class="op">)</span></span></code></pre></div>
+<p>Now we can see which species are estimated to be LC using the
+<code>leastconcern</code> column and can filter on all those estimated
+to be LC. However, it should be noted that the user has full control of
+which species they want to designate as Least Concern and can use other
+predictive methods to estimate LC [add examples] and can override the
+results of this test.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># filter on LC species</span></span>
+<span><span class="va">lc_final</span> <span class="op">&lt;-</span> <span class="va">lc_test</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">leastconcern</span> <span class="op">==</span> <span class="st">"TRUE"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="generate-the-sis-csv-files">Generate the SIS CSV files<a class="anchor" aria-label="anchor" href="#generate-the-sis-csv-files"></a>
+</h3>
+<p>Now we have the final set of species and can proceed with generating
+the IUCN standard point file and the SIS Connect CSV files.</p>
+<p><strong>Note:</strong> Remember that the valid occurrence data was
+generated and cleaned based on the full species list, but we have now
+reduced that list to only the species we think are LC. When we generate
+the IUCN standard point file we need to make sure that we filter the
+occurrence data by the chosen LC species.</p>
+<p>You will also need to define some parameters for the point file and
+CSV files:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># define parameters - the person who is assessing the species</span></span>
+<span><span class="va">first_name</span> <span class="op">&lt;-</span> <span class="st">"Steven"</span></span>
+<span><span class="va">second_name</span> <span class="op">&lt;-</span> <span class="st">"Bachman"</span></span>
+<span><span class="va">email</span> <span class="op">=</span> <span class="st">"s.bachman@kew.org"</span></span>
+<span><span class="va">institution</span> <span class="op">=</span> <span class="st">"Royal Botanic Gardens, Kew"</span></span>
+<span></span>
+<span><span class="co"># filter the valid occurrence data on the LC species</span></span>
+<span><span class="va">valid_data_LC</span> <span class="op">&lt;-</span> <span class="va">valid_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">speciesKey</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_usageKey</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># generate the point file</span></span>
+<span><span class="va">sis_point_file</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/make_sis_occs.html">make_sis_occs</a></span><span class="op">(</span><span class="va">valid_data_LC</span>,</span>
+<span>                                     first_name <span class="op">=</span> <span class="va">first_name</span>,</span>
+<span>                                     second_name <span class="op">=</span> <span class="va">second_name</span>,</span>
+<span>                                     institution <span class="op">=</span> <span class="va">institution</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># write down the SIS point file</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">sis_point_file</span>, </span>
+<span>          file <span class="op">=</span> <span class="st">"SIS_points.csv"</span>, </span>
+<span>          row.names <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>          fileEncoding <span class="op">=</span> <span class="st">"UTF-8"</span>,</span>
+<span>          na <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>make_sis_occs</code> function includes some validation
+checks so may reports issues with the file that will need to be
+resolved. In this case, write down the file, fix errors, import the file
+and rerun the <code>make_sis_occs</code>function. Note that when writing
+the final sis point file we specify UTF-8 encoding and convert NA values
+to blanks (<code>na = ""</code>) in order to ensure the point file is
+compliant with IUCN standards.</p>
+<p>We can now run the <code>make_sis_csvs</code> function to
+automatically generate the CSV files</p>
+<p>One final step is to generate ‘native ranges’. Tecnically we don’t
+have native ranges for fungi in the same we have for plants using the
+World Geographic Scheme for Recording Plant Distributions (WGSRPD).
+However, we can generate the same regions based on where our cleaned
+occurrence records are found. We can then use this as the basis for
+making the list of IUCN land regions as used in the countries.csv
+file.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># get WGSRPD regions based on points</span></span>
+<span><span class="va">native_ranges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_occs_range.html">get_occs_range</a></span><span class="op">(</span><span class="va">sis_point_file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># get SIS files</span></span>
+<span><span class="va">lc_sis_files</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/make_sis_csvs.html">make_sis_csvs</a></span><span class="op">(</span>unique_id <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_usageKey</span>,</span>
+<span>                                   first_name <span class="op">=</span> <span class="st">"Steven"</span>,</span>
+<span>                                   second_name <span class="op">=</span> <span class="st">"Bachman"</span>,</span>
+<span>                                   email <span class="op">=</span> <span class="st">"s.bachman@kew.org"</span>,</span>
+<span>                                   institution <span class="op">=</span> <span class="st">"Royal Botanic Gardens, Kew"</span>,</span>
+<span>                                   family <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_family</span>,</span>
+<span>                                   genus <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_genus</span>,</span>
+<span>                                   species <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_species</span>,</span>
+<span>                                   gbif_ref <span class="op">=</span> <span class="va">gbif_occs</span><span class="op">$</span><span class="va">citation</span>,</span>
+<span>                                   taxonomicAuthority <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_authorship</span>,</span>
+<span>                                   occs <span class="op">=</span> <span class="va">sis_point_file</span>,</span>
+<span>                                   native_ranges <span class="op">=</span> <span class="va">native_ranges</span>,</span>
+<span>                                   kingdom <span class="op">=</span> <span class="st">"fungi"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>And finally, we zip them up ready to be sent to SIS Connect</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># final step - make the zip file</span></span>
+<span><span class="fu"><a href="../reference/make_zip.html">make_zip</a></span><span class="op">(</span><span class="va">lc_sis_files</span><span class="op">)</span></span></code></pre></div>
+<p>Register for SIS Connect and then log in: <a href="https://connect.iucnredlist.org/" class="external-link uri">https://connect.iucnredlist.org/</a></p>
+<p>Upload the ZIP file and wait for the automated validation to
+complete. This will take a few minutes depending on the number of
+species in your file. You should receive an email from
+noreply@iucnredlist.org alerting you when the validation is
+complete.</p>
+<p>Open the working set in SIS and check for any issues. You can
+manually fix issues by opening up the CSV files and editing them
+directly and saving them as a zip file again. When you are happy that
+the files are ready you can select the option to submit to the Red List
+unit. This should be followed up with an email to Craig
+Hilton-Taylor.</p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
