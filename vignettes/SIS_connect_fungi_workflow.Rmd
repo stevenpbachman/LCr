@@ -21,13 +21,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r}
-#| eval: true
-#| echo: true
-#| results: "hide"
-#| message: false
-#| warning: false
-
+```{r eval=FALSE, include=TRUE}
 # install LCr and rCAT2 from github
 remotes::install_github("stevenpbachman/LCr")
 remotes::install_github("gistin/rCAT2")

@@ -27,7 +27,6 @@ Imports:
     leaflet.extras,
     magrittr,
     purrr,
-    quarto,
     remotes,
     rgbif,
     rWCVP,
