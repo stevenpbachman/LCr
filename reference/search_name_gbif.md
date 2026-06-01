@@ -36,7 +36,7 @@ Returns a data frame with initial search term and matching name(s)
 search_name_gbif("Poa annua L.")
 #> # A tibble: 1 × 10
 #>   searchName   usageKey scientificName status   rank    confidence family  genus
-#>   <chr>        <chr>    <chr>          <ord>    <chr>        <int> <chr>   <chr>
-#> 1 Poa annua L. 2704179  Poa annua L.   ACCEPTED SPECIES        100 Poaceae Poa  
+#>   <chr>           <int> <chr>          <ord>    <chr>        <int> <chr>   <chr>
+#> 1 Poa annua L.  2704179 Poa annua L.   ACCEPTED SPECIES        100 Poaceae Poa  
 #> # ℹ 2 more variables: species <chr>, authorship <chr>
 ```
