@@ -153,7 +153,21 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
     )
   }
 
-  has_issues <- nrow(multi) > 0 || nrow(non_species) > 0 || nrow(not_accepted) > 0
+  # 4. When GBIF usageKey is NA (no match found)
+  no_match <- keys_df %>%
+    dplyr::filter(is.na(GBIF_usageKey))
+
+  if (nrow(no_match) > 0) {
+    cli::cli_alert_warning(
+      "There {?is/are} {nrow(no_match)} record{?s} where no match was found. Please review."
+    )
+    purrr::walk(
+      no_match$searchName,
+      ~cli::cli_li("{.val {.x}}")
+    )
+  }
+
+  has_issues <- nrow(multi) > 0 || nrow(non_species) > 0 || nrow(not_accepted) > 0 || nrow(no_match) > 0
 
   if (has_issues) {
     if (kingdom == "plantae") {

@@ -104,6 +104,9 @@ search_name_gbif = function(name,
       results$authorship <- ""
     }
 
+    # format usageKey to ensure NA do not default back to character
+    results$usageKey  <- as.integer(results$usageKey)
+
     return(results)
 
   }
