@@ -28,7 +28,7 @@ sis_allfields <- function(unique_id, occs = NULL) {
     elevation_stats <- make_elevation(occs)
 
     combined_table <- combined_table %>%
-      left_join(elevation_stats, by = "internal_taxon_id")
+      dplyr::left_join(elevation_stats, by = "internal_taxon_id")
   }
 
   # If occs is provided, calculate EOO and AOO
@@ -36,7 +36,7 @@ sis_allfields <- function(unique_id, occs = NULL) {
     eoo_aoo_stats <- make_eoo_aoo(occs)
 
     combined_table <- combined_table %>%
-      left_join(eoo_aoo_stats, by = "internal_taxon_id")
+      dplyr::left_join(eoo_aoo_stats, by = "internal_taxon_id")
   } else{
 
     combined_table$AOO.range = ""
