@@ -1,0 +1,174 @@
+---
+title: "Map viewer"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Map viewer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The following workflow demonstrates how to manually edit occurrence data generated through LCr using a custom map tool. This workflow is useful for cases when you need more control than is provided by the automated cleaning.
+
+We start with the same steps as in [Rapid LC - plants workflow](https://stevenpbachman.github.io/LCr/articles/SIS_connect_plants_workflow.html)   
+The LCr and rCAT packages are not on CRAN, but can be installed via the github repository:
+
+```{r eval=FALSE, include=TRUE}
+# install from github for first time use
+remotes::install_github("stevenpbachman/LCr")
+remotes::install_github("gistin/rCAT2")
+remotes::install_github('matildabrown/rWCVPdata')
+
+# load libraries
+library(LCr)
+library(dplyr)
+library(rCAT)
+library(leaflet)
+library(leaflet.extras)
+library(htmlwidgets)
+library(tidyr)
+```
+
+### Get name keys from a species list
+
+```{r eval=FALSE, include=TRUE}
+# dataframe of species you want to run through LCr
+lc_species <-
+  data.frame(sp = c(
+    "Crabbea acaulis", "Crabbea nana", "Crabbea velutina"
+  ))
+```
+
+Run the `get_name_keys` function using your dataframe of names as input. 
+
+```{r eval=FALSE, include=TRUE}
+# get the GBIF and WCVP identification keys
+lc_keys <-
+  get_name_keys(
+    df = lc_species,
+    name_column = "sp",
+    match = "single",
+    kingdom = "plantae"
+  )
+```
+
+### Clean keys
+
+LCr is designed to work at species level and where taxonomic status is accepted. The `clean_keys` will remove any problematic records.
+
+```{r eval=FALSE, include=TRUE}
+# remove any problematic records
+lc_keys_clean <- LCr::clean_keys(lc_keys)
+```
+
+### Get GBIF occurrence data
+
+Note that we will use the `rGBIF` package to obtain the occurrence data. You will need to set up your GBIF credentials to obtain the downloads. After you have set up an account at [GBIF](https://www.gbif.org/) you need to register your credentials in the R environment - see this [post](https://docs.ropensci.org/rgbif/articles/gbif_credentials.html) for an explanation. You may need to restart R after updating the R environment.
+
+```{r eval=FALSE, include=TRUE}
+# get the raw GBIF occs - with timer
+start_time <- Sys.time()
+gbif_occs <- LCr::get_gbif_occs(lc_keys_clean)
+end_time <- Sys.time()
+check <-  end_time - start_time
+print(check)
+```
+
+### Get native ranges
+
+We now need to extract native range information for our species from the World Checklist of Vascular Plants dataset.
+
+```{r eval=FALSE, include=TRUE}
+# get native ranges from WCVP- used for cleaning occs, and also for country list for SIS
+native_ranges <- LCr::get_native_range(keys = lc_keys_clean)
+```
+
+### Data quality checks
+
+```{r eval=FALSE, include=TRUE}
+# run the occurrence quality checks
+# if you don't want to run native range cleaning check, just leave out native_ranges
+# you can also adjust the buffer to account for the coarse WGSRPD polygons.
+# the default is a 2 km buffer
+checked_occs <- LCr::check_occs(gbif_occs$points, native_ranges, buffer = 2000)
+
+# flagged occurrences and summary table
+flagged_occs <- checked_occs$checked_data
+flagged_sum <- checked_occs$summary
+```
+
+### Map individual species
+
+We can now step through each species and map the occurrence data. We use the GBIF ID field to map species:
+
+```{r eval=FALSE, include=TRUE}
+# filter by species key
+spkey <- "5573640" # Crabbea acaulis
+sp <- flagged_occs %>% dplyr::filter(speciesKey == spkey)
+sp_range <- native_ranges %>% dplyr::filter(internal_taxon_id == spkey)
+single_map <- LCr::map_species_single(sp, sp_range, show_flags = TRUE)
+single_map
+```
+
+The leaflet map is interactive and shows several elements: the native range polygon, valid points in green, problematic points in red and yellow borders for points to indicate multiple points in the same place.
+
+You can turn on/off these layers to see which points are flagged with different errors.
+
+Note that the default clean will remove all red points and leave you with only the valid green points. You may want to adjust this for two reasons: i) You decide some points flagged as errors are ok and you want to include them in the analysis, and ii) You may disagree with some points that are marked as valid, and want to label them as errors. You can adjust the `clean_occs` function to achieve these edits.
+
+Use the rectangle and polygon tools on the left of the map to highlight groups of points that you want to keep/remove for each species. A sensible workflow would be to build up the list of GBIF IDs across all species before running the `clean_occs` function so that you only have to do this once.
+
+Some examples:
+
+```{r eval=FALSE, include=TRUE}
+# clean using the default options, but keep GBIF ID "1260414185" 
+cleaned_result <- clean_occs(flagged_occs, keep_gbifids = "1260414185")
+```
+
+```{r eval=FALSE, include=TRUE}
+# keep multiple GBIF IDs
+cleaned_result <- clean_occs(flagged_occs, keep_gbifids = c("1260414185", 
+                                                          "1252668237"))
+```
+
+```{r eval=FALSE, include=TRUE}
+# keep multiple GBIF IDs
+cleaned_result <- clean_occs(flagged_occs, keep_gbifids = c("1260414185", 
+                                                          "1252668237"))
+```
+
+At this stage you may want to save both the valid and problem data files.
+
+```{r eval=FALSE, include=TRUE}
+# Create objects for clean and problem records
+valid_data <- cleaned_result$clean_occs
+problem_data <- cleaned_result$problem_occs
+
+# For reference you may want to save these down as csv files
+write.csv(valid_data, file = "valid_occs.csv")
+write.csv(problem_data, file = "problem_occs.csv")
+```
+
+### Save and share maps
+Note that you can also save the map as a self-contained HTML file which may be useful to share with collaborators or reviewers. You can save a single map with the saveWidget function or use `map_species_batch` to process and save maps for all species in a file
+
+```{r eval=FALSE, include=TRUE}
+# save a single map
+saveWidget(single_map, 
+           file = "Dioscorea_acanthogene_occs.html", 
+           selfcontained = TRUE)
+```
+
+```{r eval=FALSE, include=TRUE}
+# batch save maps
+map_species_batch(flagged_occs, species_range = native_ranges, 
+                  show_flags = TRUE, save_map = TRUE)
+```
+
+

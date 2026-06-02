@@ -218,7 +218,7 @@ map_species_single <- function(data, species_range = NULL, show_flags = TRUE) {
     # Add problem points for each flag
     for (i in seq_along(validation_flags)) {
       flag <- validation_flags[i]
-      flag_data <- problem_data %>% filter(.data[[flag]] == TRUE)
+      flag_data <- problem_data %>% dplyr::filter(.data[[flag]] == TRUE)
 
       if (nrow(flag_data) > 0) {
         # Get unique coordinates for this flag and add flag info to popup
