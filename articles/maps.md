@@ -1,4 +1,4 @@
-# Map viewer
+# Map viewer and editor
 
 The following workflow demonstrates how to manually edit occurrence data
 generated through LCr using a custom map tool. This workflow is useful
@@ -139,20 +139,27 @@ to do this once.
 Some examples:
 
 ``` r
-# clean using the default options, but keep GBIF ID "1260414185" 
-cleaned_result <- clean_occs(flagged_occs, keep_gbifids = "1260414185")
+# clean using the default options, but keep GBIF ID "6185525998" 
+cleaned_result <- clean_occs(flagged_occs, keep_gbifids = "6185525998")
 ```
 
 ``` r
-# keep multiple GBIF IDs
-cleaned_result <- clean_occs(flagged_occs, keep_gbifids = c("1260414185", 
-                                                          "1252668237"))
+# keep multiple occurrences using GBIF IDs
+cleaned_result <- clean_occs(flagged_occs, keep_gbifids = c("6185525998", 
+                                                            "3708204613"))
 ```
 
 ``` r
-# keep multiple GBIF IDs
-cleaned_result <- clean_occs(flagged_occs, keep_gbifids = c("1260414185", 
-                                                          "1252668237"))
+# remove occurrences using GBIF IDs
+cleaned_result <- clean_occs(flagged_occs, 
+                             remove_gbifids = "4606839903")
+```
+
+``` r
+# You can also combine both the `keep_gbifids` and `remove_gbifids` parameters
+cleaned_result <- clean_occs(flagged_occs, 
+                             keep_gbifids = "6185525998",
+                             remove_gbifids = "4606839903")
 ```
 
 At this stage you may want to save both the valid and problem data
@@ -178,7 +185,7 @@ process and save maps for all species in a file
 ``` r
 # save a single map
 saveWidget(single_map, 
-           file = "Dioscorea_acanthogene_occs.html", 
+           file = "my_species_occs.html", 
            selfcontained = TRUE)
 ```
 

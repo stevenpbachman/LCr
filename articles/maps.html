@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Map viewer • LCr</title>
+<title>Map viewer and editor • LCr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -15,7 +15,7 @@
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Map viewer">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Map viewer and editor">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -38,7 +38,7 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/maps.html">Map viewer</a></li>
+<li><a class="dropdown-item" href="../articles/maps.html">Map viewer and editor</a></li>
     <li><a class="dropdown-item" href="../articles/SIS_connect_fungi_workflow.html">Rapid LC - fungi workflow</a></li>
     <li><a class="dropdown-item" href="../articles/SIS_connect_plants_workflow.html">Rapid LC - plants workflow</a></li>
   </ul>
@@ -61,7 +61,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Map viewer</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Map viewer and editor</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/stevenpbachman/LCr/blob/master/vignettes/maps.Rmd" class="external-link"><code>vignettes/maps.Rmd</code></a></small>
@@ -195,19 +195,24 @@ across all species before running the <code>clean_occs</code> function
 so that you only have to do this once.</p>
 <p>Some examples:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># clean using the default options, but keep GBIF ID "1260414185" </span></span>
-<span><span class="va">cleaned_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_occs.html">clean_occs</a></span><span class="op">(</span><span class="va">flagged_occs</span>, keep_gbifids <span class="op">=</span> <span class="st">"1260414185"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># clean using the default options, but keep GBIF ID "6185525998" </span></span>
+<span><span class="va">cleaned_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_occs.html">clean_occs</a></span><span class="op">(</span><span class="va">flagged_occs</span>, keep_gbifids <span class="op">=</span> <span class="st">"6185525998"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># keep multiple GBIF IDs</span></span>
-<span><span class="va">cleaned_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_occs.html">clean_occs</a></span><span class="op">(</span><span class="va">flagged_occs</span>, keep_gbifids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1260414185"</span>, </span>
-<span>                                                          <span class="st">"1252668237"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># keep multiple occurrences using GBIF IDs</span></span>
+<span><span class="va">cleaned_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_occs.html">clean_occs</a></span><span class="op">(</span><span class="va">flagged_occs</span>, keep_gbifids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"6185525998"</span>, </span>
+<span>                                                            <span class="st">"3708204613"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># keep multiple GBIF IDs</span></span>
-<span><span class="va">cleaned_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_occs.html">clean_occs</a></span><span class="op">(</span><span class="va">flagged_occs</span>, keep_gbifids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1260414185"</span>, </span>
-<span>                                                          <span class="st">"1252668237"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># remove occurrences using GBIF IDs</span></span>
+<span><span class="va">cleaned_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_occs.html">clean_occs</a></span><span class="op">(</span><span class="va">flagged_occs</span>, </span>
+<span>                             remove_gbifids <span class="op">=</span> <span class="st">"4606839903"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># You can also combine both the `keep_gbifids` and `remove_gbifids` parameters</span></span>
+<span><span class="va">cleaned_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_occs.html">clean_occs</a></span><span class="op">(</span><span class="va">flagged_occs</span>, </span>
+<span>                             keep_gbifids <span class="op">=</span> <span class="st">"6185525998"</span>,</span>
+<span>                             remove_gbifids <span class="op">=</span> <span class="st">"4606839903"</span><span class="op">)</span></span></code></pre></div>
 <p>At this stage you may want to save both the valid and problem data
 files.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create objects for clean and problem records</span></span>
 <span><span class="va">valid_data</span> <span class="op">&lt;-</span> <span class="va">cleaned_result</span><span class="op">$</span><span class="va">clean_occs</span></span>
 <span><span class="va">problem_data</span> <span class="op">&lt;-</span> <span class="va">cleaned_result</span><span class="op">$</span><span class="va">problem_occs</span></span>
@@ -224,12 +229,12 @@ which may be useful to share with collaborators or reviewers. You can
 save a single map with the saveWidget function or use
 <code>map_species_batch</code> to process and save maps for all species
 in a file</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># save a single map</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/saveWidget.html" class="external-link">saveWidget</a></span><span class="op">(</span><span class="va">single_map</span>, </span>
-<span>           file <span class="op">=</span> <span class="st">"Dioscorea_acanthogene_occs.html"</span>, </span>
+<span>           file <span class="op">=</span> <span class="st">"my_species_occs.html"</span>, </span>
 <span>           selfcontained <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># batch save maps</span></span>
 <span><span class="fu"><a href="../reference/map_species_batch.html">map_species_batch</a></span><span class="op">(</span><span class="va">flagged_occs</span>, species_range <span class="op">=</span> <span class="va">native_ranges</span>, </span>
 <span>                  show_flags <span class="op">=</span> <span class="cn">TRUE</span>, save_map <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
