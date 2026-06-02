@@ -1,14 +1,17 @@
 # LCr: An R package to generate minimal Least Concern Red List assessments
 
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![R-CMD-check](https://github.com/stevenpbachman/LCr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/stevenpbachman/LCr/actions/workflows/R-CMD-check.yaml)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Overview
 
 Generate minimal documentation for species expected to be Least Concern
 (see [IUCN Red List](https://www.iucnredlist.org/)). Submit to the IUCN
 Red List via [SIS Connect](https://connect.iucnredlist.org/)
 (registration needed)
-
-> \[!WARNING\] LCr is currently in development so functions and
-> vignettes may change. Please come back soon for the next version.
 
 ## Installation
 

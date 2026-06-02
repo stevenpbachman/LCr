@@ -10,16 +10,15 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/stevenpbachman/LCr/blob/master/DESCRIPTION)
+[`inst/CITATION`](https://github.com/stevenpbachman/LCr/blob/master/inst/CITATION)
 
-Bachman S, Brown M (2026). *LCr: Generate minimal Least Concern Red List
-assessments*. R package version 0.3.0,
-<https://github.com/stevenpbachman/LCr>.
+Bachman S.P., Brown M.J.M. (2026). LCr: An R package to generate minimal
+Least Concern Red List assessments. R package version 0.3.0.
+https://github.com/stevenpbachman/LCr
 
     @Manual{,
-      title = {LCr: Generate minimal Least Concern Red List assessments},
-      author = {Steven Bachman and Matilda Brown},
-      year = {2026},
-      note = {R package version 0.3.0},
+      title = {LCr: An R package to generate minimal Least Concern Red List assessments},
+      author = {Steven P. Bachman and Matilda J. M. Brown},
       url = {https://github.com/stevenpbachman/LCr},
+      note = {R package version 0.3.0},
     }
