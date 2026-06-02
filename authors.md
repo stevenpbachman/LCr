@@ -13,13 +13,13 @@ Source:
 [`DESCRIPTION`](https://github.com/stevenpbachman/LCr/blob/master/DESCRIPTION)
 
 Bachman S, Brown M (2026). *LCr: Generate minimal Least Concern Red List
-assessments*. R package version 0.1.0,
+assessments*. R package version 0.3.0,
 <https://github.com/stevenpbachman/LCr>.
 
     @Manual{,
       title = {LCr: Generate minimal Least Concern Red List assessments},
       author = {Steven Bachman and Matilda Brown},
       year = {2026},
-      note = {R package version 0.1.0},
+      note = {R package version 0.3.0},
       url = {https://github.com/stevenpbachman/LCr},
     }
