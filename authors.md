@@ -10,7 +10,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/stevenpbachman/LCr/blob/v0.3.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/stevenpbachman/LCr/blob/master/DESCRIPTION)
 
 Bachman S, Brown M (2026). *LCr: Generate minimal Least Concern Red List
 assessments*. R package version 0.3.0,
