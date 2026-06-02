@@ -1,0 +1,16 @@
+bibentry(
+  bibtype = "Manual",
+  title = "LCr: An R package to generate minimal Least Concern Red List assessments",
+  author = c(
+    person("Steven P.", "Bachman"),
+    person("Matilda J. M.", "Brown")
+  ),
+  url = "https://github.com/stevenpbachman/LCr",
+  note = "R package version 0.3.0",
+    textVersion = paste(
+    "Bachman S.P., Brown M.J.M. (2026).",
+    "LCr: An R package to generate minimal Least Concern Red List assessments.",
+    "R package version 0.3.0.",
+    "https://github.com/stevenpbachman/LCr"
+  )
+)
