@@ -1,4 +1,4 @@
-# SIS connect files - plants workflow
+# Rapid LC - plants workflow
 
 The aim of `LCr` is to speed up the process of adding Least Concern (LC)
 species to the [IUCN Red List](https://www.iucnredlist.org/). We’ll
@@ -53,7 +53,7 @@ Red Lists. You can also run the built-in LC test function
 # dataframe of species you want to run through LCr
 lc_species <-
   data.frame(sp = c(
-    "Crabbea acaulis", "Crabbea cirsioides", "Crabbea nana", "Crabbea velutina"
+    "Crabbea acaulis", "Crabbea nana", "Crabbea velutina"
   ))
 ```
 

@@ -1,7 +1,8 @@
 # LCr: Generate minimal Least Concern Red List assessments
 
-Generate Red List compliant spatial data and minimal Red List assessment
-documentation for Least Concern species
+Provides tools for downloading and cleaning occurrence data, testing for
+Least Concern status, and creating minimal IUCN Red List compliant
+assessment files.
 
 ## See also
 

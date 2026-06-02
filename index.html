@@ -16,8 +16,8 @@
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Generate minimal Least Concern Red List assessments">
-<meta name="description" content="Generate Red List compliant spatial data and minimal Red List assessment documentation for Least Concern species">
-<meta property="og:description" content="Generate Red List compliant spatial data and minimal Red List assessment documentation for Least Concern species">
+<meta name="description" content="Provides tools for downloading and cleaning occurrence data, testing for Least Concern status, and creating minimal IUCN Red List compliant assessment files.">
+<meta property="og:description" content="Provides tools for downloading and cleaning occurrence data, testing for Least Concern status, and creating minimal IUCN Red List compliant assessment files.">
 <meta property="og:image" content="https://stevenpbachman.github.io/LCr/logo.png">
 </head>
 <body>
@@ -41,8 +41,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/SIS_connect_fungi_workflow.html">SIS connect files - fungi workflow</a></li>
-    <li><a class="dropdown-item" href="articles/SIS_connect_plants_workflow.html">SIS connect files - plants workflow</a></li>
+<li><a class="dropdown-item" href="articles/SIS_connect_fungi_workflow.html">Rapid LC - fungi workflow</a></li>
+    <li><a class="dropdown-item" href="articles/SIS_connect_plants_workflow.html">Rapid LC - plants workflow</a></li>
   </ul>
 </li>
       </ul>
@@ -106,7 +106,7 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stevenpbachman/LCr" class="external-link">LCr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># create a species list</span></span>
-<span><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>sp_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Crabbea acaulis"</span>, <span class="st">"Crabbea cirsioides"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>sp_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Crabbea acaulis"</span>, <span class="st">"Crabbea nana"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># check names against GBIF and WCVP name backbones </span></span>
 <span><span class="va">sp_keys</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="reference/get_name_keys.html">get_name_keys</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">sp</span>, name_column <span class="op">=</span> <span class="st">"sp_col"</span><span class="op">)</span></span>
@@ -134,18 +134,18 @@
 <span>                                     institution <span class="op">=</span> <span class="va">institution</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># generate output csv files</span></span>
-<span><span class="va">lc_sis_files</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="reference/make_sis_csvs.html">make_sis_csvs</a></span><span class="op">(</span>unique_id <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_usageKey</span>,</span>
-<span>                                   wcvp_ipni_id <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">wcvp_ipni_id</span>,</span>
+<span><span class="va">lc_sis_files</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="reference/make_sis_csvs.html">make_sis_csvs</a></span><span class="op">(</span>unique_id <span class="op">=</span> <span class="va">sp_keys</span><span class="op">$</span><span class="va">GBIF_usageKey</span>,</span>
+<span>                                   wcvp_ipni_id <span class="op">=</span> <span class="va">sp_keys</span><span class="op">$</span><span class="va">wcvp_ipni_id</span>,</span>
 <span>                                   first_name <span class="op">=</span> <span class="st">"Steven"</span>,</span>
 <span>                                   second_name <span class="op">=</span> <span class="st">"Bachman"</span>,</span>
 <span>                                   email <span class="op">=</span> <span class="st">"s.bachman@kew.org"</span>,</span>
 <span>                                   institution <span class="op">=</span> <span class="st">"Royal Botanic Gardens, Kew"</span>,</span>
-<span>                                   family <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_family</span>,</span>
-<span>                                   genus <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_genus</span>,</span>
-<span>                                   species <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_species</span>,</span>
-<span>                                   gbif_ref <span class="op">=</span> <span class="va">gbif_occs</span><span class="op">$</span><span class="va">citation</span>,</span>
+<span>                                   family <span class="op">=</span> <span class="va">sp_keys</span><span class="op">$</span><span class="va">GBIF_family</span>,</span>
+<span>                                   genus <span class="op">=</span> <span class="va">sp_keys</span><span class="op">$</span><span class="va">GBIF_genus</span>,</span>
+<span>                                   species <span class="op">=</span> <span class="va">sp_keys</span><span class="op">$</span><span class="va">GBIF_species</span>,</span>
+<span>                                   gbif_ref <span class="op">=</span> <span class="va">sp_occs</span>,</span>
 <span>                                   powo_ref <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span>                                   taxonomicAuthority <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_authorship</span>,</span>
+<span>                                   taxonomicAuthority <span class="op">=</span> <span class="va">sp_keys</span><span class="op">$</span><span class="va">GBIF_authorship</span>,</span>
 <span>                                   occs <span class="op">=</span> <span class="va">sis_point_file</span>,</span>
 <span>                                   kingdom <span class="op">=</span> <span class="st">"plantae"</span>,</span>
 <span>                                   native_ranges <span class="op">=</span> <span class="va">native_ranges</span></span>

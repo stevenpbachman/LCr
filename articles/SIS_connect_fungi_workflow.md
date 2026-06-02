@@ -1,4 +1,4 @@
-# SIS connect files - fungi workflow
+# Rapid LC - fungi workflow
 
 The following workflow demonstrates how to search and clean open data on
 fungi species in order to test whether they are likely to be evaluated
@@ -61,7 +61,7 @@ lc_keys <-
 Let’s take a look at the output:
 
 ``` r
-glimpse(lc_keys)
+dplyr::glimpse(lc_keys)
 ```
 
 ### Clean keys

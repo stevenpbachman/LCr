@@ -18,8 +18,8 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/SIS_connect_fungi_workflow.html">SIS connect files - fungi workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/SIS_connect_plants_workflow.html">SIS connect files - plants workflow</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/SIS_connect_fungi_workflow.html">Rapid LC - fungi workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/SIS_connect_plants_workflow.html">Rapid LC - plants workflow</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -53,6 +53,10 @@
 <dd><p>character) Data frame with taxon names</p></dd>
 
 
+<dt id="arg-name-column">name_column<a class="anchor" aria-label="anchor" href="#arg-name-column"></a></dt>
+<dd><p>(character) Column for taxon names. Include taxonomic authority for better matching</p></dd>
+
+
 <dt id="arg-match">match<a class="anchor" aria-label="anchor" href="#arg-match"></a></dt>
 <dd><p>(character) Controls the output of the search. Use `single` to
 force a single match result that has the highest confidence or `any` to return
@@ -62,10 +66,6 @@ all possible matches sorted in order of confidence</p></dd>
 <dt id="arg-kingdom">kingdom<a class="anchor" aria-label="anchor" href="#arg-kingdom"></a></dt>
 <dd><p>(character) Defaults to `"plantae"`, which also searches POWO.
 Any other value (e.g. `"fungi"`, `"animalia"`) will only search GBIF.</p></dd>
-
-
-<dt id="arg-name-col">name_col<a class="anchor" aria-label="anchor" href="#arg-name-col"></a></dt>
-<dd><p>(character) Column for taxon names. Include taxonomic authority for better matching</p></dd>
 
 </dl></div>
     <div class="section level2">

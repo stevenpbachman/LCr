@@ -21,11 +21,6 @@ search_name_gbif(name, match = "single")
   a single match result that has the highest confidence or \`any\` to
   return all possible matches sorted in order of confidence
 
-- species_rank:
-
-  (character) Default TRUE returns matches at species level, otherwise
-  FALSE returns any taxonomic rank
-
 ## Value
 
 Returns a data frame with initial search term and matching name(s)

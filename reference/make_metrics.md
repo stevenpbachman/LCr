@@ -19,9 +19,19 @@ make_metrics(
 
 ## Arguments
 
+- occs:
+
+  (data frame) Cleaned GBIF occurrence file in DWCA format. See
+  clean_occs() function.
+
 - native_ranges:
 
   (df) WGSRPD native ranges at level 3
+
+- keys:
+
+  (data frame) GBIF and/or WCVP identifier keys, as produced by
+  [`get_name_keys()`](https://stevenpbachman.github.io/LCr/reference/get_name_keys.md).
 
 - eoo_thresh:
 
@@ -43,11 +53,6 @@ make_metrics(
 
   (integer) threshold for number of recent occurrences (\<30 yrs) to
   determine Least Concern
-
-- occs_clean:
-
-  (character) Cleaned GBIF occurrence file in DWCA format. See
-  occs_clean() function.
 
 ## Value
 

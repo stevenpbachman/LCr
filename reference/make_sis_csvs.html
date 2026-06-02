@@ -18,8 +18,8 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/SIS_connect_fungi_workflow.html">SIS connect files - fungi workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/SIS_connect_plants_workflow.html">SIS connect files - plants workflow</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/SIS_connect_fungi_workflow.html">Rapid LC - fungi workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/SIS_connect_plants_workflow.html">Rapid LC - plants workflow</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -69,6 +69,10 @@
 <dd><p>(character) Unique identifier - default is the GBIF usage key</p></dd>
 
 
+<dt id="arg-wcvp-ipni-id">wcvp_ipni_id<a class="anchor" aria-label="anchor" href="#arg-wcvp-ipni-id"></a></dt>
+<dd><p>(character) WCVP identifier</p></dd>
+
+
 <dt id="arg-first-name">first_name<a class="anchor" aria-label="anchor" href="#arg-first-name"></a></dt>
 <dd><p>(character) First name of assessor</p></dd>
 
@@ -95,6 +99,11 @@
 
 <dt id="arg-native-ranges">native_ranges<a class="anchor" aria-label="anchor" href="#arg-native-ranges"></a></dt>
 <dd><p>(data frame) Native ranges derived from [`get_native_range()`] or [`get_occs_range()`]</p></dd>
+
+
+<dt id="arg-occs">occs<a class="anchor" aria-label="anchor" href="#arg-occs"></a></dt>
+<dd><p>(data frame) Cleaned GBIF occurrence file in DWCA format. See
+clean_occs() function.</p></dd>
 
 
 <dt id="arg-family">family<a class="anchor" aria-label="anchor" href="#arg-family"></a></dt>

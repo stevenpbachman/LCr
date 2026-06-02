@@ -25,7 +25,7 @@ accepted and at species rank in all present sources.
 
 ## Details
 
-Problematic records — e.g. those not accepted in GBIF or WCVP, or not at
-species level — are removed. WCVP filtering is only applied when WCVP
-data are present in `keys` (i.e. `"WCVP"` appears in the `sources`
+Problematic records e.g. those not accepted in GBIF or WCVP, or not at
+species level are removed. WCVP filtering is only applied when WCVP data
+are present in `keys` (i.e. `"WCVP"` appears in the `sources`
 attribute). Duplicate records are reported but not removed.

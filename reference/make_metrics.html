@@ -18,8 +18,8 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/SIS_connect_fungi_workflow.html">SIS connect files - fungi workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/SIS_connect_plants_workflow.html">SIS connect files - plants workflow</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/SIS_connect_fungi_workflow.html">Rapid LC - fungi workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/SIS_connect_plants_workflow.html">Rapid LC - plants workflow</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -58,8 +58,18 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-native-ranges">native_ranges<a class="anchor" aria-label="anchor" href="#arg-native-ranges"></a></dt>
+<dl><dt id="arg-occs">occs<a class="anchor" aria-label="anchor" href="#arg-occs"></a></dt>
+<dd><p>(data frame) Cleaned GBIF occurrence file in DWCA format. See
+clean_occs() function.</p></dd>
+
+
+<dt id="arg-native-ranges">native_ranges<a class="anchor" aria-label="anchor" href="#arg-native-ranges"></a></dt>
 <dd><p>(df) WGSRPD native ranges at level 3</p></dd>
+
+
+<dt id="arg-keys">keys<a class="anchor" aria-label="anchor" href="#arg-keys"></a></dt>
+<dd><p>(data frame) GBIF and/or WCVP identifier keys, as produced by
+<code><a href="get_name_keys.html">get_name_keys()</a></code>.</p></dd>
 
 
 <dt id="arg-eoo-thresh">eoo_thresh<a class="anchor" aria-label="anchor" href="#arg-eoo-thresh"></a></dt>
@@ -80,11 +90,6 @@
 
 <dt id="arg-recent-thresh">recent_thresh<a class="anchor" aria-label="anchor" href="#arg-recent-thresh"></a></dt>
 <dd><p>(integer) threshold for number of recent occurrences (&lt;30 yrs) to determine Least Concern</p></dd>
-
-
-<dt id="arg-occs-clean">occs_clean<a class="anchor" aria-label="anchor" href="#arg-occs-clean"></a></dt>
-<dd><p>(character) Cleaned GBIF occurrence file in DWCA format. See
-occs_clean() function.</p></dd>
 
 </dl></div>
     <div class="section level2">

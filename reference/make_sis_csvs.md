@@ -30,6 +30,10 @@ make_sis_csvs(
 
   (character) Unique identifier - default is the GBIF usage key
 
+- wcvp_ipni_id:
+
+  (character) WCVP identifier
+
 - first_name:
 
   (character) First name of assessor
@@ -58,6 +62,11 @@ make_sis_csvs(
 
   (data frame) Native ranges derived from \[\`get_native_range()\`\] or
   \[\`get_occs_range()\`\]
+
+- occs:
+
+  (data frame) Cleaned GBIF occurrence file in DWCA format. See
+  clean_occs() function.
 
 - family:
 

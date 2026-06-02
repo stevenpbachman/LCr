@@ -15,6 +15,11 @@ get_name_keys(df, name_column, match = "single", kingdom = "plantae")
 
   character) Data frame with taxon names
 
+- name_column:
+
+  (character) Column for taxon names. Include taxonomic authority for
+  better matching
+
 - match:
 
   (character) Controls the output of the search. Use \`single\` to force
@@ -25,11 +30,6 @@ get_name_keys(df, name_column, match = "single", kingdom = "plantae")
 
   (character) Defaults to \`"plantae"\`, which also searches POWO. Any
   other value (e.g. \`"fungi"\`, \`"animalia"\`) will only search GBIF.
-
-- name_col:
-
-  (character) Column for taxon names. Include taxonomic authority for
-  better matching
 
 ## Value
 

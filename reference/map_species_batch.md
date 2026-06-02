@@ -20,6 +20,10 @@ map_species_batch(
 
   A data frame containing occurrence data after cleaning flags added
 
+- species_range:
+
+  A data frame containing occurrence data show_flags
+
 - show_flags:
 
   Set to false if you just want to see the points map without flags
@@ -28,10 +32,6 @@ map_species_batch(
 
   Set to true if you want to save the maps as html files in the working
   directory
-
-- native_ranges:
-
-  A data frame containing occurrence data show_flags
 
 ## Value
 

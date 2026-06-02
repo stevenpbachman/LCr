@@ -15,13 +15,13 @@ map_species_single(data, species_range = NULL, show_flags = TRUE)
 
   A data frame containing occurrence data
 
+- species_range:
+
+  A data frame containing occurrence data show_flags
+
 - show_flags:
 
   Set to false if you just want to see the points map without flags
-
-- native_ranges:
-
-  A data frame containing occurrence data show_flags
 
 ## Value
 
