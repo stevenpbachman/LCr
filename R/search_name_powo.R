@@ -13,12 +13,12 @@
 
 search_name_powo <- function(df, name_column, author_col = NULL) {
   if (is.null(author_col)) {
-    results <- rWCVP::wcvp_match_names(names_df = df, name_col = name_column)
+    results <- rWCVP::wcvp_match_names(names_df = df, name_column = name_column)
   }
 
   else {
     results <- rWCVP::wcvp_match_names(names_df = df,
-                                       name_col = name_column,
+                                       name_column = name_column,
                                        author_col = author_col)
   }
   return(results)

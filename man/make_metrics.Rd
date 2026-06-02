@@ -16,7 +16,13 @@ make_metrics(
 )
 }
 \arguments{
+\item{occs}{(data frame) Cleaned GBIF occurrence file in DWCA format. See
+clean_occs() function.}
+
 \item{native_ranges}{(df) WGSRPD native ranges at level 3}
+
+\item{keys}{(data frame) GBIF and/or WCVP identifier keys, as produced by
+\code{get_name_keys()}.}
 
 \item{eoo_thresh}{(integer) threshold for EOO to determine Least Concern}
 
@@ -27,9 +33,6 @@ make_metrics(
 \item{regions_thresh}{(integer) threshold for number of regions to determine Least Concern}
 
 \item{recent_thresh}{(integer) threshold for number of recent occurrences (<30 yrs) to determine Least Concern}
-
-\item{occs_clean}{(character) Cleaned GBIF occurrence file in DWCA format. See
-occs_clean() function.}
 }
 \value{
 Returns a dataframe with species level metrics

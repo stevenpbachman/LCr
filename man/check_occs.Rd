@@ -10,6 +10,9 @@ check_occs(gbif_occs, native_ranges = NULL, buffer = 1000)
 \item{gbif_occs}{(data frame) GBIF occurrence file in DWCA format}
 
 \item{native_ranges}{(data frame) Optional native ranges from `get_native_range()`}
+
+\item{buffer}{(integer) distance in meters of a buffer to account for coarse WGSRPD polygons.
+Buffer is drawn around WGSRPD polygons and points within buffer are included in native range test.}
 }
 \value{
 A list containing:

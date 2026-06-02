@@ -2,7 +2,7 @@
 #' Get accepted GBIF and POWO identifiers (keys) for taxon names to support data downloads
 #'
 #' @param df character) Data frame with taxon names
-#' @param name_col (character) Column for taxon names. Include taxonomic authority for better matching
+#' @param name_column (character) Column for taxon names. Include taxonomic authority for better matching
 #' @param match (character) Controls the output of the search. Use `single` to
 #' force a single match result that has the highest confidence or `any` to return
 #' all possible matches sorted in order of confidence
@@ -71,13 +71,13 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
     if ("taxonomicAuthority" %in% names(working_df)) {
       powo_names_out <- search_name_powo(
         df = working_df,
-        name_col = "canonicalname",
+        name_column = "canonicalname",
         author_col = "taxonomicAuthority"
       )
     } else {
       powo_names_out <- search_name_powo(
         df = working_df,
-        name_col = "canonicalname"
+        name_column = "canonicalname"
         # omit author_col entirely
       )
     }

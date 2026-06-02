@@ -15,11 +15,11 @@ map_species_batch(
 \arguments{
 \item{data}{A data frame containing occurrence data after cleaning flags added}
 
+\item{species_range}{A data frame containing occurrence data show_flags}
+
 \item{show_flags}{Set to false if you just want to see the points map without flags}
 
 \item{save_map}{Set to true if you want to save the maps as html files in the working directory}
-
-\item{native_ranges}{A data frame containing occurrence data show_flags}
 }
 \value{
 Interactive leaflet map

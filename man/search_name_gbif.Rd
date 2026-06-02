@@ -12,9 +12,6 @@ search_name_gbif(name, match = "single")
 \item{match}{(character) Controls the output of the search. Use `single` to
 force a single match result that has the highest confidence or `any` to return
 all possible matches sorted in order of confidence}
-
-\item{species_rank}{(character) Default TRUE returns matches at species
-level, otherwise FALSE returns any taxonomic rank}
 }
 \value{
 Returns a data frame with initial search term and matching name(s)

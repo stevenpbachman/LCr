@@ -2,6 +2,7 @@
 #' Generate the countries.csv file
 #'
 #' @param native_ranges (character) native range list of WGSRPD level 3
+#' @param unique_id (character) Unique identifier - default is the GBIF usage key
 #'
 #' @return Returns an SIS compliant csv file
 #' @export

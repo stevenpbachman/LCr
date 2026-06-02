@@ -8,6 +8,8 @@ sis_countries(native_ranges, unique_id)
 }
 \arguments{
 \item{native_ranges}{(character) native range list of WGSRPD level 3}
+
+\item{unique_id}{(character) Unique identifier - default is the GBIF usage key}
 }
 \value{
 Returns an SIS compliant csv file

@@ -2,6 +2,8 @@
 #' Generate the allfields.csv file
 #'
 #' @param unique_id (character) Unique identifier.
+#' @param occs (data frame) Cleaned GBIF occurrence file in DWCA format. See
+#' clean_occs() function.
 #'
 #' @return Returns an SIS compliant data frame
 #' @export
@@ -10,7 +12,7 @@ sis_allfields <- function(unique_id, occs = NULL) {
 
   # Create base tibble
   combined_table <- purrr::map_dfr(unique_id, function(id) {
-    tibble(
+    tibble::tibble(
       internal_taxon_id = id,
       CurrentTrendDataDerivation.value = "Suspected",
       AreaRestricted.isRestricted = "No",

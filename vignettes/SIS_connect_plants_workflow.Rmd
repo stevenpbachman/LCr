@@ -1,8 +1,8 @@
 ---
-title: "SIS connect files - plants workflow"
+title: "Rapid LC - plants workflow"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{SIS connect files - plants workflow}
+  %\VignetteIndexEntry{Rapid LC - plants workflow}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -43,7 +43,7 @@ Note that predictions can be wrong so please verify that your selected species a
 # dataframe of species you want to run through LCr
 lc_species <-
   data.frame(sp = c(
-    "Crabbea acaulis", "Crabbea cirsioides", "Crabbea nana", "Crabbea velutina"
+    "Crabbea acaulis", "Crabbea nana", "Crabbea velutina"
   ))
 ```
 

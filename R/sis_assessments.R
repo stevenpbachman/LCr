@@ -32,7 +32,7 @@ sis_assessments <- function(unique_id, native_ranges, wcvp_ipni_id = NULL, occs)
     distribution_data <- purrr::map(powo_results, "iucn_dist_text")
     habitat_data      <- purrr::map(powo_results, "iucn_habit_text")
   } else {
-    cli::cli_inform("No WCVP IPNI IDs provided — leaving distribution and habitat narratives blank.")
+    cli::cli_inform("No WCVP IPNI IDs provided - leaving distribution and habitat narratives blank.")
     distribution_data <- vector("list", length(unique_id))  # list of NULLs
     habitat_data      <- vector("list", length(unique_id))
   }
@@ -62,7 +62,7 @@ sis_assessments <- function(unique_id, native_ranges, wcvp_ipni_id = NULL, occs)
     }
   )
 
-  # ifelse(is.null(x), "", x)  # << alternative to %||% — the null-coalescing operator
+  # ifelse(is.null(x), "", x)  # << alternative to %||% - the null-coalescing operator
 
   # --- Biogeographic realms (optional) ---
   if (!is.null(native_ranges)) {

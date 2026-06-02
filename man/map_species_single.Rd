@@ -9,9 +9,9 @@ map_species_single(data, species_range = NULL, show_flags = TRUE)
 \arguments{
 \item{data}{A data frame containing occurrence data}
 
-\item{show_flags}{Set to false if you just want to see the points map without flags}
+\item{species_range}{A data frame containing occurrence data show_flags}
 
-\item{native_ranges}{A data frame containing occurrence data show_flags}
+\item{show_flags}{Set to false if you just want to see the points map without flags}
 }
 \value{
 Interactive leaflet map

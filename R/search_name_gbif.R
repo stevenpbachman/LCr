@@ -5,8 +5,6 @@
 #' the rgbif `name_backbone_verbose` function.
 #'
 #' @param name (character) A taxon name
-#' @param species_rank (character) Default TRUE returns matches at species
-#' level, otherwise FALSE returns any taxonomic rank
 #' @param match (character) Controls the output of the search. Use `single` to
 #' force a single match result that has the highest confidence or `any` to return
 #' all possible matches sorted in order of confidence

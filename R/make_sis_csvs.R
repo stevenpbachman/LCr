@@ -1,6 +1,7 @@
 #' Generate all SIS connect csv files
 #'
 #' @param unique_id (character) Unique identifier - default is the GBIF usage key
+#' @param wcvp_ipni_id (character) WCVP identifier
 #' @param first_name (character) First name of assessor
 #' @param second_name (character) Second name of assessor
 #' @param email (character) Email of assessor
@@ -8,6 +9,8 @@
 #' @param gbif_ref (data frame) A GBIF download citation according to IUCN format.
 #' @param powo_ref (data frame) A citation for use of POWO according to IUCN format.
 #' @param native_ranges (data frame) Native ranges derived from [`get_native_range()`] or [`get_occs_range()`]
+#' @param occs (data frame) Cleaned GBIF occurrence file in DWCA format. See
+#' clean_occs() function.
 #' @param family (character) Field containing the family
 #' @param genus (character) Field containing the genus
 #' @param species (character) Field containing the specific epithet

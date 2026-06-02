@@ -25,6 +25,8 @@ make_sis_csvs(
 \arguments{
 \item{unique_id}{(character) Unique identifier - default is the GBIF usage key}
 
+\item{wcvp_ipni_id}{(character) WCVP identifier}
+
 \item{first_name}{(character) First name of assessor}
 
 \item{second_name}{(character) Second name of assessor}
@@ -38,6 +40,9 @@ make_sis_csvs(
 \item{powo_ref}{(data frame) A citation for use of POWO according to IUCN format.}
 
 \item{native_ranges}{(data frame) Native ranges derived from [`get_native_range()`] or [`get_occs_range()`]}
+
+\item{occs}{(data frame) Cleaned GBIF occurrence file in DWCA format. See
+clean_occs() function.}
 
 \item{family}{(character) Field containing the family}
 

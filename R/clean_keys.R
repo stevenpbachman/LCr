@@ -8,8 +8,8 @@
 #' @return Returns a data frame with cleaned keys, retaining only records that
 #'   are accepted and at species rank in all present sources.
 #' @export
-#' @details Problematic records — e.g. those not accepted in GBIF or WCVP,
-#'   or not at species level — are removed. WCVP filtering is only applied when
+#' @details Problematic records e.g. those not accepted in GBIF or WCVP,
+#'   or not at species level are removed. WCVP filtering is only applied when
 #'   WCVP data are present in \code{keys} (i.e. \code{"WCVP"} appears in the
 #'   \code{sources} attribute). Duplicate records are reported but not removed.
 
@@ -32,7 +32,7 @@ clean_keys <- function(keys) {
     cleaned_keys <- cleaned_keys %>%
       dplyr::filter(wcvp_status == "Accepted", wcvp_rank == "Species")
   } else {
-    cli::cli_inform("No WCVP data detected — skipping WCVP filtering.")
+    cli::cli_inform("No WCVP data detected - skipping WCVP filtering.")
   }
 
   # --- GBIF filtering (only when GBIF data are present) ---
@@ -40,7 +40,7 @@ clean_keys <- function(keys) {
     cleaned_keys <- cleaned_keys %>%
       dplyr::filter(GBIF_status == "ACCEPTED", GBIF_rank == "SPECIES")
   } else {
-    cli::cli_inform("No GBIF data detected — skipping GBIF filtering.")
+    cli::cli_inform("No GBIF data detected - skipping GBIF filtering.")
   }
 
   cli::cli_alert_success("Cleaning complete. {nrow(cleaned_keys)} record{?s} retained.")

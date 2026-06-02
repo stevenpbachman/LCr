@@ -53,7 +53,7 @@ sis_plantspecific <- function(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae
         }
 
         # Default if no matches found or no valid habit text
-        cli::cli_warn("No growth form match found for taxon {.val {id}} — leaving blank.")
+        cli::cli_warn("No growth form match found for taxon {.val {id}} - leaving blank.")
         tibble::tibble(
           internal_taxon_id = id,
           PlantGrowthForms.PlantGrowthFormsSubfield.PlantGrowthFormsName   = "",

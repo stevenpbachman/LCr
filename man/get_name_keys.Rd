@@ -9,14 +9,14 @@ get_name_keys(df, name_column, match = "single", kingdom = "plantae")
 \arguments{
 \item{df}{character) Data frame with taxon names}
 
+\item{name_column}{(character) Column for taxon names. Include taxonomic authority for better matching}
+
 \item{match}{(character) Controls the output of the search. Use `single` to
 force a single match result that has the highest confidence or `any` to return
 all possible matches sorted in order of confidence}
 
 \item{kingdom}{(character) Defaults to `"plantae"`, which also searches POWO.
 Any other value (e.g. `"fungi"`, `"animalia"`) will only search GBIF.}
-
-\item{name_col}{(character) Column for taxon names. Include taxonomic authority for better matching}
 }
 \value{
 Returns a data frame with accepted GBIF and POWO identifiers

@@ -2,6 +2,9 @@
 #'
 #' @param gbif_occs (data frame) GBIF occurrence file in DWCA format
 #' @param native_ranges (data frame) Optional native ranges from `get_native_range()`
+#' @param buffer (integer) distance in meters of a buffer to account for coarse WGSRPD polygons.
+#' Buffer is drawn around WGSRPD polygons and points within buffer are included in native range test.
+#'
 #'
 #' @return A list containing:
 #'   - checked_data: original data with error flags

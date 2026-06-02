@@ -8,6 +8,9 @@ sis_allfields(unique_id, occs = NULL)
 }
 \arguments{
 \item{unique_id}{(character) Unique identifier.}
+
+\item{occs}{(data frame) Cleaned GBIF occurrence file in DWCA format. See
+clean_occs() function.}
 }
 \value{
 Returns an SIS compliant data frame

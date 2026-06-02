@@ -1,9 +1,11 @@
 
 #' Generate metrics from a clean point occurrence file
 #'
-#' @param occs_clean (character) Cleaned GBIF occurrence file in DWCA format. See
-#' occs_clean() function.
+#' @param occs (data frame) Cleaned GBIF occurrence file in DWCA format. See
+#' clean_occs() function.
 #' @param native_ranges (df) WGSRPD native ranges at level 3
+#' @param keys (data frame) GBIF and/or WCVP identifier keys, as produced by
+#'   \code{get_name_keys()}.
 #' @param eoo_thresh (integer) threshold for EOO to determine Least Concern
 #' @param aoo_thresh (integer) threshold for AOO to determine Least Concern
 #' @param points_thresh (integer) threshold for number of points to determine Least Concern

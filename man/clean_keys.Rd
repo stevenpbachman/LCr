@@ -19,8 +19,8 @@ Returns a data frame with cleaned keys, retaining only records that
 Clean a keys output to ensure only accepted species from GBIF and/or WCVP are being analysed
 }
 \details{
-Problematic records — e.g. those not accepted in GBIF or WCVP,
-  or not at species level — are removed. WCVP filtering is only applied when
+Problematic records e.g. those not accepted in GBIF or WCVP,
+  or not at species level are removed. WCVP filtering is only applied when
   WCVP data are present in \code{keys} (i.e. \code{"WCVP"} appears in the
   \code{sources} attribute). Duplicate records are reported but not removed.
 }

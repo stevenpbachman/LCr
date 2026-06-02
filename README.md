@@ -43,7 +43,7 @@ Note the following example is for plant species. For help on processing species 
 library(LCr)
 
 # create a species list
-sp <- data.frame(sp_col = c("Crabbea acaulis", "Crabbea cirsioides"))
+sp <- data.frame(sp_col = c("Crabbea acaulis", "Crabbea nana"))
 
 # check names against GBIF and WCVP name backbones 
 sp_keys <- LCr::get_name_keys(df = sp, name_column = "sp_col")
@@ -71,18 +71,18 @@ sis_point_file <- LCr::make_sis_occs(cleaned_result$clean_occs,
                                      institution = institution)
 
 # generate output csv files
-lc_sis_files <- LCr::make_sis_csvs(unique_id = lc_final$GBIF_usageKey,
-                                   wcvp_ipni_id = lc_final$wcvp_ipni_id,
+lc_sis_files <- LCr::make_sis_csvs(unique_id = sp_keys$GBIF_usageKey,
+                                   wcvp_ipni_id = sp_keys$wcvp_ipni_id,
                                    first_name = "Steven",
                                    second_name = "Bachman",
                                    email = "s.bachman@kew.org",
                                    institution = "Royal Botanic Gardens, Kew",
-                                   family = lc_final$GBIF_family,
-                                   genus = lc_final$GBIF_genus,
-                                   species = lc_final$GBIF_species,
-                                   gbif_ref = gbif_occs$citation,
+                                   family = sp_keys$GBIF_family,
+                                   genus = sp_keys$GBIF_genus,
+                                   species = sp_keys$GBIF_species,
+                                   gbif_ref = sp_occs,
                                    powo_ref = TRUE, 
-                                   taxonomicAuthority = lc_final$GBIF_authorship,
+                                   taxonomicAuthority = sp_keys$GBIF_authorship,
                                    occs = sis_point_file,
                                    kingdom = "plantae",
                                    native_ranges = native_ranges

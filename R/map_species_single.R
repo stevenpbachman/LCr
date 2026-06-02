@@ -1,7 +1,7 @@
 #' Display a leaflet map to show the distribution of occurrence data for each species
 #'
 #' @param data A data frame containing occurrence data
-#' @param native_ranges A data frame containing occurrence data show_flags
+#' @param species_range A data frame containing occurrence data show_flags
 #' @param show_flags Set to false if you just want to see the points map without flags
 
 #' @return Interactive leaflet map

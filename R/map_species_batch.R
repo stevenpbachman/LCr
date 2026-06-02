@@ -2,7 +2,7 @@
 #' Batch version that iterates through species
 #'
 #' @param data A data frame containing occurrence data after cleaning flags added
-#' @param native_ranges A data frame containing occurrence data show_flags
+#' @param species_range A data frame containing occurrence data show_flags
 #' @param show_flags Set to false if you just want to see the points map without flags
 #' @param save_map Set to true if you want to save the maps as html files in the working directory
 

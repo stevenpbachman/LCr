@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Generate Red List compliant spatial data and minimal Red List assessment documentation for Least Concern species
+Provides tools for downloading and cleaning occurrence data, testing for Least Concern status, and creating minimal IUCN Red List compliant assessment files.
 }
 \seealso{
 Useful links:

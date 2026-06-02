@@ -9,7 +9,8 @@ Authors@R: c(
     role = c("aut" ), comment = c(ORCID = "0000-0003-2536-8365"))
   )
 Maintainer: Steven Bachman <s.bachman@kew.org>
-Description: Generate Red List compliant spatial data and minimal Red List assessment documentation for Least Concern species
+Description: Provides tools for downloading and cleaning occurrence data,
+    testing for Least Concern status, and creating minimal IUCN Red List compliant assessment files.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -18,24 +19,28 @@ BugReports: https://github.com/stevenpbachman/LCr/issues
 RoxygenNote: 7.3.3
 Imports: 
     bit64,
+    cli,
     CoordinateCleaner (>= 3.0.1),
     dplyr,
+    glue,
     here,
+    htmlwidgets,
     httr,
     jsonlite,
     leaflet,
     leaflet.extras,
     magrittr,
     purrr,
-    remotes,
     rgbif,
     rWCVP,
     sf,
+    stats,
     tibble,
     tidyr,
     utils
 Suggests: 
     knitr,
+    remotes,
     rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

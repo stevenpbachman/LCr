@@ -296,7 +296,7 @@ validate_basisofrec <- function(sis_points) {
     invalid_points <- sis_points[invalid_rows, c("source", "basisofrec")]
 
     data_errors <- paste0(
-      "• Invalid basisOfRecord value {.val ", invalid_points$basisofrec,
+      "Invalid basisOfRecord value {.val ", invalid_points$basisofrec,
       "} for source {.val ", invalid_points$source, "}"
     )
   }
