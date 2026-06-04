@@ -1,5 +1,4 @@
 
-
 # Utility/helper functions
 
 
@@ -10,6 +9,8 @@
 #' @return returns GBIF taxonomic information with reformatted taxonomicAuthor
 #' @keywords internal
 #' @noRd
+#' @encoding UTF-8
+#' @importFrom stats family na.omit quantile setNames
 
 check_tax_auth <- function(df) {
   # Check if 'bracketauthorship' and 'authorship' columns exist
@@ -144,8 +145,8 @@ powo_range = function(wcvp_ipni_id) {
     results = dplyr::rename(distribution,
                             LEVEL3_NAM = name,
                             LEVEL3_COD = tdwgCode)
-    results = dplyr::mutate(results, LEVEL3_NAM = dplyr::recode(LEVEL3_NAM, "á" =
-                                                                  "a"))
+    results = dplyr::mutate(results, LEVEL3_NAM = dplyr::recode(LEVEL3_NAM, "u00e1" =
+                                                                  "a")) # replaced "á" with unicode. need to check it still works
   }
 
   return(results)
@@ -359,3 +360,149 @@ make_eoo_aoo <- function(occs) {
 
   return(resultsdf)
 }
+
+#' Generate global variables
+#'
+#' @return Generate global variables
+#' @keywords internal
+#' @noRd
+
+globalVariables(c(
+  # check_occs.R
+  "flag_no_coords",
+  "LEVEL3_COD",
+  # utils.R
+  "bracketauthorship",
+  "authorship",
+  # clean_keys.R
+  "wcvp_status",
+  "wcvp_rank",
+  "GBIF_status",
+  "GBIF_rank",
+  "searchName",
+  "n",
+  # clean_occs.R
+  "flag_cc_capitals",
+  "flag_cc_centroids",
+  "flag_cc_institutions",
+  "flag_cc_equal",
+  "flag_cc_gbif",
+  "flag_cc_zeros",
+  "flag_cc_urb",
+  "flag_high_uncertainty",
+  "flag_outside_native",
+  "flag_manual_gbifid",
+  "manual_removal_reason",
+  "flag_manual_keep",
+  "is_problematic",
+  "GBIF_usageKey",
+  # get_name_keys.R
+  "GBIF_usageKey",
+  #get_occs_range.R
+  "sci_name",
+  #make_biorealms
+  "TDWG_realms",
+  "internal_taxon_id",
+  "REALM",
+  #make_elevation
+  "internal_taxon_id",
+  "min_elev",
+  #make_eoo_aoo
+  "internal_taxon_id",
+  "EOOkm2",
+  "AOOkm",
+  #make_metrics
+  "year",
+  "proj_metadata",
+  "EOOcat",
+  "AOOcat",
+  "internal_taxon_id",
+  "speciesKey",
+  "recent",
+  "WGSRPD_count",
+  "recent_records",
+  "EOOkm2",
+  "AOOkm",
+  "NOP",
+  "lc_eoo",
+  "lc_aoo",
+  "lc_nop",
+  "lc_regions",
+  "lc_recent",
+  "lc_core",
+  "lc_supporting",
+  "taxon",
+  # make_sis_occs
+  "species",
+  "recordedBy",
+  "recordNumber",
+  "day",
+  "month",
+  "year",
+  "decimalLatitude",
+  "decimalLongitude",
+  "locality",
+  "coordinateUncertaintyInMeters",
+  "habitat",
+  "basisOfRecord",
+  "elevation",
+  "catalogNumber",
+  "speciesKey",
+  "gbifID",
+  "basisofrec",
+  "dec_lat",
+  "dec_long",
+  # make_zip
+  "sis_files",
+  # map_species_batch
+  "speciesKey",
+  "internal_taxon_id",
+  #map_species_single
+  "decimalLatitude",
+  "decimalLongitude",
+  "drawRectangleOptions",
+  "drawShapeOptions",
+  "drawPolygonOptions",
+  "editToolbarOptions",
+  "selectedPathOptions",
+  "pathOptions",
+  ".data",
+  "species_list",
+  "count",
+  "gbif_ids",
+  "layersControlOptions",
+  "coord_key",
+  "decimalLatitude",
+  "decimalLongitude",
+  "gbifID",
+  "species",
+  #powo_range
+  "name",
+  "tdwgCode",
+  "LEVEL3_NAM",
+  #powo_text
+  "internal_taxon_id",
+  #reorder_status
+  "status",
+  #search_name_gbif
+  "confidence",
+  "genusorabove",
+  "specificepithet",
+  "taxonomicAuthority",
+  #sis_assessments
+  "BiogeographicRealm.realm.y",
+  "BiogeographicRealm.realm.x",
+  #sis_countries
+  "internal_taxon_id",
+  "tdwg2iucn",
+  "countryoccurrence.countryoccurrencesubfield.countryoccurrencename",
+  "CountryOccurrence.CountryOccurrenceSubfield.presence",
+  "CountryOccurrence.CountryOccurrenceSubfield.origin",
+  "CountryOccurrence.CountryOccurrenceSubfield.seasonality",
+  "countryoccurrence.countryoccurrencesubfield.countryoccurrencelookup",
+  #sis_plantspecific
+  "PlantGrowthForms.PlantGrowthFormsSubfield.PlantGrowthFormsName",
+  "PlantGrowthForms.PlantGrowthFormsSubfield.PlantGrowthFormsLookup",
+  #sis_taxonomy
+  "iucn_taxonomy"
+))

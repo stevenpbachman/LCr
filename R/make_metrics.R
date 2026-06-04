@@ -11,6 +11,8 @@
 #' @param points_thresh (integer) threshold for number of points to determine Least Concern
 #' @param regions_thresh (integer) threshold for number of regions to determine Least Concern
 #' @param recent_thresh (integer) threshold for number of recent occurrences (<30 yrs) to determine Least Concern
+#' @details Requires rCAT to be installed:
+#'   `remotes::install_github("gistin/rCAT2")`
 #'
 #' @return Returns a dataframe with species level metrics
 #' @export
@@ -25,6 +27,12 @@ make_metrics <- function(occs,
                          points_thresh = 75,
                          regions_thresh = 5,
                          recent_thresh = 50) {
+
+  if (!requireNamespace("rCAT", quietly = TRUE)) {
+    stop("Package 'rCAT' is required for this function. ",
+         "Install with: remotes::install_github('gistin/rCAT2')",
+         call. = FALSE)
+  }
 
   cli::cli_alert_info("Calculating LC metrics.")
 

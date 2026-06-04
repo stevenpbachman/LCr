@@ -92,6 +92,10 @@ lc_sis_files <- LCr::make_sis_csvs(unique_id = sp_keys$GBIF_usageKey,
 # make the ZIP file to send to IUCN SIS Connect
 make_zip(lc_sis_files)
 ```
+### Citation
 
+To cite `LCr` please run:
+
+    citation("LCr")
 
 

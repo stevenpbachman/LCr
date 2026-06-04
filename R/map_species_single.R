@@ -318,7 +318,7 @@ map_species_single <- function(data, species_range = NULL, show_flags = TRUE) {
           color: #666;
           margin-top: 5px;
         '>
-          ⚠️ Polygon/rectangle selections will include all points, whether the layer is ticked on or off.
+          [!] Polygon/rectangle selections will include all points, whether the layer is ticked on or off.
         </div>
       </div>`;
       container.appendChild(title);
@@ -604,7 +604,7 @@ map_species_single <- function(data, species_range = NULL, show_flags = TRUE) {
           color: #666;
           margin-top: 5px;
         '>
-          ⚠️ Polygon/rectangle selections will include all points, whether the layer is ticked on or off.
+          [!] Polygon/rectangle selections will include all points, whether the layer is ticked on or off.
         </div>
       </div>`;
       container.appendChild(title);
