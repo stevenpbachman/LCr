@@ -1,0 +1,70 @@
+# Batch process, preliminary conservation assessments
+
+Combines the main of routines in rCAT to process multiple species for
+AOO, EOO etc.
+
+## Usage
+
+``` r
+batchCon(
+  taxa,
+  long,
+  lat,
+  project2gether = TRUE,
+  cellsize = 2000,
+  aooMin = FALSE,
+  it = 1296,
+  returnV = "S"
+)
+```
+
+## Arguments
+
+- taxa:
+
+  field which defines a list of species or taxa
+
+- long:
+
+  field which defines the longitude set of points
+
+- lat:
+
+  field which defines the latitude set of points
+
+- project2gether:
+
+  TRUE or FALSE, TRUE all data is projected together using the centre of
+  all latitudes and longitudes. FALSE each species is projected
+  separately. Default = TRUE
+
+- cellsize:
+
+  cell length in metres used to for AOO projection N.B. IUCN recommend
+  2000 m (default 2000)
+
+- aooMin:
+
+  calls the aooMin routines as well as simple aoo, be warned with lots
+  of species and points this can take some time to run (default=FALSE)
+
+- it:
+
+  if aooMin=TRUE this determines the number of iterations it will run to
+  find aooMin (default=1296)
+
+- returnV:
+
+  switches to return different sets of results:  
+  S = simple returns a dataframe of results = (taxa ,Number of
+  points,EOO in km2, Simple AOO in km2,Minimum AOO, EOO category,
+  AOOcategory, Cellwidth, projection parameters)  
+  SF = simple features dataframe will all results, taxa in taxon field,
+  type=(EOO,AOO,points). NB all points will be projected together and
+  aooMin is ignored
+
+## Author
+
+Justin Moat. J.Moat@kew.org
+
+Steve Bachman
