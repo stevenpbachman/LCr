@@ -50,5 +50,4 @@ Depends:
 VignetteBuilder: knitr
 Remotes:
     matildabrown/rWCVP,
-    trafficonese/leaflet.extras,
-    gistin/rCAT2
+    trafficonese/leaflet.extras
