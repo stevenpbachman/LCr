@@ -20,6 +20,7 @@ guide.
 Load `LCr` and other relevant libraries:
 
 ``` r
+
 # install from github for first time use
 remotes::install_github("stevenpbachman/LCr")
 remotes::install_github("gistin/rCAT2")
@@ -50,6 +51,7 @@ Red Lists. You can also run the built-in LC test function
 `make_metrics`, see below.
 
 ``` r
+
 # dataframe of species you want to run through LCr
 lc_species <-
   data.frame(sp = c(
@@ -70,6 +72,7 @@ our list so we set the `match` parameter to ‘single’, but you can set
 this to ‘multiple’ if you wish to allow multiple matches.
 
 ``` r
+
 # get the GBIF and WCVP identification keys
 lc_keys <-
   get_name_keys(
@@ -83,6 +86,7 @@ lc_keys <-
 Let’s take a look at the output:
 
 ``` r
+
 glimpse(lc_keys)
 ```
 
@@ -103,6 +107,7 @@ LCr is designed to work at species level and where taxonomic status is
 accepted. The `clean_keys` will remove any problematic records.
 
 ``` r
+
 # remove any problematic records
 lc_keys_clean <- LCr::clean_keys(lc_keys)
 ```
@@ -121,6 +126,7 @@ for an explanation. You may need to restart R after updating the R
 environment.
 
 ``` r
+
 # get the raw GBIF occs - with timer
 start_time <- Sys.time()
 gbif_occs <- LCr::get_gbif_occs(lc_keys_clean)
@@ -135,6 +141,7 @@ We now need to extract native range information for our species from the
 World Checklist of Vascular Plants dataset.
 
 ``` r
+
 # get native ranges from WCVP- used for cleaning occs, and also for country list for SIS
 native_ranges <- LCr::get_native_range(keys = lc_keys_clean)
 ```
@@ -147,6 +154,7 @@ The output will be two objects, the flagged data and a summary of the
 flagged records.
 
 ``` r
+
 # run the occurrence quality checks
 # if you don't want to run native range cleaning check, just leave out native_ranges
 # you can also adjust the buffer to account for the coarse WGSRPD polygons.
@@ -164,6 +172,7 @@ create objects containing valid data (cleaned) and problem data (flagged
 as problematic). You can save these data for your records.
 
 ``` r
+
 # Clean using all available flags
 cleaned_result <- LCr::clean_occs(flagged_occs)
 
@@ -194,6 +203,7 @@ at least 2 of 3 remaining parameters (number of cleaned points, regions,
 recent records) must also be above the thresholds.
 
 ``` r
+
 # check EOO, AOO, number of records and number of recent records
 lc_test <- LCr::make_metrics(valid_data, keys = lc_keys_clean)
 ```
@@ -206,6 +216,7 @@ methods to estimate LC such as Bachman *et al*. (2024) can be used
 instead of this simple test.
 
 ``` r
+
 # filter on LC species
 lc_final <- lc_test %>% dplyr::filter(leastconcern == "TRUE")
 ```
@@ -225,6 +236,7 @@ You will also need to define some parameters for the point file and CSV
 files:
 
 ``` r
+
 # define parameters - the person who is assessing the species
 first_name <- "Steven"
 second_name <- "Bachman"
@@ -261,6 +273,7 @@ We can now run the `make_sis_csvs` function to automatically generate
 the CSV files.
 
 ``` r
+
 # get SIS files
 lc_sis_files <- LCr::make_sis_csvs(unique_id = lc_final$GBIF_usageKey,
                                    wcvp_ipni_id = lc_final$wcvp_ipni_id,
@@ -283,6 +296,7 @@ lc_sis_files <- LCr::make_sis_csvs(unique_id = lc_final$GBIF_usageKey,
 And finally, we zip them up ready to be sent to SIS Connect
 
 ``` r
+
 # final step - make the zip file
 make_zip(lc_sis_files)
 ```

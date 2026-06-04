@@ -11,6 +11,7 @@ The LCr and rCAT packages are not on CRAN, but can be installed via the
 github repository:
 
 ``` r
+
 # install from github for first time use
 remotes::install_github("stevenpbachman/LCr")
 remotes::install_github("gistin/rCAT2")
@@ -29,6 +30,7 @@ library(tidyr)
 ### Get name keys from a species list
 
 ``` r
+
 # dataframe of species you want to run through LCr
 lc_species <-
   data.frame(sp = c(
@@ -39,6 +41,7 @@ lc_species <-
 Run the `get_name_keys` function using your dataframe of names as input.
 
 ``` r
+
 # get the GBIF and WCVP identification keys
 lc_keys <-
   get_name_keys(
@@ -55,6 +58,7 @@ LCr is designed to work at species level and where taxonomic status is
 accepted. The `clean_keys` will remove any problematic records.
 
 ``` r
+
 # remove any problematic records
 lc_keys_clean <- LCr::clean_keys(lc_keys)
 ```
@@ -70,6 +74,7 @@ for an explanation. You may need to restart R after updating the R
 environment.
 
 ``` r
+
 # get the raw GBIF occs - with timer
 start_time <- Sys.time()
 gbif_occs <- LCr::get_gbif_occs(lc_keys_clean)
@@ -84,6 +89,7 @@ We now need to extract native range information for our species from the
 World Checklist of Vascular Plants dataset.
 
 ``` r
+
 # get native ranges from WCVP- used for cleaning occs, and also for country list for SIS
 native_ranges <- LCr::get_native_range(keys = lc_keys_clean)
 ```
@@ -91,6 +97,7 @@ native_ranges <- LCr::get_native_range(keys = lc_keys_clean)
 ### Data quality checks
 
 ``` r
+
 # run the occurrence quality checks
 # if you don't want to run native range cleaning check, just leave out native_ranges
 # you can also adjust the buffer to account for the coarse WGSRPD polygons.
@@ -108,6 +115,7 @@ We can now step through each species and map the occurrence data. We use
 the GBIF ID field to map species:
 
 ``` r
+
 # filter by species key
 spkey <- "5573640" # Crabbea acaulis
 sp <- flagged_occs %>% dplyr::filter(speciesKey == spkey)
@@ -139,23 +147,27 @@ to do this once.
 Some examples:
 
 ``` r
+
 # clean using the default options, but keep GBIF ID "6185525998" 
 cleaned_result <- clean_occs(flagged_occs, keep_gbifids = "6185525998")
 ```
 
 ``` r
+
 # keep multiple occurrences using GBIF IDs
 cleaned_result <- clean_occs(flagged_occs, keep_gbifids = c("6185525998", 
                                                             "3708204613"))
 ```
 
 ``` r
+
 # remove occurrences using GBIF IDs
 cleaned_result <- clean_occs(flagged_occs, 
                              remove_gbifids = "4606839903")
 ```
 
 ``` r
+
 # You can also combine both the `keep_gbifids` and `remove_gbifids` parameters
 cleaned_result <- clean_occs(flagged_occs, 
                              keep_gbifids = "6185525998",
@@ -166,6 +178,7 @@ At this stage you may want to save both the valid and problem data
 files.
 
 ``` r
+
 # Create objects for clean and problem records
 valid_data <- cleaned_result$clean_occs
 problem_data <- cleaned_result$problem_occs
@@ -183,6 +196,7 @@ single map with the saveWidget function or use `map_species_batch` to
 process and save maps for all species in a file
 
 ``` r
+
 # save a single map
 saveWidget(single_map, 
            file = "my_species_occs.html", 
@@ -190,6 +204,7 @@ saveWidget(single_map,
 ```
 
 ``` r
+
 # batch save maps
 map_species_batch(flagged_occs, species_range = native_ranges, 
                   show_flags = TRUE, save_map = TRUE)

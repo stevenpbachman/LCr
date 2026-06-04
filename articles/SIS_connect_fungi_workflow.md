@@ -10,6 +10,7 @@ The `LCr` and `rCAT` packages are not on CRAN, but can be installed via
 the github repository:
 
 ``` r
+
 # install LCr and rCAT2 from github
 remotes::install_github("stevenpbachman/LCr")
 remotes::install_github("gistin/rCAT2")
@@ -25,6 +26,7 @@ library(rCAT)
 Start by providing a dataframe with your taxon list.
 
 ``` r
+
 # dataframe of species you want to run through LCr
 lc_species <-
   data.frame(sp = c(
@@ -48,6 +50,7 @@ confidence, but you can also set this to fuzzy match using
 `match = "any"`, which may provide multiple matches.
 
 ``` r
+
 # get the GBIF identification key
 lc_keys <-
   LCr::get_name_keys(
@@ -61,6 +64,7 @@ lc_keys <-
 Let’s take a look at the output:
 
 ``` r
+
 dplyr::glimpse(lc_keys)
 ```
 
@@ -71,6 +75,7 @@ accepted. In this case, all names matched the GBIF backbone and were
 accepted, but we can run `clean_keys` anyway.
 
 ``` r
+
 # remove any problematic records
 lc_keys_clean <- LCr::clean_keys(lc_keys)
 ```
@@ -89,6 +94,7 @@ for an explanation. You may need to restart R after updating the R
 environment.
 
 ``` r
+
 # get the raw GBIF occs - with timer
 start_time <- Sys.time()
 gbif_occs <- LCr::get_gbif_occs(lc_keys_clean)
@@ -107,6 +113,7 @@ function. The output will be two objects, the flagged data and a summary
 of the flagged records.
 
 ``` r
+
 # run the occurrence quality checks
 checked_occs <- LCr::check_occs(gbif_occs$points)
 
@@ -121,6 +128,7 @@ create objects containing valid data (cleaned) and problem data (flagged
 as problematic). You can save these data for your records.
 
 ``` r
+
 # Clean using all available flags
 cleaned_result <- LCr::clean_occs(flagged_occs)
 
@@ -151,6 +159,7 @@ at least 2 of 3 remaining parameters (number of cleaned points, regions,
 recent records) must also be above the thresholds.
 
 ``` r
+
 # check EOO, AOO, number of records and number of recent records
 lc_test <- LCr::make_metrics(valid_data, keys = lc_keys_clean)
 ```
@@ -163,6 +172,7 @@ methods to estimate LC such as Bachman *et al*. (2024) can be used
 instead of this simple test.
 
 ``` r
+
 # filter on LC species
 lc_final <- lc_test %>% dplyr::filter(leastconcern == "TRUE")
 ```
@@ -182,6 +192,7 @@ You will also need to define some parameters for the point file and CSV
 files:
 
 ``` r
+
 # define parameters - the person who is assessing the species
 first_name <- "Steven"
 second_name <- "Bachman"
@@ -226,6 +237,7 @@ this as the basis for making the list of IUCN land regions as used in
 the countries.csv file.
 
 ``` r
+
 # get WGSRPD regions based on points
 native_ranges <- get_occs_range(sis_point_file)
 
@@ -249,6 +261,7 @@ lc_sis_files <- LCr::make_sis_csvs(unique_id = lc_final$GBIF_usageKey,
 And finally, we zip them up ready to be sent to SIS Connect
 
 ``` r
+
 # final step - make the zip file
 make_zip(lc_sis_files)
 ```

@@ -19,6 +19,7 @@ Not yet on [CRAN](https://CRAN.R-project.org), but you can install the
 development version from [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("stevenpbachman/LCr")
 ```
@@ -41,6 +42,7 @@ workflow](https://stevenpbachman.github.io/LCr/articles/SIS_connect_fungi_workfl
 ### Example
 
 ``` r
+
 library(LCr)
 
 # create a species list
@@ -91,4 +93,12 @@ lc_sis_files <- LCr::make_sis_csvs(unique_id = sp_keys$GBIF_usageKey,
 
 # make the ZIP file to send to IUCN SIS Connect
 make_zip(lc_sis_files)
+```
+
+### Citation
+
+To cite `LCr` please run:
+
+``` R
+citation("LCr")
 ```

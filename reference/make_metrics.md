@@ -57,3 +57,8 @@ make_metrics(
 ## Value
 
 Returns a dataframe with species level metrics
+
+## Details
+
+Requires rCAT to be installed:
+\`remotes::install_github("gistin/rCAT2")\`
