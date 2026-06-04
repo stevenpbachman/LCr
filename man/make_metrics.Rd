@@ -40,7 +40,3 @@ Returns a dataframe with species level metrics
 \description{
 Generate metrics from a clean point occurrence file
 }
-\details{
-Requires rCAT to be installed:
-  `remotes::install_github("gistin/rCAT2")`
-}

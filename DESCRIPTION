@@ -22,6 +22,7 @@ Imports:
     cli,
     CoordinateCleaner (>= 3.0.1),
     dplyr,
+    emstreeR,
     glue,
     here,
     htmlwidgets,
@@ -30,6 +31,7 @@ Imports:
     leaflet,
     leaflet.extras,
     magrittr,
+    pracma,
     purrr,
     rgbif,
     rWCVP,
@@ -42,8 +44,7 @@ Suggests:
     knitr,
     remotes,
     rmarkdown,
-    testthat (>= 3.0.0),
-    rCAT
+    testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Depends: 
     R (>= 3.5)
