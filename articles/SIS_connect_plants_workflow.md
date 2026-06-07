@@ -23,7 +23,6 @@ Load `LCr` and other relevant libraries:
 
 # install from github for first time use
 remotes::install_github("stevenpbachman/LCr")
-remotes::install_github("gistin/rCAT2")
 remotes::install_github('matildabrown/rWCVPdata')
 
 # load libraries
