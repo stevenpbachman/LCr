@@ -508,6 +508,8 @@ globalVariables(c(
 #' Combines the main of routines in rCAT to process multiple species for AOO, EOO etc.
 #' @author Justin Moat. J.Moat@kew.org
 #' @author Steve Bachman
+#' @keywords internal
+#' @noRd
 #' @param taxa field which defines a list of species or taxa
 #' @param lat field which defines the latitude set of points
 #' @param long field which defines the longitude set of points
@@ -625,6 +627,8 @@ l_c_intercepts <- function(midp,edgepoint,R){
 #' @param x East to West coordinate in metres
 #' @param y South to North coordinate in metres
 #' @param crs coordinate reference system
+#' @keywords internal
+#' @noRd
 constructPolygon <- function(x, y, crs){
   points <- cbind(x, y)
 
@@ -654,6 +658,8 @@ constructPolygon <- function(x, y, crs){
 #' @description
 #' Calculates the Extent of Occurrence in km2 or returns a simple feature polygon from a set of points (x,y)
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param points dataframe of points in metres i.e. c(x,y)
 #' @param returnV switch to return different sets of results: \cr
 #' S = Simple, returns just the minimum area in km2, (DEFAULT) \cr
@@ -703,6 +709,8 @@ eoo <- function(points, returnV="S") {
 #' @description
 #' Calculates IUCN rating based on Extent of Occurrence (EOO) Area in km2
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param EOOArea Area in km2
 #' @param abb abbreviation TRUE or FALSE , TRUE = 2 letter code, FALSE = full text (see value), default = TRUE
 #' @return Text
@@ -752,6 +760,8 @@ ratingEoo <- ratingEoo
 #' @description
 #' Calculates IUCN rating based on Area of occupancy (AOO) in km2
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param AOOArea Area in km2
 #' @param abb abbreviation TRUE or FALSE , TRUE = 2 letter code, FALSE = full text (default = TRUE)
 #' @return Text one of CR, EN, VU, NT, LC or Critically Endangered, Endangered, Vulnerable, Near Threatened, Least Concern
@@ -774,6 +784,8 @@ ratingAoo <- ratingAoo
 #' @description
 #' Calculates IUCN rating based on based on population reduction as a percentage
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param pReduction reduction as a percentage
 #' @param subCr sub Criteria category: 1 or 2 or 3 or 4 (2 default)
 #' @param abb abbreviation TRUE or FALSE , TRUE = 2 letter code, FALSE = full text (see value), default = TRUE
@@ -844,6 +856,8 @@ ratingPop <- function(pReduction,subCr=2,abb=TRUE){
 #' Data is expected as lat long in decimal degrees and returned in metres.
 #' Input data is checked to make sure it’s sensible before projection (i.e. lat and longs on the earth no null or NA values)
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints set of points as a dataframe with latitude and longitude
 #' @param thecentre one point i.e. c(lat,long), if not specified this will be calculated from the center of gravity of all points
 #' @param returnV switches to return either  dataframe (x,y) or simple feature of points  \cr
@@ -886,6 +900,8 @@ simProjWiz <- function(thepoints,thecentre,returnV="S"){
 #' @description
 #' Calculates the "true" centre of gravity (weighted) from a set of lat longs, using cartesian geometry. Used as part of the projection wizard.
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints set of points c(lat,long)
 #' @return a point (lat,long) from centre
 trueCOGll <-function(thepoints){
@@ -906,6 +922,8 @@ trueCOGll <-function(thepoints){
 #' @description
 #' Calculates the Cartesian coordinates (x,y,z) from lat long in radians. Used as part of the projection wizard.
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param latr latitude point in radians
 #' @param longr longtitude point in radians
 #' @return dataframe of x,y,z
@@ -923,6 +941,8 @@ ll2cart <- function(latr,longr){
 #' @description
 #' calculates the latitude and longitude cordinates in radians from Cartesian coordinates (x,y,z). Used as part of the projection wizard.
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param x East to West coordinate in metres
 #' @param y South to North coordinate in metres
 #' @param z height coordinate in metres
@@ -943,6 +963,8 @@ cart2ll <-function (x,y,z){
 #' Used as part of the projection wizard, calculates Cartesian (x,y,z), projected from the centre of the sphere to the earth surface, returns cartesian coordinates (x,y,z)
 #'
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @note
 #' http://stackoverflow.com/questions/9604132/how-to-project-a-point-on-to-a-sphere
 #'
@@ -965,6 +987,8 @@ pro2sph <- function (x,y,z){
 #' @description
 #' Calculates degrees from radians
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param rad number in radians
 #' @return number
 rad2deg <- function(rad) {(rad * 180) / (pi)}
@@ -976,6 +1000,8 @@ rad2deg <- function(rad) {(rad * 180) / (pi)}
 #' @description
 #' Calculates radians from degrees
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param deg number in degrees
 #' @return number
 deg2rad <- function(deg) {(deg * pi) / (180)}
@@ -988,6 +1014,8 @@ deg2rad <- function(deg) {(deg * pi) / (180)}
 #' @description
 #' Checked the dataframe for NA, latitude below -90 or above 90, longitude below -180 and above 180, also warns if it finds whole numbers or 0
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints set of points as a dataframe with latitude and longitude
 #' @return nothing or warning or error
 llCheck <- function(thepoints){
@@ -1023,6 +1051,8 @@ llCheck <- function(thepoints){
 #' This is used for the  tree and branch building part of Rapoport's (1982) mean propinquity method.
 #'
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints dataframe of points in metres i.e. c(X,Y)
 #' @return Simple feature of linestring, with a df of X1,Y1,X2,Y2,distance and geom. N.B. X1,Y1 & and X2 Y2 are the to and from points
 #' @import sf
@@ -1067,6 +1097,8 @@ eMST <- function (thepoints){
 #' Please cite below if using this algorithm:
 #' Moat, J., Bachman, S. P., Field, R., & Boyd, D. S. (2018). Refining area of occupancy to address the modifiable areal unit problem in ecology and conservation. Conservation biology, 32(6), 1278-1289.
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints dataframe of points in metres i.e. c(x,y)
 #' @param cellsize width of cell in metres (default 2000 m)
 #' @param returnV, switches to return different sets of results:
@@ -1130,6 +1162,8 @@ aooFixedGrid <- function(thepoints,cellsize=2000,returnV="S"){
 #' Please cite below if using this algorithm:
 #' Moat, J., Bachman, S. P., Field, R., & Boyd, D. S. (2018). Refining area of occupancy to address the modifiable areal unit problem in ecology and conservation. Conservation biology, 32(6), 1278-1289.
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints dataframe of points in metres i.e. c(x,y)
 #' @param it the number of iterations you wish it to run, (default 1296)
 #' @param cellsize width of cell in metres (default 2000 m)
@@ -1208,6 +1242,8 @@ aooFixedRotation <- function(thepoints,cellsize=2000,it=1296,returnV="S",rotatio
 #' Calculates the number area the of occupied cells for (Area of Occupancy AOO) from a set of points (x,y), projected into metres, with origin 0,0.
 #' Please cite: Moat, J., Bachman, S. P., Field, R., & Boyd, D. S. (2018). Refining area of occupancy to address the modifiable areal unit problem in ecology and conservation. Conservation biology, 32(6), 1278-1289. if using this algorithm:
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints set of points in metres i.e. c(x,y)
 #' @param cellsize size of cell (length) in metres
 #' @param returnV, switches to return different sets of results: \cr
@@ -1255,6 +1291,8 @@ AOOsimp <- aoo
 #' On a very few occasions the minimum solution will not always be achieved but it is quick and consistent (not driven by the number of points).
 #' If your species is near a threshold you may want to increase the number of iterations.
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints dataframe of points in metres i.e. c(x,y)
 #' @param it the number of iterations you wish it to run, (default 1296)
 #' @param cellsize width of cell in metres (default 2000 m)
@@ -1334,6 +1372,8 @@ rotatePm <- function(thepoints, angle){
 #' Please cite below if using this algorithm:
 #' Moat, J., Bachman, S. P., Field, R., & Boyd, D. S. (2018). Refining area of occupancy to address the modifiable areal unit problem in ecology and conservation. Conservation biology, 32(6), 1278-1289.
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints dataframe of points in metres i.e. c(x,y)
 #' @param cellsize width of cell in metres (default 2000 m)
 #' @param returnV, switches to return different sets of results:  \cr \cr
@@ -1397,6 +1437,8 @@ aooFixedGrido <- function(thepoints,cellsize=2000,returnV="S"){
 #' Builds cell polygons (as simple features) from points and rotation, shift in X and y returns polygons for ggplot2 and mapping.
 #' Generally used to plot data from AOO calculations.
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints set of points in metres i.e. c(x,y)
 #' @param cellsize size of cell (length) in metres
 #' @param rot rotation of the grid in radian
@@ -1422,6 +1464,8 @@ buildCellPolys_rxy<- function(thepoints,cellsize,rot,shiftx,shifty){
 #' Rotates a set of point by an angle in radians. Used as part of the AOO rotation calculations.
 #'
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints set of points in metres i.e. c(x,y)
 #' @param angle in radians
 #' @return dataframe of points
@@ -1474,6 +1518,8 @@ buildCells <- function (llcorners, cellsize, rot=0, shiftx=0, shifty=0, crs=""){
 #' @description
 #' Calculates the longest distances from a set of points
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @note Useful as a scale for cellsize and location buffers, Willis et al 2003 suggest 1/10 of this for cellsize for AOO calculations as does Rivers et al (2010) for buffer distance for sub-population or location calculations.
 #' @param thepoints dataframe of points of x,y
 #' @param returnV, two switches either S for simply the distance or P for a dataframe of the two furthest points
@@ -1502,6 +1548,8 @@ longestAxis <- function (thepoints,returnV='S'){
 #' @description
 #' Calculates the minimum enclosing rectangle (mer) from a set of points (x,y)
 #' @author Justin Moat. J.Moat@kew.org
+#' @keywords internal
+#' @noRd
 #' @param thepoints dataframe of points ie c(x,y)
 #' @return vector of 4 doubles = xmin,xmax,ymin,ymax
 mer <- function(thepoints){
