@@ -73,7 +73,7 @@ Note that we will use the `rGBIF` package to obtain the occurrence data. You wil
 ```{r eval=FALSE, include=TRUE}
 # get the raw GBIF occs - with timer
 start_time <- Sys.time()
-gbif_occs <- LCr::get_gbif_occs(lc_keys_clean)
+gbif_occs <- LCr::get_gbif_occs(lc_keys_clean, mode = "search")
 end_time <- Sys.time()
 check <-  end_time - start_time
 print(check)

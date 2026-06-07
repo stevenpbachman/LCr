@@ -83,10 +83,12 @@ Now with a clean set of names and identification keys we can query GBIF to obtai
 
 Note that we will use the `rGBIF` package to obtain the occurrence data. You will need to set up your GBIF credentials to obtain the downloads. After you have set up an account at [GBIF](https://www.gbif.org/) you need to register your credentials in the R environment - see this [post](https://docs.ropensci.org/rgbif/articles/gbif_credentials.html) for an explanation. You may need to restart R after updating the R environment.
 
+The `get_gbif_occs` function has two modes - search or download. Search mode uses `rgbif::occ_search` and provides a fast, exploratory search. Use the download mode when you want to generate a citable DOI for your assesment, accessed via`gbif_occs$citation`.
+
 ```{r eval=FALSE, include=TRUE}
 # get the raw GBIF occs - with timer
 start_time <- Sys.time()
-gbif_occs <- LCr::get_gbif_occs(lc_keys_clean)
+gbif_occs <- LCr::get_gbif_occs(lc_keys_clean, mode = "search")
 end_time <- Sys.time()
 check <-  end_time - start_time
 print(check)

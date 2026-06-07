@@ -2,20 +2,27 @@
 % Please edit documentation in R/get_gbif_occs.R
 \name{get_gbif_occs}
 \alias{get_gbif_occs}
-\title{Download georeferenced occurrence data using GBIF name identifier}
+\title{Download or search georeferenced occurrence data using GBIF name identifier}
 \usage{
-get_gbif_occs(keys_df)
+get_gbif_occs(keys_df, mode = "search")
 }
 \arguments{
 \item{keys_df}{(data frame) Derived from [`get_name_keys()`] function. Must include at least GBIF_usageKey to obtain GBIF occurrences}
+
+\item{mode}{(character) Either \code{"search"} for a quick exploratory search
+or \code{"download"} for a full citable download. Default is \code{"search"}.}
 }
 \value{
-(list) 'Points' = the downloaded GBIF points, 'Citation' = the GBIF citation to be used in references
+(list) 'points' = the GBIF occurrence points, 'citation' = the GBIF
+  citation (only available in \code{"download"} mode, \code{NULL} in search mode)
 }
 \description{
-Download georeferenced occurrence data using GBIF name identifier
+Download or search georeferenced occurrence data using GBIF name identifier
 }
 \details{
-Initiates an occurrence download in DWCA format using [rgbif::occ_download()]. If `keys_df`contains multiple GBIF_usageKey values, they will be
-combined in a single output file.
+In \code{"download"} mode, initiates a full occurrence download in DWCA
+  format using [rgbif::occ_download()], which generates a citable DOI.
+  In \code{"search"} mode, uses [rgbif::occ_search()] for a faster exploratory
+  search without DOI generation. Search mode is recommended for initial data
+  exploration; use download mode for final assessments.
 }
