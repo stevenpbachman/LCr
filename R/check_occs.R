@@ -164,11 +164,27 @@ check_occs <- function(gbif_occs,
       sf::st_join(tdwg_level3_projected %>%
                     sf::st_buffer(dist = buffer))
 
+    # deduplicate keeping native matches where possible
+    valid_coords_tdwg <- valid_coords_tdwg %>%
+      sf::st_drop_geometry() %>%
+      dplyr::group_by(gbifID) %>%
+      dplyr::arrange(
+        # prioritise rows where region is in native ranges
+        !LEVEL3_COD %in% native_ranges$LEVEL3_COD
+      ) %>%
+      dplyr::slice(1) %>%
+      dplyr::ungroup()
+
+    # valid_coords_tdwg <- valid_coords_tdwg %>%
+    #   dplyr::filter(gbifID == "1135335743")
+
     # Extract the ID column for matching
     id_col <- if ("gbifID" %in% colnames(checked_occs))
       "gbifID"
     else
       ".row_id"
+
+    #valid_coords_tdwg_df <- sf::st_drop_geometry(valid_coords_tdwg)
 
     # Set up progress bar
     cli::cli_progress_bar(
@@ -178,6 +194,7 @@ check_occs <- function(gbif_occs,
     )
 
     for (i in seq_len(nrow(valid_coords_tdwg))) {
+      #if (i <= 100) browser()
       row_id <- which(checked_occs[[id_col]] == valid_coords_tdwg[[id_col]][i])
 
       if (length(row_id) > 0) {

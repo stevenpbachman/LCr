@@ -26,9 +26,12 @@ get_gbif_occs <- function(keys_df) {
 
   the_points$gbifID <- as.character(bit64::as.integer64(the_points$gbifID))
 
+  # careful with this join. It was previously spkey, but sometimes
+  # we want to overide the GBIF id because we disagree with their taxonomic
+  # status. So using taxonkey means you get occs from the taxon name you matched.
   the_points <- dplyr::left_join(the_points,
                        keys_df,
-                       by = c("speciesKey" = "GBIF_usageKey"))
+                       by = c("taxonKey" = "GBIF_usageKey"))
 
 
   meta <- rgbif::occ_download_meta(gbif_download) # get meta data to get the citation data

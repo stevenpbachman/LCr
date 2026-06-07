@@ -370,7 +370,7 @@ make_eoo_aoo <- function(occs) {
 # global variables ####
 globalVariables(c(
   # check_occs.R
-  "flag_no_coords",
+  #"flag_no_coords",
   "LEVEL3_COD",
   # utils.R
   "bracketauthorship",
@@ -381,35 +381,31 @@ globalVariables(c(
   "GBIF_status",
   "GBIF_rank",
   "searchName",
-  "n",
+  #"n",
   # clean_occs.R
-  "flag_cc_capitals",
-  "flag_cc_centroids",
-  "flag_cc_institutions",
-  "flag_cc_equal",
-  "flag_cc_gbif",
-  "flag_cc_zeros",
-  "flag_cc_urb",
-  "flag_high_uncertainty",
-  "flag_outside_native",
-  "flag_manual_gbifid",
-  "manual_removal_reason",
-  "flag_manual_keep",
-  "is_problematic",
-  "GBIF_usageKey",
+  #"flag_cc_capitals",
+  #"flag_cc_centroids",
+  #"flag_cc_institutions",
+  #"flag_cc_equal",
+  #"flag_cc_gbif",
+  #"flag_cc_zeros",
+  #"flag_cc_urb",
+  #"flag_high_uncertainty",
+  #"flag_outside_native",
+  #"flag_manual_gbifid",
+  #"manual_removal_reason",
+  #"flag_manual_keep",
+  #"is_problematic",
   # get_name_keys.R
   "GBIF_usageKey",
   #get_occs_range.R
   "sci_name",
   #make_biorealms
   "TDWG_realms",
-  "internal_taxon_id",
   "REALM",
   #make_elevation
-  "internal_taxon_id",
   "min_elev",
   #make_eoo_aoo
-  "internal_taxon_id",
   "EOOkm2",
   "AOOkm",
   #make_metrics
@@ -417,8 +413,7 @@ globalVariables(c(
   "proj_metadata",
   "EOOcat",
   "AOOcat",
-  "internal_taxon_id",
-  "speciesKey",
+  "taxonKey",
   "recent",
   "WGSRPD_count",
   "recent_records",
@@ -448,7 +443,7 @@ globalVariables(c(
   "basisOfRecord",
   "elevation",
   "catalogNumber",
-  "speciesKey",
+  "taxonKey",
   "gbifID",
   "basisofrec",
   "dec_lat",
@@ -456,8 +451,7 @@ globalVariables(c(
   # make_zip
   "sis_files",
   # map_species_batch
-  "speciesKey",
-  "internal_taxon_id",
+  "taxonKey",
   #map_species_single
   "decimalLatitude",
   "decimalLongitude",
@@ -467,7 +461,7 @@ globalVariables(c(
   "editToolbarOptions",
   "selectedPathOptions",
   "pathOptions",
-  ".data",
+  #".data",
   "species_list",
   "count",
   "gbif_ids",
@@ -482,7 +476,6 @@ globalVariables(c(
   "tdwgCode",
   "LEVEL3_NAM",
   #powo_text
-  "internal_taxon_id",
   #reorder_status
   "status",
   #search_name_gbif
@@ -494,7 +487,6 @@ globalVariables(c(
   "BiogeographicRealm.realm.y",
   "BiogeographicRealm.realm.x",
   #sis_countries
-  "internal_taxon_id",
   "tdwg2iucn",
   "countryoccurrence.countryoccurrencesubfield.countryoccurrencename",
   "CountryOccurrence.CountryOccurrenceSubfield.presence",

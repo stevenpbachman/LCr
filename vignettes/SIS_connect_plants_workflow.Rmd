@@ -74,7 +74,7 @@ We now have some useful fields to help us find more data for these species. The 
 
 ### Clean keys
 
-LCr is designed to work at species level and where taxonomic status is accepted. The `clean_keys` will remove any problematic records.
+LCr is designed to work at species level and where taxonomic status is accepted. The `clean_keys` will remove any problematic records i.e. where a name was not at species level, or either of the name sources (GBIF, WCVP) does not treat the name as accepted. In some cases you may want to override the results, for example if GBIF treats a name as a synonym, but WCVP treats it as accepted you can set the parameter `override_gbif_status = TRUE` and `clean_keys` will treat the GBIF name as accepted at species level. Similarly, set `override_wcvp_status = TRUE` if you want to do the same for WCVP. However, note that using a WCVP name that is not accepted will cause problems with the workflow downstream e.g. native ranges and other information from WCVP are only available for accepted species.
 
 ```{r eval=FALSE, include=TRUE}
 # remove any problematic records
@@ -140,11 +140,11 @@ write.csv(problem_data, file = "problem_occs.csv", row.names = FALSE)
 
 Now we have a clean dataset that is ready for the Least Concern test. Depending on the data available, either 4 or 5 metrics (Number of WGSRPD regions for plants only) are generated and checked against the following default thresholds:
 
--   Extent of occurrence (EOO) \> 30000
--   Area of occupancy \> 3000
--   Number of cleaned records\>75
--   Number of WGSRPD regions \>5
--   Number of recent (\<30 years) occurrence records \>50
+-   Number of cleaned records (NOP) \>75
+-   Extent of occurrence (EOOkm2) \> 30000
+-   Area of occupancy (AOOkm) \> 3000
+-   Number of WGSRPD regions (WGSRPD_count) \>5
+-   Number of recent (\<30 years) occurrence records (recent_records) \>50
 
 The core parameters (EOO and AOO) must both be above the thresholds and at least 2 of 3 remaining parameters (number of cleaned points, regions, recent records) must also be above the thresholds.
 
@@ -177,7 +177,7 @@ institution = "Royal Botanic Gardens, Kew"
 
 # filter the valid occurrence data on the LC species
 valid_data_LC <- valid_data %>%
-  filter(speciesKey %in% lc_final$GBIF_usageKey)
+  filter(taxonKey %in% lc_final$GBIF_usageKey)
 
 # generate the point file
 sis_point_file <- LCr::make_sis_occs(valid_data_LC,

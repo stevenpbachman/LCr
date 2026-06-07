@@ -12,16 +12,16 @@
 map_species_batch <- function(data, species_range = NULL, show_flags = TRUE, save_map = TRUE) {
 
   # Get unique species keys
-  species_keys <- unique(data$speciesKey)
+  species_keys <- unique(data$taxonKey)
 
   # Internal helper function to generate and optionally save a map
   make_map <- function(spkey) {
     # Filter species data
-    sp_filtered <- data %>% dplyr::filter(speciesKey == spkey)
+    sp_filtered <- data %>% dplyr::filter(taxonKey  == spkey)
     sp_range_filtered <- species_range %>% dplyr::filter(internal_taxon_id == spkey)
 
-    # Extract canonical name (assumes one per speciesKey)
-    species_name <- unique(sp_filtered$canonicalname)
+    # Extract canonical name (assumes one per taxonKey)
+    species_name <- unique(sp_filtered$searchName)
 
     # Create map
     map <- map_species_single(sp_filtered, species_range = sp_range_filtered, show_flags = show_flags)

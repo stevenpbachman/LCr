@@ -34,7 +34,7 @@ make_metrics <- function(occs,
 
   # Step 2: Get EOO, AOO, and number of points (NOP)
   suppressMessages(invisible(capture.output({
-    resultsdf <- batchCon(occs$speciesKey,
+    resultsdf <- batchCon(occs$taxonKey,
                                 occs$decimalLongitude,
                                 occs$decimalLatitude,
                                 cellsize = 10000)
@@ -61,11 +61,11 @@ make_metrics <- function(occs,
 
   # Step 5: Add recent records count
   recent_counts <- occs %>%
-    dplyr::group_by(speciesKey) %>%
+    dplyr::group_by(taxonKey) %>%
     dplyr::summarize(recent_records = sum(recent, na.rm = TRUE), .groups = "drop")
 
   resultsdf <- resultsdf %>%
-    dplyr::left_join(recent_counts, by = c("taxon" = "speciesKey"))
+    dplyr::left_join(recent_counts, by = c("taxon" = "taxonKey"))
 
   # Step 6: Fill NAs with 0 for safe comparison
   resultsdf <- resultsdf %>%

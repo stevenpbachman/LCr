@@ -5,6 +5,10 @@
 #' @param keys data frame of GBIF and/or WCVP identifier keys, as produced by
 #'   \code{get_name_keys()}. Must have a \code{sources} attribute indicating
 #'   which sources are present (e.g. \code{"GBIF"}, \code{"WCVP"}, or both).
+#' @param override_gbif_status if TRUE it will ignore the check on taxonomic
+#'  status as returned by GBIF i.e. SYNONYMS will be allowed.
+#' @param override_wcvp_status if TRUE it will ignore the check on taxonomic
+#'  status as returned by WCVP
 #' @return Returns a data frame with cleaned keys, retaining only records that
 #'   are accepted and at species rank in all present sources.
 #' @export
@@ -13,7 +17,9 @@
 #'   WCVP data are present in \code{keys} (i.e. \code{"WCVP"} appears in the
 #'   \code{sources} attribute). Duplicate records are reported but not removed.
 
-clean_keys <- function(keys) {
+clean_keys <- function(keys,
+                       override_gbif_status = FALSE,
+                       override_wcvp_status = FALSE) {
 
   sources <- attr(keys, "sources")
   if (is.null(sources)) {
@@ -29,18 +35,26 @@ clean_keys <- function(keys) {
 
   # --- WCVP filtering (only when WCVP data are present) ---
   if ("WCVP" %in% sources) {
-    cleaned_keys <- cleaned_keys %>%
-      dplyr::filter(wcvp_status == "Accepted", wcvp_rank == "Species")
-  } else {
-    cli::cli_inform("No WCVP data detected - skipping WCVP filtering.")
+    if (override_wcvp_status) {
+      cli::cli_alert_warning("Overriding WCVP status filter - retaining all WCVP ranks and statuses at species level.")
+      cleaned_keys <- cleaned_keys %>%
+        dplyr::filter(wcvp_rank == "Species")
+    } else {
+      cleaned_keys <- cleaned_keys %>%
+        dplyr::filter(wcvp_status == "Accepted", wcvp_rank == "Species")
+    }
   }
 
   # --- GBIF filtering (only when GBIF data are present) ---
   if ("GBIF" %in% sources) {
-    cleaned_keys <- cleaned_keys %>%
-      dplyr::filter(GBIF_status == "ACCEPTED", GBIF_rank == "SPECIES")
-  } else {
-    cli::cli_inform("No GBIF data detected - skipping GBIF filtering.")
+    if (override_gbif_status) {
+      cli::cli_alert_warning("Overriding GBIF status filter - retaining all GBIF statuses at species level.")
+      cleaned_keys <- cleaned_keys %>%
+        dplyr::filter(GBIF_rank == "SPECIES")
+    } else {
+      cleaned_keys <- cleaned_keys %>%
+        dplyr::filter(GBIF_status == "ACCEPTED", GBIF_rank == "SPECIES")
+    }
   }
 
   cli::cli_alert_success("Cleaning complete. {nrow(cleaned_keys)} record{?s} retained.")

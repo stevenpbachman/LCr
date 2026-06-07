@@ -30,7 +30,7 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
                               basisOfRecord,
                               elevation,
                               catalogNumber,
-                              speciesKey,
+                              taxonKey,
                               gbifID
   )
 
@@ -49,7 +49,7 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
   )
 
   sis_points <- dplyr::mutate(sis_points,
-                              internal_taxon_id = speciesKey,
+                              internal_taxon_id = taxonKey,
                               source = paste0("https://www.gbif.org/occurrence/", gbifID),
                               yrcompiled = format(Sys.Date(), "%Y"),
                               citation = institution,
@@ -79,7 +79,7 @@ make_sis_occs <- function(occs_clean, first_name = "", second_name = "", institu
                               longitude = dec_long
   )
 
-  sis_points <- dplyr::select(sis_points, -speciesKey,-gbifID)
+  sis_points <- dplyr::select(sis_points, -taxonKey,-gbifID)
 
   # Validate final basisofrec values
   validate_basisofrec(sis_points)
@@ -110,7 +110,7 @@ validate_sis_inputs <- function(occs_clean, first_name, second_name, institution
   required_cols <- c("species", "recordedBy", "recordNumber", "day", "month", "year",
                      "decimalLatitude", "decimalLongitude", "locality",
                      "coordinateUncertaintyInMeters", "habitat", "basisOfRecord",
-                     "elevation", "catalogNumber", "speciesKey", "gbifID")
+                     "elevation", "catalogNumber", "taxonKey", "gbifID")
 
   missing_cols <- setdiff(required_cols, names(occs_clean))
   if (length(missing_cols) > 0) {

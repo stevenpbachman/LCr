@@ -4,12 +4,18 @@
 \alias{clean_keys}
 \title{Clean a keys output to ensure only accepted species from GBIF and/or WCVP are being analysed}
 \usage{
-clean_keys(keys)
+clean_keys(keys, override_gbif_status = FALSE, override_wcvp_status = FALSE)
 }
 \arguments{
 \item{keys}{data frame of GBIF and/or WCVP identifier keys, as produced by
 \code{get_name_keys()}. Must have a \code{sources} attribute indicating
 which sources are present (e.g. \code{"GBIF"}, \code{"WCVP"}, or both).}
+
+\item{override_gbif_status}{if TRUE it will ignore the check on taxonomic
+status as returned by GBIF i.e. SYNONYMS will be allowed.}
+
+\item{override_wcvp_status}{if TRUE it will ignore the check on taxonomic
+status as returned by WCVP}
 }
 \value{
 Returns a data frame with cleaned keys, retaining only records that

@@ -9,7 +9,7 @@
 
 map_species_single <- function(data, species_range = NULL, show_flags = TRUE) {
 
-  species_name <- data$canonicalname[1]
+  species_name <- data$searchName[1]
 
   # Remove any rows with NA coordinates
   species_data <- data %>%
