@@ -92,11 +92,18 @@ need to register your credentials in the R environment - see this
 for an explanation. You may need to restart R after updating the R
 environment.
 
+The `get_gbif_occs` function has two modes - search or download. Search
+mode uses
+[`rgbif::occ_search`](https://docs.ropensci.org/rgbif/reference/occ_search.html)
+and provides a fast, exploratory search. Use the download mode when you
+want to generate a citable DOI for your assesment, accessed
+via`gbif_occs$citation`.
+
 ``` r
 
 # get the raw GBIF occs - with timer
 start_time <- Sys.time()
-gbif_occs <- LCr::get_gbif_occs(lc_keys_clean)
+gbif_occs <- LCr::get_gbif_occs(lc_keys_clean, mode = "search")
 end_time <- Sys.time()
 check <-  end_time - start_time
 print(check)

@@ -134,7 +134,7 @@ environment.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get the raw GBIF occs - with timer</span></span>
 <span><span class="va">start_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">gbif_occs</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/get_gbif_occs.html">get_gbif_occs</a></span><span class="op">(</span><span class="va">lc_keys_clean</span><span class="op">)</span></span>
+<span><span class="va">gbif_occs</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/get_gbif_occs.html">get_gbif_occs</a></span><span class="op">(</span><span class="va">lc_keys_clean</span>, mode <span class="op">=</span> <span class="st">"search"</span><span class="op">)</span></span>
 <span><span class="va">end_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">check</span> <span class="op">&lt;-</span>  <span class="va">end_time</span> <span class="op">-</span> <span class="va">start_time</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">check</span><span class="op">)</span></span></code></pre></div>

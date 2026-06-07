@@ -76,7 +76,7 @@ environment.
 
 # get the raw GBIF occs - with timer
 start_time <- Sys.time()
-gbif_occs <- LCr::get_gbif_occs(lc_keys_clean)
+gbif_occs <- LCr::get_gbif_occs(lc_keys_clean, mode = "search")
 end_time <- Sys.time()
 check <-  end_time - start_time
 print(check)

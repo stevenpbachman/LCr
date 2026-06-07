@@ -147,7 +147,8 @@ citation("LCr")
 - [`eoo()`](https://stevenpbachman.github.io/LCr/reference/eoo.md) :
   Extent of Occurrence (EOO) Area
 - [`get_gbif_occs()`](https://stevenpbachman.github.io/LCr/reference/get_gbif_occs.md)
-  : Download georeferenced occurrence data using GBIF name identifier
+  : Download or search georeferenced occurrence data using GBIF name
+  identifier
 - [`get_name_keys()`](https://stevenpbachman.github.io/LCr/reference/get_name_keys.md)
   : Get accepted GBIF and POWO identifiers (keys) for taxon names to
   support data downloads
