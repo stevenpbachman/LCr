@@ -43,7 +43,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">clean_keys</span><span class="op">(</span><span class="va">keys</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">clean_keys</span><span class="op">(</span><span class="va">keys</span>, override_gbif_status <span class="op">=</span> <span class="cn">FALSE</span>, override_wcvp_status <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -54,6 +54,16 @@
 <dd><p>data frame of GBIF and/or WCVP identifier keys, as produced by
 <code><a href="get_name_keys.html">get_name_keys()</a></code>. Must have a <code>sources</code> attribute indicating
 which sources are present (e.g. <code>"GBIF"</code>, <code>"WCVP"</code>, or both).</p></dd>
+
+
+<dt id="arg-override-gbif-status">override_gbif_status<a class="anchor" aria-label="anchor" href="#arg-override-gbif-status"></a></dt>
+<dd><p>if TRUE it will ignore the check on taxonomic
+status as returned by GBIF i.e. SYNONYMS will be allowed.</p></dd>
+
+
+<dt id="arg-override-wcvp-status">override_wcvp_status<a class="anchor" aria-label="anchor" href="#arg-override-wcvp-status"></a></dt>
+<dd><p>if TRUE it will ignore the check on taxonomic
+status as returned by WCVP</p></dd>
 
 </dl></div>
     <div class="section level2">

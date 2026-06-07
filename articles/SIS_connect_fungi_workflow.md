@@ -13,7 +13,6 @@ the github repository:
 
 # install LCr and rCAT2 from github
 remotes::install_github("stevenpbachman/LCr")
-remotes::install_github("gistin/rCAT2")
 
 # load relevant libraries 
 library(LCr)
@@ -201,7 +200,7 @@ institution = "Royal Botanic Gardens, Kew"
 
 # filter the valid occurrence data on the LC species
 valid_data_LC <- valid_data %>%
-  filter(speciesKey %in% lc_final$GBIF_usageKey)
+  filter(taxonKey %in% lc_final$GBIF_usageKey)
 
 # generate the point file
 sis_point_file <- LCr::make_sis_occs(valid_data_LC,

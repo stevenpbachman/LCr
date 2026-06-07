@@ -6,7 +6,7 @@ WCVP are being analysed
 ## Usage
 
 ``` r
-clean_keys(keys)
+clean_keys(keys, override_gbif_status = FALSE, override_wcvp_status = FALSE)
 ```
 
 ## Arguments
@@ -17,6 +17,16 @@ clean_keys(keys)
   [`get_name_keys()`](https://stevenpbachman.github.io/LCr/reference/get_name_keys.md).
   Must have a `sources` attribute indicating which sources are present
   (e.g. `"GBIF"`, `"WCVP"`, or both).
+
+- override_gbif_status:
+
+  if TRUE it will ignore the check on taxonomic status as returned by
+  GBIF i.e. SYNONYMS will be allowed.
+
+- override_wcvp_status:
+
+  if TRUE it will ignore the check on taxonomic status as returned by
+  WCVP
 
 ## Value
 

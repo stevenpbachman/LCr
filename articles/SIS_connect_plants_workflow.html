@@ -155,7 +155,17 @@ identifies the species according to the WCVP name backbone.</p>
 </h3>
 <p>LCr is designed to work at species level and where taxonomic status
 is accepted. The <code>clean_keys</code> will remove any problematic
-records.</p>
+records i.e. where a name was not at species level, or either of the
+name sources (GBIF, WCVP) does not treat the name as accepted. In some
+cases you may want to override the results, for example if GBIF treats a
+name as a synonym, but WCVP treats it as accepted you can set the
+parameter <code>override_gbif_status = TRUE</code> and
+<code>clean_keys</code> will treat the GBIF name as accepted at species
+level. Similarly, set <code>override_wcvp_status = TRUE</code> if you
+want to do the same for WCVP. However, note that using a WCVP name that
+is not accepted will cause problems with the workflow downstream
+e.g. native ranges and other information from WCVP are only available
+for accepted species.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># remove any problematic records</span></span>
 <span><span class="va">lc_keys_clean</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/clean_keys.html">clean_keys</a></span><span class="op">(</span><span class="va">lc_keys</span><span class="op">)</span></span></code></pre></div>
@@ -229,11 +239,12 @@ Depending on the data available, either 4 or 5 metrics (Number of WGSRPD
 regions for plants only) are generated and checked against the following
 default thresholds:</p>
 <ul>
-<li>Extent of occurrence (EOO) &gt; 30000</li>
-<li>Area of occupancy &gt; 3000</li>
-<li>Number of cleaned records&gt;75</li>
-<li>Number of WGSRPD regions &gt;5</li>
-<li>Number of recent (&lt;30 years) occurrence records &gt;50</li>
+<li>Number of cleaned records (NOP) &gt;75</li>
+<li>Extent of occurrence (EOOkm2) &gt; 30000</li>
+<li>Area of occupancy (AOOkm) &gt; 3000</li>
+<li>Number of WGSRPD regions (WGSRPD_count) &gt;5</li>
+<li>Number of recent (&lt;30 years) occurrence records (recent_records)
+&gt;50</li>
 </ul>
 <p>The core parameters (EOO and AOO) must both be above the thresholds
 and at least 2 of 3 remaining parameters (number of cleaned points,
@@ -272,7 +283,7 @@ CSV files:</p>
 <span></span>
 <span><span class="co"># filter the valid occurrence data on the LC species</span></span>
 <span><span class="va">valid_data_LC</span> <span class="op">&lt;-</span> <span class="va">valid_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">speciesKey</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_usageKey</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">taxonKey</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_usageKey</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># generate the point file</span></span>
 <span><span class="va">sis_point_file</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/make_sis_occs.html">make_sis_occs</a></span><span class="op">(</span><span class="va">valid_data_LC</span>,</span>

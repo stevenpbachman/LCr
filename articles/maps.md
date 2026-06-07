@@ -14,7 +14,6 @@ github repository:
 
 # install from github for first time use
 remotes::install_github("stevenpbachman/LCr")
-remotes::install_github("gistin/rCAT2")
 remotes::install_github('matildabrown/rWCVPdata')
 
 # load libraries
@@ -118,7 +117,7 @@ the GBIF ID field to map species:
 
 # filter by species key
 spkey <- "5573640" # Crabbea acaulis
-sp <- flagged_occs %>% dplyr::filter(speciesKey == spkey)
+sp <- flagged_occs %>% dplyr::filter(taxonKey == spkey)
 sp_range <- native_ranges %>% dplyr::filter(internal_taxon_id == spkey)
 single_map <- LCr::map_species_single(sp, sp_range, show_flags = TRUE)
 single_map
