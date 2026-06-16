@@ -1,4 +1,5 @@
 url: https://stevenpbachman.github.io/LCr/
 template:
   bootstrap: 5
-
+development:
+  mode: auto
