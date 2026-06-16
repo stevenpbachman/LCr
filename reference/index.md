@@ -21,6 +21,9 @@
   : Get native ranges for taxa
 - [`get_occs_range()`](https://stevenpbachman.github.io/LCr/reference/get_occs_range.md)
   : Get ISO two-digit code from occurrence lat longs
+- [`make_json()`](https://stevenpbachman.github.io/LCr/reference/make_json.md)
+  : Transform SIS export tables and occurrence data into per-species
+  JSON files
 - [`make_metrics()`](https://stevenpbachman.github.io/LCr/reference/make_metrics.md)
   : Generate metrics from a clean point occurrence file
 - [`make_sis_csvs()`](https://stevenpbachman.github.io/LCr/reference/make_sis_csvs.md)
