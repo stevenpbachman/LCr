@@ -11,5 +11,6 @@ inst/doc
 /doc/
 /Meta/
 /data-raw/
+/output
 Barleria_LC_species.csv
 LCr.Rproj
