@@ -27,10 +27,20 @@ remotes::install_github('matildabrown/rWCVPdata')
 
 # load libraries
 library(LCr)
-library(rCAT)
 library(dplyr)
 library(rWCVP)
+
+# load in the WCVP names and distributions data
+names <- rWCVPdata::wcvp_names
+distributions <- rWCVPdata::wcvp_distributions
+
+# or read in a local copy 
+names <- read_csv("/path/to/wcvp_names.csv")
+distributions <- read_csv("/path/to/wcvp_distributions.csv")
 ```
+
+The current WCVP dataset and previous versions can be found here:
+[WCVP](https://sftp.kew.org/pub/data-repositories/WCVP/)
 
 ### Get name keys from a species list
 
@@ -159,7 +169,9 @@ World Checklist of Vascular Plants dataset.
 ``` r
 
 # get native ranges from WCVP- used for cleaning occs, and also for country list for SIS
-native_ranges <- LCr::get_native_range(keys = lc_keys_clean)
+native_ranges <- LCr::get_native_range(keys = lc_keys_clean,
+                                       names = names,
+                                       distributions = distributions)
 ```
 
 ### Data quality checks
@@ -305,7 +317,8 @@ lc_sis_files <- LCr::make_sis_csvs(unique_id = lc_final$GBIF_usageKey,
                                    taxonomicAuthority = lc_final$GBIF_authorship,
                                    occs = sis_point_file,
                                    kingdom = "plantae",
-                                   native_ranges = native_ranges
+                                   native_ranges = native_ranges,
+                                   names = names
 )
 ```
 

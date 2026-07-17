@@ -20,7 +20,8 @@ make_sis_csvs(
   genus,
   species,
   taxonomicAuthority,
-  kingdom = "plantae"
+  kingdom = "plantae",
+  names
 )
 ```
 
@@ -87,6 +88,10 @@ make_sis_csvs(
 - kingdom:
 
   (character) Default is 'plantae', but can also be 'fungi'
+
+- names:
+
+  (data frame) A data frame of taxonomic names from WCVP
 
 ## Value
 

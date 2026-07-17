@@ -5,7 +5,7 @@ Get native ranges for taxa
 ## Usage
 
 ``` r
-get_native_range(keys)
+get_native_range(keys, names, distributions)
 ```
 
 ## Arguments
@@ -14,6 +14,14 @@ get_native_range(keys)
 
   (data frame) Contain identifier for the taxon e.g. derived from
   \[\`get_name_keys()\`\]
+
+- names:
+
+  (data frame) A data frame of taxonomic names from WCVP
+
+- distributions:
+
+  (data frame) A data frame of distributions from WCVP
 
 ## Value
 

@@ -91,9 +91,17 @@ Started</a> guide.</p>
 <span></span>
 <span><span class="co"># load libraries</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stevenpbachman/LCr" class="external-link">LCr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rCAT</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/matildabrown/rWCVP" class="external-link">rWCVP</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/matildabrown/rWCVP" class="external-link">rWCVP</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># load in the WCVP names and distributions data</span></span>
+<span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu">rWCVPdata</span><span class="fu">::</span><span class="va">wcvp_names</span></span>
+<span><span class="va">distributions</span> <span class="op">&lt;-</span> <span class="fu">rWCVPdata</span><span class="fu">::</span><span class="va">wcvp_distributions</span></span>
+<span></span>
+<span><span class="co"># or read in a local copy </span></span>
+<span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"/path/to/wcvp_names.csv"</span><span class="op">)</span></span>
+<span><span class="va">distributions</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"/path/to/wcvp_distributions.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>The current WCVP dataset and previous versions can be found here: <a href="https://sftp.kew.org/pub/data-repositories/WCVP/" class="external-link">WCVP</a></p>
 <div class="section level3">
 <h3 id="get-name-keys-from-a-species-list">Get name keys from a species list<a class="anchor" aria-label="anchor" href="#get-name-keys-from-a-species-list"></a>
 </h3>
@@ -200,7 +208,9 @@ via<code>gbif_occs$citation</code>.</p>
 the World Checklist of Vascular Plants dataset.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get native ranges from WCVP- used for cleaning occs, and also for country list for SIS</span></span>
-<span><span class="va">native_ranges</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/get_native_range.html">get_native_range</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="va">lc_keys_clean</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">native_ranges</span> <span class="op">&lt;-</span> <span class="fu">LCr</span><span class="fu">::</span><span class="fu"><a href="../reference/get_native_range.html">get_native_range</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="va">lc_keys_clean</span>,</span>
+<span>                                       names <span class="op">=</span> <span class="va">names</span>,</span>
+<span>                                       distributions <span class="op">=</span> <span class="va">distributions</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="data-quality-checks">Data quality checks<a class="anchor" aria-label="anchor" href="#data-quality-checks"></a>
@@ -326,7 +336,8 @@ automatically generate the CSV files.</p>
 <span>                                   taxonomicAuthority <span class="op">=</span> <span class="va">lc_final</span><span class="op">$</span><span class="va">GBIF_authorship</span>,</span>
 <span>                                   occs <span class="op">=</span> <span class="va">sis_point_file</span>,</span>
 <span>                                   kingdom <span class="op">=</span> <span class="st">"plantae"</span>,</span>
-<span>                                   native_ranges <span class="op">=</span> <span class="va">native_ranges</span></span>
+<span>                                   native_ranges <span class="op">=</span> <span class="va">native_ranges</span>,</span>
+<span>                                   names <span class="op">=</span> <span class="va">names</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>And finally, we zip them up ready to be sent to SIS Connect</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">

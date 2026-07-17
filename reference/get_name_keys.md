@@ -6,7 +6,7 @@ data downloads
 ## Usage
 
 ``` r
-get_name_keys(df, name_column, match = "single", kingdom = "plantae")
+get_name_keys(df, name_column, match = "single", kingdom = "plantae", names)
 ```
 
 ## Arguments
@@ -30,6 +30,10 @@ get_name_keys(df, name_column, match = "single", kingdom = "plantae")
 
   (character) Defaults to \`"plantae"\`, which also searches POWO. Any
   other value (e.g. \`"fungi"\`, \`"animalia"\`) will only search GBIF.
+
+- names:
+
+  (data frame) A data frame of taxonomic names from WCVP
 
 ## Value
 

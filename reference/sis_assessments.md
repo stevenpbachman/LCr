@@ -5,7 +5,7 @@ Generate the assessments.csv file
 ## Usage
 
 ``` r
-sis_assessments(unique_id, native_ranges, wcvp_ipni_id = NULL, occs)
+sis_assessments(unique_id, native_ranges, wcvp_ipni_id = NULL, occs, names)
 ```
 
 ## Arguments
@@ -29,7 +29,11 @@ sis_assessments(unique_id, native_ranges, wcvp_ipni_id = NULL, occs)
 
 - occs:
 
-  Occurrence data passed to `powo_text()`.
+  Occurrence data passed to `powo_text()`
+
+- names:
+
+  (data frame) A data frame of taxonomic names from WCVP
 
 ## Value
 

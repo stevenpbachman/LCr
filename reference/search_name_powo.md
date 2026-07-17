@@ -6,7 +6,7 @@ around the rWCVP \`wcvp_match_names\` function.
 ## Usage
 
 ``` r
-search_name_powo(df, name_column, author_col = NULL)
+search_name_powo(df, name_column, author_col = NULL, names)
 ```
 
 ## Arguments
@@ -22,6 +22,10 @@ search_name_powo(df, name_column, author_col = NULL)
 - author_col:
 
   (string) Column that contains the author name(s)
+
+- names:
+
+  (data frame) A data frame of taxonomic names from WCVP
 
 ## Value
 

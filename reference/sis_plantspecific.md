@@ -5,7 +5,7 @@ Generate the plantspecific.csv file
 ## Usage
 
 ``` r
-sis_plantspecific(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae")
+sis_plantspecific(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae", names)
 ```
 
 ## Arguments
@@ -24,6 +24,10 @@ sis_plantspecific(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae")
 
   (character) Kingdom of the taxa being assessed. One of `"plantae"`
   (default) or `"fungi"`. Controls which growth form logic is applied.
+
+- names:
+
+  (data frame) A data frame of taxonomic names from WCVP
 
 ## Value
 
