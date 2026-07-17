@@ -4,7 +4,7 @@
 \alias{sis_plantspecific}
 \title{Generate the plantspecific.csv file}
 \usage{
-sis_plantspecific(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae")
+sis_plantspecific(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae", names)
 }
 \arguments{
 \item{unique_id}{(character) Unique identifier.}
@@ -16,6 +16,8 @@ retrieve growth form data via POWO. Only required when
 \item{kingdom}{(character) Kingdom of the taxa being assessed. One of
 \code{"plantae"} (default) or \code{"fungi"}. Controls which growth form
 logic is applied.}
+
+\item{names}{(data frame) A data frame of taxonomic names from WCVP}
 }
 \value{
 An SIS compliant data frame

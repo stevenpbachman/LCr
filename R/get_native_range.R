@@ -1,6 +1,8 @@
 #' Get native ranges for taxa
 #'
 #' @param keys (data frame) Contain identifier for the taxon e.g. derived from [`get_name_keys()`]
+#' @param names (data frame) A data frame of taxonomic names from WCVP
+#' @param distributions (data frame) A data frame of distributions from WCVP
 #'
 #' @return (data frame) A list of 'botanical countries' (World Geographic Scheme for Recording Plant
 #' Distributions) where a taxon occurs.
@@ -9,9 +11,10 @@
 #' @details Currently one option to get native ranges from (Plants of the
 #' World Online) using WCVP identifier. Other options to be added later e.g. GIFT
 
-get_native_range <- function(keys) {
+get_native_range <- function(keys, names, distributions) {
   # Get the search ids
-  search_ids <- as.vector(unlist(keys[, "wcvp_ipni_id"]))
+  search_ids <- as.vector(unlist(keys[, "wcvp_name"]))
+  #search_ids <- as.vector(unlist(keys[, "wcvp_ipni_id"]))
 
   # Create an empty list to store results
   all_ranges <- vector("list", length(search_ids))
@@ -21,7 +24,7 @@ get_native_range <- function(keys) {
 
   # Set up a progress bar
   pb <- cli::cli_progress_bar(
-    name = "Matching native ranges",
+    name = "Getting native ranges",
     total = length(search_ids),
     format = "{cli::pb_name} {cli::pb_bar} {cli::pb_percent} | ETA: {cli::pb_eta}"
   )
@@ -29,10 +32,10 @@ get_native_range <- function(keys) {
   # Loop through each ID
   for (i in seq_along(search_ids)) {
     current_id <- search_ids[i]
-    ranges <- powo_range(current_id)
+    ranges <- powo_range(current_id, names, distributions)
 
     if (nrow(ranges) > 0 && !all(is.na(ranges$LEVEL3_COD))) {
-      ranges$wcvp_ipni_id <- current_id
+      ranges$wcvp_name <- current_id
       all_ranges[[i]] <- ranges
     } else {
       # Track IDs that returned no ranges (or only NA values)
@@ -59,8 +62,8 @@ get_native_range <- function(keys) {
 
     native_ranges <- dplyr::left_join(
       native_ranges,
-      keys[, c("wcvp_ipni_id", "GBIF_usageKey")],
-      by = "wcvp_ipni_id"
+      keys[, c("wcvp_name", "GBIF_usageKey", "wcvp_ipni_id")],
+      by = "wcvp_name"
     )
 
     names(native_ranges)[names(native_ranges) == "GBIF_usageKey"] <- "internal_taxon_id"

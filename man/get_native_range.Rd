@@ -4,10 +4,14 @@
 \alias{get_native_range}
 \title{Get native ranges for taxa}
 \usage{
-get_native_range(keys)
+get_native_range(keys, names, distributions)
 }
 \arguments{
 \item{keys}{(data frame) Contain identifier for the taxon e.g. derived from [`get_name_keys()`]}
+
+\item{names}{(data frame) A data frame of taxonomic names from WCVP}
+
+\item{distributions}{(data frame) A data frame of distributions from WCVP}
 }
 \value{
 (data frame) A list of 'botanical countries' (World Geographic Scheme for Recording Plant

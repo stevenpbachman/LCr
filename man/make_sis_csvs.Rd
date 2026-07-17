@@ -19,7 +19,8 @@ make_sis_csvs(
   genus,
   species,
   taxonomicAuthority,
-  kingdom = "plantae"
+  kingdom = "plantae",
+  names
 )
 }
 \arguments{
@@ -53,6 +54,8 @@ clean_occs() function.}
 \item{taxonomicAuthority}{(character) Field containing the taxonomic authority}
 
 \item{kingdom}{(character) Default is 'plantae', but can also be 'fungi'}
+
+\item{names}{(data frame) A data frame of taxonomic names from WCVP}
 }
 \value{
 Returns an SIS connect compliant zip file

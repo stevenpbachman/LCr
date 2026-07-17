@@ -16,6 +16,7 @@
 #' @param species (character) Field containing the specific epithet
 #' @param taxonomicAuthority (character) Field containing the taxonomic authority
 #' @param kingdom (character) Default is 'plantae', but can also be 'fungi'
+#' @param names (data frame) A data frame of taxonomic names from WCVP
 #'
 #' @return Returns an SIS connect compliant zip file
 #' @export
@@ -35,8 +36,14 @@ make_sis_csvs <-
            genus,
            species,
            taxonomicAuthority,
-           kingdom = "plantae") {
+           kingdom = "plantae",
+           names) {
     if (kingdom == "plantae") {
+
+      # set names here so that you are searching a reduced file, not the full WCVP
+      names <- names %>% dplyr::filter(taxon_name %in% lc_keys_clean$wcvp_name)
+
+
       # get most of the csvs here
       if (!is.null(native_ranges)) {
         countries <- sis_countries(native_ranges, unique_id)
@@ -49,12 +56,12 @@ make_sis_csvs <-
         allfields <- sis_allfields(unique_id)
       }
       if (!is.null(occs)) {
-        assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id, occs = occs)
+        assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id, occs = occs, names)
         cli::cli_alert_success("assessments complete")
       } else {
-        assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id)
+        assessments <- sis_assessments(unique_id, native_ranges, wcvp_ipni_id, names)
       }
-      plantspecific <- sis_plantspecific(unique_id, wcvp_ipni_id, kingdom = kingdom)
+      plantspecific <- sis_plantspecific(unique_id, wcvp_ipni_id, kingdom = kingdom, names)
       cli::cli_alert_success("plantspecific complete")
 
       habitats <- sis_habitats(unique_id)

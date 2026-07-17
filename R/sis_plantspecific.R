@@ -8,10 +8,11 @@
 #' @param kingdom (character) Kingdom of the taxa being assessed. One of
 #'   \code{"plantae"} (default) or \code{"fungi"}. Controls which growth form
 #'   logic is applied.
+#' @param names (data frame) A data frame of taxonomic names from WCVP
 #'
 #' @return An SIS compliant data frame
 #' @export
-sis_plantspecific <- function(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae") {
+sis_plantspecific <- function(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae", names) {
 
   kingdom <- tolower(kingdom)
 
@@ -23,11 +24,11 @@ sis_plantspecific <- function(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae
       )
     }
 
-    cli::cli_inform("Retrieving growth form data via POWO for {length(wcvp_ipni_id)} {?taxon/taxa}.")
+    #cli::cli_inform("Retrieving growth form data via POWO for {length(wcvp_ipni_id)} {?taxon/taxa}.")
 
     # Generate habit text for each WCVP IPNI ID
     habit_data <- lapply(wcvp_ipni_id, function(id) {
-      powo_result <- powo_text(id, occs = NULL, unique_id)
+      powo_result <- powo_text(id, occs = NULL, unique_id, names)
       return(powo_result$habit_text)
     })
 
@@ -72,7 +73,7 @@ sis_plantspecific <- function(unique_id, wcvp_ipni_id = NULL, kingdom = "plantae
   }
 
   if (kingdom == "fungi") {
-    cli::cli_inform("Assigning standard fungal growth form to {length(unique_id)} {?taxon/taxa}.")
+    #cli::cli_inform("Assigning standard fungal growth form to {length(unique_id)} {?taxon/taxa}.")
     combined_table <- purrr::map_dfr(unique_id, function(id) {
       tibble::tibble(
         internal_taxon_id = id,

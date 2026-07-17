@@ -27,6 +27,7 @@ sis_allfields <- function(unique_id, occs = NULL) {
 
   # If occs is provided, calculate and merge elevation data
   if (!is.null(occs)) {
+    #occs$taxonKey <- occs$internal_taxon_id
     elevation_stats <- make_elevation(occs)
 
     combined_table <- combined_table %>%

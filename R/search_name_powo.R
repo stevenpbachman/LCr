@@ -7,18 +7,22 @@
 #' @param df (data frame) Taxon name(s)
 #' @param name_column (string) Column that contains the name(s)
 #' @param author_col (string) Column that contains the author name(s)
+#' @param names (data frame) A data frame of taxonomic names from WCVP
 #'
 #' @return Returns a data frame with initial search term and matching name(s)
 #' @export
 
-search_name_powo <- function(df, name_column, author_col = NULL) {
+search_name_powo <- function(df, name_column, author_col = NULL, names) {
   if (is.null(author_col)) {
-    results <- rWCVP::wcvp_match_names(names_df = df, name_col = name_column)
+    results <- rWCVP::wcvp_match_names(names_df = df,
+                                       wcvp_names = names,
+                                       name_col = name_column)
   }
 
   else {
     results <- rWCVP::wcvp_match_names(names_df = df,
                                        name_col = name_column,
+                                       wcvp_names = names,
                                        author_col = author_col)
   }
   return(results)

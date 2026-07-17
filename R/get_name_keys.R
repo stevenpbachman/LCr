@@ -8,6 +8,7 @@
 #' all possible matches sorted in order of confidence
 #' @param kingdom (character) Defaults to `"plantae"`, which also searches POWO.
 #'   Any other value (e.g. `"fungi"`, `"animalia"`) will only search GBIF.
+#' @param names (data frame) A data frame of taxonomic names from WCVP
 #'
 #' @return Returns a data frame with accepted GBIF and POWO identifiers
 #' @export
@@ -19,7 +20,7 @@
 #' to get native ranges. To see a wider range of plausible matches adjust 'match' to 'any'.
 
 # add option to determine which sources you want to search e.g. WCVP for plants, or IF for fungi
-get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae") {
+get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae", names) {
 
   kingdom <- tolower(kingdom)
   valid_kingdoms <- c("plantae", "fungi", "animalia")
@@ -42,6 +43,7 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
   if (all(c("bracketauthorship", "authorship") %in% names(name_parts))) {
     working_df <- name_parts %>%
       dplyr::mutate(
+        #authorship = dplyr::case_when(
         taxonomicAuthority = dplyr::case_when(
           !is.na(bracketauthorship) ~ paste0("(", bracketauthorship, ") ", authorship),
           !is.na(authorship) ~ authorship,
@@ -68,17 +70,19 @@ get_name_keys <- function(df, name_column, match = "single", kingdom = "plantae"
 
   if (kingdom == "plantae") {
 
-    if ("taxonomicAuthority" %in% names(working_df)) {
+    if ("authorship" %in% names(working_df)) {
       powo_names_out <- search_name_powo(
         df = working_df,
         name_column = "canonicalname",
-        author_col = "taxonomicAuthority"
+        author_col = "authorship",
+        names = names
       )
     } else {
       powo_names_out <- search_name_powo(
         df = working_df,
-        name_column = "canonicalname"
-        # omit author_col entirely
+        name_column = "canonicalname",
+        # omit author_col entirely,
+        names = names
       )
     }
 

@@ -90,63 +90,45 @@ make_elevation <- function(occs) {
   return(elevation_stats)
 }
 
-#' Lookup name in POWO (Plants of the World Online) using WCVP ID
-#'
-#' @param wcvp_ipni_id (character) WCVP identifier
-#' @param distribution (character) Default `FALSE`returns taxon information.
-#' Use `TRUE` to return geographic range information
-#'
-#' @return Returns a list with POWO data
-#' @keywords internal
-#' @noRd
-
-powo_lookup <- function(wcvp_ipni_id, distribution = FALSE) {
-  lookup_url <- paste(
-    "http://plantsoftheworldonline.org/api/2/taxon/urn:lsid:ipni.org:names:",
-    wcvp_ipni_id,
-    sep = ""
-  )
-  if (distribution) {
-    response <- httr::GET(lookup_url, query = list(fields = "distribution"))
-  } else {
-    response <- httr::GET(lookup_url)
-  }
-
-  if (!httr::http_error(response)) {
-    return(jsonlite::fromJSON(httr::content(response, as = "text")))
-  }
-  return(NULL)
-}
-
 #' Return native range of an accepted plant species from POWO (Plants of the
 #' World Online) using WCVP identifier
 #'
-#' @param wcvp_ipni_id (character) WCVP identifier
+#' @param wcvp_name (character) WCVP name
+#' @param names (data frame) A data frame of taxonomic names from WCVP
+#' @param distributions (data frame) A data frame of distributions from WCVP
 #'
 #' @return (dataframe) Native range codes according to World Geographic Scheme for Recordings Plant Distributions (WGSRPD)
 #' @keywords internal
 #' @noRd
 
-powo_range = function(wcvp_ipni_id) {
+powo_range = function(wcvp_name, names, distributions) {
   results = tibble::tibble(
     LEVEL3_COD = NA_character_,
-    featureId = NA_character_,
-    tdwgLevel = NA_integer_,
-    establishment = NA_character_,
-    LEVEL3_NAM = NA_character_,
-    POWO_ID = NA_character_
+    LEVEL3_NAM = NA_character_
+    #powo_name = wcvp_name,
   )
 
-  returned_data <- powo_lookup(wcvp_ipni_id, distribution = TRUE)
-  Sys.sleep(0.5)
-  distribution <- returned_data$distribution$natives
+  distribution <- tryCatch(
+    rWCVP::wcvp_distribution(wcvp_name,
+                              taxon_rank = "species",
+                              introduced = FALSE,
+                              extinct = FALSE,
+                              location_doubtful = FALSE,
+                              wcvp_names = names,
+                              wcvp_distributions = distributions),
+    error = function(e) NULL
+  )
 
   if (!is.null(distribution)) {
-    results = dplyr::rename(distribution,
-                            LEVEL3_NAM = name,
-                            LEVEL3_COD = tdwgCode)
-    results = dplyr::mutate(results, LEVEL3_NAM = dplyr::recode(LEVEL3_NAM, "u00e1" =
-                                                                  "a")) # replaced "á" with unicode. need to check it still works
+    results <- distribution %>%
+      sf::st_drop_geometry() %>%
+      dplyr::select(-c(LEVEL2_COD,
+                       LEVEL1_COD,
+                       occurrence_type))
+      #dplyr::mutate(powo_name = wcvp_name)
+
+    results = dplyr::mutate(results,
+                            LEVEL3_NAM = dplyr::recode(LEVEL3_NAM, "u00e1" = "a"))
   }
 
   return(results)
@@ -174,18 +156,22 @@ powo_ref <- function() {
 #' Lookup distribution, habit and climate text in POWO (Plants of the World Online) using WCVP ID
 #'
 #' @param wcvp_ipni_id (character) WCVP identifier
-#' @param occs (df) Occurrence data with elevation information
+#' @param occs (data frame) Occurrence data with elevation information
+#' @param names (data frame) A data frame of taxonomic names from WCVP
 #'
 #' @return Returns a list with POWO data
 #' @keywords internal
 #' @noRd
 
-powo_text <- function(wcvp_ipni_id, occs, unique_id) {
-  returned_data <- powo_lookup(wcvp_ipni_id)
-  Sys.sleep(0.5)
-  dist_text <- returned_data$taxonRemarks
-  habit_text <- returned_data$lifeform
-  clim_text <- returned_data$climate
+powo_text <- function(wcvp_ipni_id, occs, unique_id, names) {
+  #returned_data <- powo_lookup(wcvp_ipni_id)
+  #Sys.sleep(0.5)
+  names_sp <- names %>%
+    dplyr::filter(powo_id == wcvp_ipni_id)
+
+  dist_text <- names_sp$geographic_area
+  habit_text <- names_sp$lifeform_description
+  clim_text <- names_sp$climate_description
 
   year_only <- format(Sys.Date(), format = "%Y")
 

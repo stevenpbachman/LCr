@@ -9,11 +9,12 @@
 #'   \code{NULL} for taxa without WCVP coverage (e.g. fungi), in which case
 #'   \code{RangeDocumentation.narrative} and
 #'   \code{HabitatDocumentation.narrative} will be left blank.
-#' @param occs Occurrence data passed to \code{powo_text()}.
+#' @param occs Occurrence data passed to \code{powo_text()}
+#' @param names (data frame) A data frame of taxonomic names from WCVP
 #'
 #' @return Returns an SIS compliant data frame
 #' @export
-sis_assessments <- function(unique_id, native_ranges, wcvp_ipni_id = NULL, occs) {
+sis_assessments <- function(unique_id, native_ranges, wcvp_ipni_id = NULL, occs, names) {
 
   rationale_str <- paste(
     "This species has a very wide distribution,",
@@ -27,8 +28,8 @@ sis_assessments <- function(unique_id, native_ranges, wcvp_ipni_id = NULL, occs)
   # Only generated when WCVP IPNI IDs are available (e.g. plants).
   # For taxa without WCVP coverage (e.g. fungi), these are left blank.
   if (!is.null(wcvp_ipni_id)) {
-    cli::cli_inform("Generating distribution and habitat narratives via POWO.")
-    powo_results    <- purrr::map2(wcvp_ipni_id, unique_id, ~ powo_text(.x, occs, .y))
+    #cli::cli_inform("Generating distribution and habitat narratives via POWO.")
+    powo_results    <- purrr::map2(wcvp_ipni_id, unique_id, ~ powo_text(.x, occs, .y, names = names))
     distribution_data <- purrr::map(powo_results, "iucn_dist_text")
     habitat_data      <- purrr::map(powo_results, "iucn_habit_text")
   } else {
@@ -66,7 +67,7 @@ sis_assessments <- function(unique_id, native_ranges, wcvp_ipni_id = NULL, occs)
 
   # --- Biogeographic realms (optional) ---
   if (!is.null(native_ranges)) {
-    cli::cli_inform("Calculating biogeographic realms.")
+    #cli::cli_inform("Calculating biogeographic realms.")
     realm_data <- make_biorealms(native_ranges)
     combined_table <- combined_table %>%
       dplyr::left_join(realm_data, by = "internal_taxon_id") %>%

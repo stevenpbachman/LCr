@@ -4,7 +4,7 @@
 \alias{get_name_keys}
 \title{Get accepted GBIF and POWO identifiers (keys) for taxon names to support data downloads}
 \usage{
-get_name_keys(df, name_column, match = "single", kingdom = "plantae")
+get_name_keys(df, name_column, match = "single", kingdom = "plantae", names)
 }
 \arguments{
 \item{df}{character) Data frame with taxon names}
@@ -17,6 +17,8 @@ all possible matches sorted in order of confidence}
 
 \item{kingdom}{(character) Defaults to `"plantae"`, which also searches POWO.
 Any other value (e.g. `"fungi"`, `"animalia"`) will only search GBIF.}
+
+\item{names}{(data frame) A data frame of taxonomic names from WCVP}
 }
 \value{
 Returns a data frame with accepted GBIF and POWO identifiers

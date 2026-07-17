@@ -4,7 +4,7 @@
 \alias{sis_assessments}
 \title{Generate the assessments.csv file}
 \usage{
-sis_assessments(unique_id, native_ranges, wcvp_ipni_id = NULL, occs)
+sis_assessments(unique_id, native_ranges, wcvp_ipni_id = NULL, occs, names)
 }
 \arguments{
 \item{unique_id}{(character) Unique identifier.}
@@ -18,7 +18,9 @@ generate distribution and habitat narrative text via POWO. Pass
 \code{RangeDocumentation.narrative} and
 \code{HabitatDocumentation.narrative} will be left blank.}
 
-\item{occs}{Occurrence data passed to \code{powo_text()}.}
+\item{occs}{Occurrence data passed to \code{powo_text()}}
+
+\item{names}{(data frame) A data frame of taxonomic names from WCVP}
 }
 \value{
 Returns an SIS compliant data frame
