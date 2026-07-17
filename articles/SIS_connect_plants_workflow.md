@@ -88,7 +88,8 @@ lc_keys <-
     df = lc_species,
     name_column = "sp",
     match = "single",
-    kingdom = "plantae"
+    kingdom = "plantae",
+    names
   )
 ```
 
