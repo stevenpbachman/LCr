@@ -167,11 +167,14 @@ check_occs <- function(gbif_occs,
     # deduplicate keeping native matches where possible
     valid_coords_tdwg <- valid_coords_tdwg %>%
       sf::st_drop_geometry() %>%
-      dplyr::group_by(gbifID) %>%
-      dplyr::arrange(
-        # prioritise rows where region is in native ranges
-        !LEVEL3_COD %in% native_ranges$LEVEL3_COD
+      dplyr::mutate(
+        row_is_native = purrr::map2_lgl(
+          wcvp_ipni_id, LEVEL3_COD,
+          ~ any(native_ranges$wcvp_ipni_id == .x & native_ranges$LEVEL3_COD == .y)
+        )
       ) %>%
+      dplyr::group_by(gbifID) %>%
+      dplyr::arrange(desc(row_is_native), .by_group = TRUE) %>%
       dplyr::slice(1) %>%
       dplyr::ungroup()
 
@@ -194,7 +197,7 @@ check_occs <- function(gbif_occs,
     )
 
     for (i in seq_len(nrow(valid_coords_tdwg))) {
-      #if (i <= 100) browser()
+
       row_id <- which(checked_occs[[id_col]] == valid_coords_tdwg[[id_col]][i])
 
       if (length(row_id) > 0) {

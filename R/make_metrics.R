@@ -15,7 +15,6 @@
 #' @export
 
 # restricted elevation range?
-
 make_metrics <- function(occs,
                          native_ranges = FALSE,
                          keys,
@@ -34,7 +33,7 @@ make_metrics <- function(occs,
 
   # Step 2: Get EOO, AOO, and number of points (NOP)
   suppressMessages(invisible(capture.output({
-    resultsdf <- batchCon(occs$taxonKey,
+    resultsdf <- batchCon(occs$speciesKey,
                                 occs$decimalLongitude,
                                 occs$decimalLatitude,
                                 cellsize = 10000)
@@ -61,11 +60,11 @@ make_metrics <- function(occs,
 
   # Step 5: Add recent records count
   recent_counts <- occs %>%
-    dplyr::group_by(taxonKey) %>%
+    dplyr::group_by(speciesKey) %>%
     dplyr::summarize(recent_records = sum(recent, na.rm = TRUE), .groups = "drop")
 
   resultsdf <- resultsdf %>%
-    dplyr::left_join(recent_counts, by = c("taxon" = "taxonKey"))
+    dplyr::left_join(recent_counts, by = c("taxon" = "speciesKey"))
 
   # Step 6: Fill NAs with 0 for safe comparison
   resultsdf <- resultsdf %>%

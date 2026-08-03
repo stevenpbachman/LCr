@@ -44,7 +44,7 @@ get_gbif_occs <- function(keys_df, mode = "search") {
     the_points$gbifID <- as.character(the_points$gbifID)
     the_points <- dplyr::left_join(the_points,
                                    keys_df,
-                                   by = c("taxonKey" = "GBIF_usageKey"))
+                                   by = c("speciesKey" = "GBIF_usageKey"))
 
     cli::cli_alert_success("{nrow(the_points)} record{?s} retrieved in search mode.")
     return(list("citation" = NULL, "points" = the_points))
@@ -65,7 +65,7 @@ get_gbif_occs <- function(keys_df, mode = "search") {
     the_points$gbifID <- as.character(bit64::as.integer64(the_points$gbifID))
     the_points <- dplyr::left_join(the_points,
                                    keys_df,
-                                   by = c("taxonKey" = "GBIF_usageKey"))
+                                   by = c("speciesKey" = "GBIF_usageKey"))
     meta <- rgbif::occ_download_meta(gbif_download)
     cite <- get_gbif_ref(meta)
 
