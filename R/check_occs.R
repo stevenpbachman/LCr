@@ -101,32 +101,35 @@ check_occs <- function(gbif_occs,
   cli::cli_alert_success("CoordinateCleaner tests complete")
 
 
-  # Update flags in the original dataset
-  for (i in seq_len(nrow(occs_with_coords))) {
-    # Use a unique ID column for matching, defaulting to row number if necessary
-    id_col <- if ("gbifID" %in% colnames(checked_occs))
-      "gbifID"
-    else
-      ".row_id"
+  # Use a unique ID column for matching, defaulting to row number if necessary
+  id_col <- if ("gbifID" %in% colnames(checked_occs)) "gbifID" else ".row_id"
 
-    if (id_col == ".row_id" &&
-        !".row_id" %in% colnames(checked_occs)) {
-      checked_occs$.row_id <- 1:nrow(checked_occs)
-      occs_with_coords$.row_id <- which(!checked_occs$flag_no_coords)
-    }
-
-    row_id <- which(checked_occs[[id_col]] == occs_with_coords[[id_col]][i])
-
-    if (length(row_id) > 0) {
-      checked_occs$flag_cc_capitals[row_id] <- cc_test_capitals[i]
-      checked_occs$flag_cc_centroids[row_id] <- cc_test_centroids[i]
-      checked_occs$flag_cc_institutions[row_id] <- cc_test_institutions[i]
-      checked_occs$flag_cc_equal[row_id] <- cc_test_equal[i]
-      checked_occs$flag_cc_gbif[row_id] <- cc_test_gbif[i]
-      checked_occs$flag_cc_zeros[row_id] <- cc_test_zeros[i]
-      checked_occs$flag_cc_urb[row_id] <- cc_test_urb[i]
-    }
+  if (id_col == ".row_id") {
+    checked_occs$.row_id <- seq_len(nrow(checked_occs))
+    occs_with_coords$.row_id <- which(!checked_occs$flag_no_coords)
   }
+
+  # Update flags in the original dataset (vectorized)
+  lookup_idx <- match(checked_occs[[id_col]], occs_with_coords[[id_col]])
+
+  checked_occs$flag_cc_capitals     <- cc_test_capitals[lookup_idx]
+  checked_occs$flag_cc_centroids    <- cc_test_centroids[lookup_idx]
+  checked_occs$flag_cc_institutions <- cc_test_institutions[lookup_idx]
+  checked_occs$flag_cc_equal        <- cc_test_equal[lookup_idx]
+  checked_occs$flag_cc_gbif         <- cc_test_gbif[lookup_idx]
+  checked_occs$flag_cc_zeros        <- cc_test_zeros[lookup_idx]
+  checked_occs$flag_cc_urb          <- cc_test_urb[lookup_idx]
+
+  # Reset rows without coordinates to FALSE
+  no_lookup <- is.na(lookup_idx)
+  checked_occs$flag_cc_capitals[no_lookup]     <- FALSE
+  checked_occs$flag_cc_centroids[no_lookup]    <- FALSE
+  checked_occs$flag_cc_institutions[no_lookup] <- FALSE
+  checked_occs$flag_cc_equal[no_lookup]        <- FALSE
+  checked_occs$flag_cc_gbif[no_lookup]         <- FALSE
+  checked_occs$flag_cc_zeros[no_lookup]        <- FALSE
+  checked_occs$flag_cc_urb[no_lookup]          <- FALSE
+
 
   # Flag high uncertainty coordinates
   checked_occs$flag_high_uncertainty <-
