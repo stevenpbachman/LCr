@@ -100,7 +100,6 @@ check_occs <- function(gbif_occs,
   cli::cli_progress_done()
   cli::cli_alert_success("CoordinateCleaner tests complete")
 
-
   # Use a unique ID column for matching, defaulting to row number if necessary
   id_col <- if ("gbifID" %in% colnames(checked_occs)) "gbifID" else ".row_id"
 
